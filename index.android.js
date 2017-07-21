@@ -11,12 +11,18 @@ import {
   Text,
   View
 } from 'react-native';
+import { Provider } from 'react-redux'
 
 import Router from './app/router/Router';
+import store from './app/redux/store';
+
+
 export default class App extends Component {
   render() {
     return (
-      <Router />
+      <Provider store={store}>
+        <Router />
+      </Provider>
     )
   }
 };

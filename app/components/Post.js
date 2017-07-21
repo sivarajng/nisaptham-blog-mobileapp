@@ -6,21 +6,26 @@ import {
   Text,
   View
 } from 'react-native';
-
+import { connect } from 'react-redux'
+import { Get } from '../redux/actions'
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+  //  this.props.Get();
+  }
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
         <Text style={styles.welcome}>THIS IS A POST</Text>
+        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
         <Text style={styles.welcome}>THIS IS A POST</Text>
+        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
         <Text style={styles.welcome}>THIS IS A POST</Text>
+        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
         <Text style={styles.welcome}>THIS IS A POST</Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
-       
+
       </View>
     );
   }
@@ -45,4 +50,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Post;
+
+const mapStateToProps = (state) =>
+  ({
+    Data: state.Get.Data
+  })
+
+const mapDispatchToProps = dispatch =>
+  ({
+    Get() { dispatch(Get()) }
+  })
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
+
+
