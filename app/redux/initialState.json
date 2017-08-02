@@ -1,4 +1,4 @@
 {
     "Get": {"Data":"0000000000000000000000"},
-    "Blog":{"posts":{}}
+    "Blog":{"posts":{},"postDetails":""}
 }

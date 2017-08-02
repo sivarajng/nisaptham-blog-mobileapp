@@ -31,5 +31,26 @@ export const getPosts = () => {
     }
 }
 
+export const getPostDetails = (url) => {
+    return (dispatch) => {
+
+        BlogServices.getPostDetails(url).then(response => {
+
+            console.log('getPostDetails response :', response);
+
+            dispatch({
+                type: Type.GET_BLOG_POSTS,
+                payload: response
+            })
+
+
+        }).catch(error => {
+            console.log('getPostDetails error :', error);
+        });
+
+
+    }
+}
+
 
 

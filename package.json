@@ -7,12 +7,15 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"axios": "^0.16.2",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.46.4",
+		"react-native-html-parser": "*",
 		"react-native-router-flux": "^4.0.0-beta.12",
 		"react-redux": "^5.0.5",
 		"redux": "^3.7.2",
-		"redux-thunk": "^2.2.0"
+		"redux-thunk": "^2.2.0",
+		"underscore": "*"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",

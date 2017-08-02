@@ -31,28 +31,43 @@ getPost = () => {
 
 class BlogServices {
     constructor() {
-    
-        
+
+
     }
 
-    getStatus  (response)  {
+    getStatus(response) {
         if ((response.status >= 200 && response.status <= 300) || response.status === 0) {
-            return Promise.resolve(response)
+            console.log('ddddddddddd',response);
+            return Promise.resolve(response);
         } else {
             return Promise.reject(response);
         }
     }
 
-    parseJson (response)  {
+    parseJson(response) {
         return response.json();
     };
 
+    parseResponse(response) {
+        return response;
+    };
 
-    getPosts (type="GET")  {
-        return fetch(CONFIG.BLOG_BASE_URL , {
+
+    getPosts(type = "GET") {
+        return fetch(CONFIG.BLOG_BASE_URL, {
             method: type,
         }).then(this.getStatus)
-          .then(this.parseJson);
+            .then(this.parseJson);
+    }
+
+    getPostDetails(url, type = "GET") {
+       // url='http://www.nisaptham.com/2017/08/blog-post_2.html';
+        return fetch(url).then(function(data) {
+  console.log('kkkkk',data.text())
+    })
+  .catch(function(error) {
+  
+  });   
     }
 }
 

@@ -4,27 +4,26 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  
 } from 'react-native';
 import { connect } from 'react-redux'
-import { Get } from '../redux/actions'
+import { Get ,getPostDetails} from '../redux/actions'
 
 class Post extends Component {
   constructor(props) {
     super(props);
   //  this.props.Get();
   }
+componentWillMount(){
+  // this.props.getPostDetails();
+}
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
-        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
-        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
-        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
-        <Text style={styles.welcome}>THIS IS A POST</Text>
+       
+        <Text style={styles.welcome}>{this.props.postDetails}</Text>
 
       </View>
     );
@@ -51,16 +50,20 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = (state) =>
-  ({
-    Data: state.Get.Data
+const mapStateToProps = ({Blog,Get}) =>{
+ console.log('Blog.postDetails ', Blog.postDetails);
+  return ({
+    Data: Get.Data,
+    postDetails: Blog.postDetails,
   })
+}
+
 
 const mapDispatchToProps = dispatch =>
   ({
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default connect(mapStateToProps, {Get})(Post)
 
 

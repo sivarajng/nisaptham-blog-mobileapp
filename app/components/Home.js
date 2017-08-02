@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux'
-import { getPosts } from '../redux/actions'
+import { getPosts,getPostDetails } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 import { Header, Card, CardSection, Buttons, Label } from './common/index';
@@ -27,9 +27,16 @@ class Home extends Component {
     this.props.getPosts();
   }
 
+  gotoPost(item){
+
+  // alert((item.link[4].href).toString());
+    this.props.getPostDetails((item.link[4].href).toString());
+    Actions.Post();
+  }
   renderRow(item) {
+    
     return (
-      <TouchableOpacity onPress={() => Actions.Post()}>
+      <TouchableOpacity onPress={()=>this.gotoPost(item)}>
         <Card>
           <CardSection>
             <View style={styles.productDtailsCont}>
@@ -94,5 +101,5 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, { getPosts })(Home)
+export default connect(mapStateToProps, { getPosts,getPostDetails })(Home)
 
