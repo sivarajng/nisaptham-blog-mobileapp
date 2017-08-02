@@ -4,15 +4,45 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ListView
 } from 'react-native';
+
+import { connect } from 'react-redux'
+import { getPosts } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 import { Header, Card, CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
 
 class Home extends Component {
+
+  constructor(props) {
+    super(props);
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
+
+  }
+  componentWillMount() {
+    this.props.getPosts();
+  }
+
+  renderRow(item) {
+    return (
+      <Card>
+        <CardSection>
+          <View style={styles.productDtailsCont}>
+            <Text style={[styles.productDetailsText, commonStyles.opensansBold, commonStyles.fontSize16]}>{item.title.$t}</Text>
+            <Text style={[styles.content, commonStyles.opensansRegular, commonStyles.fontSize14]}>
+           {item.summary.$t}
+             </Text>
+          </View>
+
+        </CardSection>
+      </Card>
+    )
+  }
   render() {
+    console.log('lllllllll ',this.props.posts);
     return (
       <View style={styles.container}>
         <Text onPress={() => Actions.Post()}
@@ -27,6 +57,14 @@ class Home extends Component {
           Shake or press menu button for dev menu
         </Text>
 
+      {this.props.posts.feed
+        ?<ListView
+
+          enableEmptySections={true}
+          dataSource={this.ds.cloneWithRows(this.props.posts.feed.entry)}
+          renderRow={this.renderRow.bind(this)}
+        />
+        :null}
 
         <Card>
           <CardSection>
@@ -68,4 +106,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+
+const mapStateToProps = ({ Blog }) => {
+  console.log('Blog.posts ', Blog.posts);
+  return ({
+    posts: Blog.posts
+  })
+}
+
+
+export default connect(mapStateToProps, { getPosts })(Home)
+

@@ -1,7 +1,7 @@
 const actionTypes = {
 
     GET: "GET",
-    GET_BLOG_JSON: "GET_BLOG_JSON"
+    GET_BLOG_POSTS: "GET_BLOG_POSTS"
 
 }
 
