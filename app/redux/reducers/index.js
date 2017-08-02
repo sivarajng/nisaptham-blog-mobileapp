@@ -1,3 +1,3 @@
-export {reducers} from './reducers';
-export {text} from './text';
-export {blog} from './blog';
+export {Get} from './get';
+export {Text} from './text';
+export {Blog} from './blog';

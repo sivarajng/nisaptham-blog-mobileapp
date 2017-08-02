@@ -1,6 +1,6 @@
 import Type from '../actionTypes'
 
-export default (state={}, { type, payload }) => {
+const Get =  (state={}, { type, payload }) => {
 
     switch (type) {
         case Type.GET:
@@ -11,3 +11,4 @@ export default (state={}, { type, payload }) => {
     }
 
 }
+export {Get} 

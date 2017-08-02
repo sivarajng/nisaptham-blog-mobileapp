@@ -1,6 +1,6 @@
 import Type from '../actionTypes'
 
-export default (state={}, { type, payload }) => {
+const Text = (state={}, { type, payload }) => {
 
     switch (type) {
      
@@ -10,3 +10,5 @@ export default (state={}, { type, payload }) => {
     }
 
 }
+
+export {Text} 

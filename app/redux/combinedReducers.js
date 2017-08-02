@@ -1,12 +1,12 @@
 
 import { combineReducers } from 'redux'
-import {reducers ,text,blog} from './reducers'
-// import text from './reducers/text'
+import {Get,Blog,Text} from './reducers'
+
 
 
 
 export default combineReducers({
-    Get:reducers,
-    Text:text,
-    Blog:blog,
+    Get,
+    Text,
+    Blog,
 })

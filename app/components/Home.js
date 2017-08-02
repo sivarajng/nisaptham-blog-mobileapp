@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { Header, Card, CardSection, Buttons, Label } from '../common/index';
+import { Header, Card, CardSection, Buttons, Label } from './common/index';
+import commonStyles from '../styles/commonStyles';
 
 class Home extends Component {
   render() {

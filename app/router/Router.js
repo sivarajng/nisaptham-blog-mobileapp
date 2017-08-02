@@ -19,10 +19,10 @@ import Post from '../components/Post';
 const RouterComponent = () => (
   <Router>
     <Scene key="root">
-      <Scene key="main" >
+     
         <Scene key="Home" component={Home} title="Home" />
         <Scene key="Post" component={Post} title="Post" />
-      </Scene>
+    
     </Scene>
   </Router>
 );
