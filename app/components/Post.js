@@ -5,26 +5,31 @@ import {
   StyleSheet,
   Text,
   View,
-  
+  ScrollView,
+
+
 } from 'react-native';
+var DOMParser = require('react-native-html-parser').DOMParser;
 import { connect } from 'react-redux'
-import { Get ,getPostDetails} from '../redux/actions'
+import { Get, getPostDetails } from '../redux/actions'
 
 class Post extends Component {
   constructor(props) {
     super(props);
-  //  this.props.Get();
+    //  this.props.Get();
   }
-componentWillMount(){
-  // this.props.getPostDetails();
-}
+  componentWillMount() {
+    // this.props.getPostDetails();
+  }
   render() {
+
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
-       
-        <Text style={styles.welcome}>{this.props.postDetails}</Text>
-
+        <ScrollView>
+          <Text style={styles.welcome}>{this.props.postDetails}</Text>
+        </ScrollView>
       </View>
     );
   }
@@ -50,8 +55,8 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({Blog,Get}) =>{
- console.log('Blog.postDetails ', Blog.postDetails);
+const mapStateToProps = ({ Blog, Get }) => {
+  console.log('Blog.postDetails ', Blog.postDetails);
   return ({
     Data: Get.Data,
     postDetails: Blog.postDetails,
@@ -64,6 +69,6 @@ const mapDispatchToProps = dispatch =>
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, {Get})(Post)
+export default connect(mapStateToProps, { Get })(Post)
 
 

@@ -36,11 +36,11 @@ export const getPostDetails = (url) => {
 
         BlogServices.getPostDetails(url).then(response => {
 
-            console.log('getPostDetails response :', response);
+            console.log('getPostDetails hh response :', response);
 
             dispatch({
-                type: Type.GET_BLOG_POSTS,
-                payload: response
+                type: Type.GET_BLOG_POST_DETAILS,
+                payload: response.data
             })
 
 

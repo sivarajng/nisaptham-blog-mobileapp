@@ -1,5 +1,6 @@
 import { NetInfo, Alert } from 'react-native';
 import CONFIG from '../configs';
+import axios from 'axios';
 
 NetInfo.isConnected.fetch().then(isConnected => {
     console.log('First, is ' + (isConnected ? 'online' : 'offline'));
@@ -37,7 +38,7 @@ class BlogServices {
 
     getStatus(response) {
         if ((response.status >= 200 && response.status <= 300) || response.status === 0) {
-            console.log('ddddddddddd',response);
+            console.log('ddddddddddd', response);
             return Promise.resolve(response);
         } else {
             return Promise.reject(response);
@@ -61,13 +62,20 @@ class BlogServices {
     }
 
     getPostDetails(url, type = "GET") {
-       // url='http://www.nisaptham.com/2017/08/blog-post_2.html';
-        return fetch(url).then(function(data) {
-  console.log('kkkkk',data.text())
-    })
-  .catch(function(error) {
-  
-  });   
+
+        // Performing a GET request
+       return axios.get(url)
+            .then(this.getStatus)
+            .then(this.parseResponse);
+
+
+        //        // url='http://www.nisaptham.com/2017/08/blog-post_2.html';
+        //         return fetch(url).then(function(data) {
+        //   console.log('kkkkk',data.text())
+        //     })
+        //   .catch(function(error) {
+
+        //   });   
     }
 }
 
