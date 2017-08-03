@@ -8,6 +8,7 @@ import {
   ScrollView,
   WebView,
   Platform,
+  Dimensions,
 
 
 } from 'react-native';
@@ -15,6 +16,8 @@ var DOMParser = require('react-native-html-parser').DOMParser;
 import { connect } from 'react-redux'
 import { Get, getPostDetails } from '../redux/actions'
 import HTMLView from 'react-native-htmlview'
+
+const deviceWidth=Dimensions.get("window").width;
 
 class Post extends Component {
   constructor(props) {
@@ -51,6 +54,12 @@ var htmlStyles = StyleSheet.create({
     fontSize: 20,
     color: 'rgb(65,64,66)',
     backgroundColor:'#ffffff',
+  },
+  img: {
+    width:300,
+  borderWidth:20,
+  borderColor:'red',
+    width:10,
   },
   a: {
     fontSize: 20,

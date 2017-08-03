@@ -6,16 +6,19 @@ import {
   Text,
   View,
   ListView,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
-import { Header, Card,CardSection, Buttons, Label } from './common/index';
+// import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
 
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
+const deviceWidth=Dimensions.get("window").width;
 class Home extends Component {
 
   constructor(props) {
@@ -38,25 +41,45 @@ class Home extends Component {
     return (
 
       <TouchableOpacity onPress={() => this.gotoPost(item)}>
-        <Card>
-          <CardSection>
-            <View >
-              <Text style={{
-                color: '#0d47a1'
-                , fontSize: 20
-                , fontWeight: 'bold'
-
-              }}>{item.title.$t}</Text>
-            </View>
-            <View style={{ paddingTop: 4 }}>
-              <Text numberOfLines={3} >
-                {item.summary.$t.substring(2)}
-              </Text>
-            </View>
-
-          </CardSection>
+        <Card style={{width:deviceWidth}}>
+         
+          <CardTitle title={item.title.$t} subtitle={item.published.$t} />
+          <CardContent text={item.summary.$t.substring(2)} />
+          <CardAction seperator={true} inColumn={false}>
+            <CardButton
+              onPress={() => {alert('push') }}
+              title="Push"
+              color='blue'
+            />
+            <CardButton
+              onPress={() => {alert('later') }}
+              title="Later"
+              color='blue'
+            />
+          </CardAction>
         </Card>
+
       </TouchableOpacity>
+      // <TouchableOpacity onPress={() => this.gotoPost(item)}>
+      //   <Card>
+      //     <CardSection>
+      //       <View >
+      //         <Text style={{
+      //           color: '#0d47a1'
+      //           , fontSize: 20
+      //           , fontWeight: 'bold'
+
+      //         }}>{item.title.$t}</Text>
+      //       </View>
+      //       <View style={{ paddingTop: 4 }}>
+      //         <Text numberOfLines={3} >
+      //           {item.summary.$t.substring(2)}
+      //         </Text>
+      //       </View>
+
+      //     </CardSection>
+      //   </Card>
+      // </TouchableOpacity>
     )
   }
   render() {
@@ -97,7 +120,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-   title: {
+  title: {
     fontSize: 38,
     backgroundColor: 'transparent'
   },
