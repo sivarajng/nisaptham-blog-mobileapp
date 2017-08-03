@@ -7,7 +7,9 @@ import {
   View,
   ListView,
   TouchableOpacity,
-  Dimensions
+  TouchableHighlight,
+  Dimensions,
+  Share
 } from 'react-native';
 
 import { connect } from 'react-redux'
@@ -18,7 +20,7 @@ import { Actions } from 'react-native-router-flux';
 import commonStyles from '../styles/commonStyles';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
-const deviceWidth=Dimensions.get("window").width;
+const deviceWidth = Dimensions.get("window").width;
 class Home extends Component {
 
   constructor(props) {
@@ -36,30 +38,57 @@ class Home extends Component {
     this.props.getPostDetails((item.link[4].href).toString());
     Actions.Post({ title: item.title.$t });
   }
+
+  sharePost(item) {
+
+  //  alert(item.title.$t);
+
+    Share.share({
+      message: (item.link[4].href).toString() + " - " + item.summary.$t ,
+      title: item.title.$t,
+      url: (item.link[4].href).toString()
+
+    }, {
+        dialogTitle: item.title.$t,
+        excludedActivityTypes: [
+          'com.apple.UIKit.activity.PostToTwitter'
+        ],
+        tintColor: 'green'
+      })
+
+
+
+  }
   renderRow(item) {
 
     return (
 
-      <TouchableOpacity onPress={() => this.gotoPost(item)}>
-        <Card style={{width:deviceWidth}}>
-         
-          <CardTitle title={item.title.$t} subtitle={item.published.$t} />
-          <CardContent text={item.summary.$t.substring(2)} />
-          <CardAction seperator={true} inColumn={false}>
-            <CardButton
-              onPress={() => {alert('push') }}
-              title="Push"
-              color='blue'
-            />
-            <CardButton
-              onPress={() => {alert('later') }}
-              title="Later"
-              color='blue'
-            />
-          </CardAction>
-        </Card>
 
-      </TouchableOpacity>
+      <Card style={{ width: deviceWidth }}>
+        <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
+          <CardTitle title={item.title.$t} subtitle={item.published.$t} />
+        </TouchableOpacity>
+        <CardContent text={item.summary.$t.substring(2)} />
+        <CardAction seperator={true} inColumn={false}>
+          <CardButton
+            onPress={() => { alert('push') }}
+            title="Push"
+            color='blue'
+          />
+          <CardButton
+            onPress={() => { alert('later') }}
+            title="Later"
+            color='blue'
+          />
+          <CardButton
+            onPress={() => { this.sharePost(item) }}
+            title="Share"
+            color='blue'
+          />
+        </CardAction>
+      </Card>
+
+
       // <TouchableOpacity onPress={() => this.gotoPost(item)}>
       //   <Card>
       //     <CardSection>
