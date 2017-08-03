@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux'
-import { getPosts,getPostDetails } from '../redux/actions'
+import { getPosts, getPostDetails } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
-import { Header, Card, CardSection, Buttons, Label } from './common/index';
+import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
 
 class Home extends Component {
@@ -27,22 +27,30 @@ class Home extends Component {
     this.props.getPosts();
   }
 
-  gotoPost(item){
+  gotoPost(item) {
 
-  // alert((item.link[4].href).toString());
+    // alert((item.link[4].href).toString());
     this.props.getPostDetails((item.link[4].href).toString());
-    Actions.Post();
+    Actions.Post({ title: item.title.$t });
   }
   renderRow(item) {
-    
+
     return (
-      <TouchableOpacity onPress={()=>this.gotoPost(item)}>
+
+      <TouchableOpacity onPress={() => this.gotoPost(item)}>
         <Card>
           <CardSection>
-            <View style={styles.productDtailsCont}>
-              <Text style={[styles.productDetailsText, commonStyles.opensansBold, commonStyles.fontSize16]}>{item.title.$t}</Text>
-              <Text style={[styles.content, commonStyles.opensansRegular, commonStyles.fontSize14]}>
-                {item.summary.$t}
+            <View >
+              <Text style={{
+                color: '#0d47a1'
+                , fontSize: 20
+                , fontWeight: 'bold'
+
+              }}>{item.title.$t}</Text>
+            </View>
+            <View style={{ paddingTop: 4 }}>
+              <Text numberOfLines={3} >
+                {item.summary.$t.substring(2)}
               </Text>
             </View>
 
@@ -55,10 +63,7 @@ class Home extends Component {
     console.log('lllllllll ', this.props.posts);
     return (
       <View style={styles.container}>
-        <Text onPress={() => Actions.Post()}
-          style={styles.welcome}>
-          Welcome to React Native! HOME SRISJ!!!
-        </Text>
+
         {this.props.posts.feed
           ? <ListView
 
@@ -66,7 +71,9 @@ class Home extends Component {
             dataSource={this.ds.cloneWithRows(this.props.posts.feed.entry)}
             renderRow={this.renderRow.bind(this)}
           />
-          : null}
+          : <View>
+            <Text style={styles.welcome}>Loading...</Text>
+          </View>}
 
       </View>
     );
@@ -90,6 +97,13 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+   title: {
+    fontSize: 38,
+    backgroundColor: 'transparent'
+  },
+  button: {
+    marginRight: 10
+  }
 });
 
 
@@ -101,5 +115,5 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, { getPosts,getPostDetails })(Home)
+export default connect(mapStateToProps, { getPosts, getPostDetails })(Home)
 

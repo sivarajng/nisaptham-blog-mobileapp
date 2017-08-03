@@ -36,7 +36,7 @@ export const getPostDetails = (url) => {
 
         BlogServices.getPostDetails(url).then(response => {
 
-            console.log('getPostDetails hh response :', response);
+       //     console.log('getPostDetails hh response :', response);
 
             dispatch({
                 type: Type.GET_BLOG_POST_DETAILS,

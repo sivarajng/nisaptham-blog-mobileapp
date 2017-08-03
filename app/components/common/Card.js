@@ -3,7 +3,10 @@
  */
 
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text,Dimensions} from 'react-native';
+
+const deviceWidth=Dimensions.get("window").width;
+
 
 const Card = ({children, cardStyle}) =>{
     return (
@@ -15,7 +18,7 @@ const Card = ({children, cardStyle}) =>{
 
 const  styles={
     containerStyle:{
-        elevation: 1,
+        elevation: 3,
       /* marginLeft: 5,
        paddingRight:5,*/
 
@@ -23,6 +26,7 @@ const  styles={
         paddingLeft:20,
         paddingRight:20,
         marginTop:10,
+        width:deviceWidth-20,
 
     }
 }

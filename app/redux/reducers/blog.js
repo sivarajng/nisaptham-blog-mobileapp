@@ -15,16 +15,9 @@ const Blog = (state = {}, { type, payload }) => {
 
              hh = new DOMParser().parseFromString(hh,'text/html');
 
-            //  console.log("hhh rawwwwww ", hh);
-            // console.log("hhh PARSED ",  (hh.getElementByClassName('post-body entry-content')));
             let jjj = new XMLSerializer().serializeToString(hh.getElementByClassName('post-body entry-content'));
-            console.log('HHH TEXTTTTTTTTTTT ', jjj.toString());
-            // hh = hh.replace(/(?:\r\n|\r|\n)/g, ' ');
-            // hh = hh.replace('attrName', ' ');
-            // //   console.log("hhh rawwwwww ", hh);
-            // hh = hh.substring(hh.indexOf('<body'));
-            // hh = hh.substring(0, (hh.indexOf('</body>') + 7));
-            // console.log("hhh CONVERT ", jjj.toString());
+        //    console.log('HHH TEXTTTTTTTTTTT ', jjj.toString());
+        
 
 
             return { ...state, postDetails: jjj.toString() }

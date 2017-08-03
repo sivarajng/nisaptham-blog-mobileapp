@@ -36,8 +36,8 @@ class Post extends Component {
         /> */}
  {/* <Text style={styles.welcome}>{this.props.postDetails}</Text> */}
 
-        <Text style={styles.welcome}>THIS IS A POST {this.props.Data} </Text>
-        <ScrollView>
+        
+        <ScrollView contentContainerStyle={{padding:10,backgroundColor:'#ffffff',}}>
           <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
          
         </ScrollView>
@@ -47,9 +47,14 @@ class Post extends Component {
 }
 
 var htmlStyles = StyleSheet.create({
-  a: {
-    fontSize: 12,
+  div: {
+    fontSize: 20,
     color: 'rgb(65,64,66)',
+    backgroundColor:'#ffffff',
+  },
+  a: {
+    fontSize: 20,
+    color: '#0000ff',
   },
   p: {
     fontSize: 12,
