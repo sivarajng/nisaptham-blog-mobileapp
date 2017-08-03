@@ -20,6 +20,7 @@ import { getPosts, getPostDetails,getPostComments } from '../redux/actions'
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
+import Button from './Button';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
@@ -141,7 +142,10 @@ class Home extends Component {
     console.log('lllllllll ', this.props.posts);
     return (
       <View style={styles.container}>
-
+ <Button
+            onPress={this.props.openDrawer}
+            text="Open Drawer"
+            />
         {this.props.posts.feed
           ? <ListView
             ref='_scrollView'

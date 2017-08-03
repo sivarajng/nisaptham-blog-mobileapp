@@ -6,6 +6,7 @@ import { Router, Scene, ActionConst, Actions, DefaultRenderer } from 'react-nati
 import Home from '../components/Home';
 import Post from '../components/Post';
 import Comment from '../components/Comment';
+import {RootDrawer} from '../components/RootDrawer';
 
  /* sceneStyle={{ paddingTop: 60 }}
         navigationBarBackgroundImage={require('../../../images/header_background.png')}
@@ -21,7 +22,7 @@ const RouterComponent = () => (
   <Router>
     <Scene key="root">
      
-        <Scene key="Home" component={Home} title="Home" />
+        <Scene key="Home" component={RootDrawer} title="Home" />
         <Scene key="Post" component={Post} title="Post" />
         <Scene key="Comment" component={Comment} title="Comment" />
     
