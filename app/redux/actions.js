@@ -40,7 +40,7 @@ export const getPostDetails = (url) => {
 
             dispatch({
                 type: Type.GET_BLOG_POST_DETAILS,
-                payload: response.data
+                payload: response
             })
 
 

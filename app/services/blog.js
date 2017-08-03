@@ -52,6 +52,9 @@ class BlogServices {
     parseResponse(response) {
         return response;
     };
+    parseText(response) {
+        return response.text();
+    };
 
 
     getPosts(type = "GET") {
@@ -63,10 +66,14 @@ class BlogServices {
 
     getPostDetails(url, type = "GET") {
 
-        // Performing a GET request
-       return axios.get(url)
+        return fetch(url)
             .then(this.getStatus)
-            .then(this.parseResponse);
+            .then(this.parseText);
+
+        // Performing a GET request
+        // return axios.get(url)
+        //     .then(this.getStatus)
+        //     .then(this.parseResponse);
 
 
         //        // url='http://www.nisaptham.com/2017/08/blog-post_2.html';
