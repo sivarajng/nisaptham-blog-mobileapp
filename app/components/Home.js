@@ -45,7 +45,7 @@ class Home extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: 'Comments :'+item.title.$t });
+    Actions.Comment({ title: item.link[1].title+'-'+item.title.$t });
   }
 
   sharePost(item) {

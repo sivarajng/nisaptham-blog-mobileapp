@@ -9,14 +9,15 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Dimensions,
-  Share
+  Share,
+  Platform
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails,getPostComments } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -32,7 +33,7 @@ class Comment extends Component {
 
   }
   componentWillMount() {
-   
+
   }
 
   gotoPost(item) {
@@ -46,7 +47,7 @@ class Comment extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: 'Comments :'+item.title.$t });
+    Actions.Comment({ title: 'Comments :' + item.title.$t });
   }
 
   sharePost(item) {
@@ -83,7 +84,7 @@ class Comment extends Component {
 
   renderRow(item) {
 
-    console.log('postComments items ',item)
+    console.log('postComments items ', item)
     return (
 
 
@@ -91,8 +92,10 @@ class Comment extends Component {
         <TouchableOpacity style={{ width: deviceWidth }} >
           <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t)} />
         </TouchableOpacity>
-        <CardContent trim={false} text={item.content.$t} />
-           <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
+        <CardContent trim={false}>
+          <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
+        </CardContent>
+
       </Card>
 
 
@@ -147,13 +150,13 @@ var htmlStyles = StyleSheet.create({
   div: {
     fontSize: 20,
     color: 'rgb(65,64,66)',
-    backgroundColor:'#ffffff',
+    backgroundColor: '#ffffff',
   },
   img: {
-    width:300,
-  borderWidth:20,
-  borderColor:'red',
-    width:10,
+    width: 300,
+    borderWidth: 20,
+    borderColor: 'red',
+    width: 10,
   },
   a: {
     fontSize: 20,
@@ -279,5 +282,5 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, { })(Comment)
+export default connect(mapStateToProps, {})(Comment)
 
