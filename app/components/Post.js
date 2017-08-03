@@ -40,10 +40,16 @@ class Post extends Component {
  {/* <Text style={styles.welcome}>{this.props.postDetails}</Text> */}
 
         
-        <ScrollView contentContainerStyle={{padding:10,backgroundColor:'#ffffff',}}>
+        <ScrollView 
+        ref='_scrollView'
+        contentContainerStyle={{padding:10,backgroundColor:'#ffffff',}}>
           <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
          
         </ScrollView>
+        <Text 
+        style={{fontSize:60,color:'red',position:'absolute',right:30,bottom:30,padding:5}}
+        onPress={() => { this.refs._scrollView.scrollTo({X:0,y:0,animated:true}); }}
+        >^</Text> 
       </View>
     );
   }

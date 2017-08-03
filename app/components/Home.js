@@ -41,10 +41,10 @@ class Home extends Component {
 
   sharePost(item) {
 
-  //  alert(item.title.$t);
+    //  alert(item.title.$t);
 
     Share.share({
-      message: (item.link[4].href).toString() + " - " + item.summary.$t ,
+      message: (item.link[4].href).toString() + " - " + item.summary.$t,
       title: item.title.$t,
       url: (item.link[4].href).toString()
 
@@ -118,7 +118,7 @@ class Home extends Component {
 
         {this.props.posts.feed
           ? <ListView
-
+            ref='_scrollView'
             enableEmptySections={true}
             dataSource={this.ds.cloneWithRows(this.props.posts.feed.entry)}
             renderRow={this.renderRow.bind(this)}
@@ -127,6 +127,10 @@ class Home extends Component {
             <Text style={styles.welcome}>Loading...</Text>
           </View>}
 
+        <Text
+          style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }}
+          onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
+        >^</Text>
       </View>
     );
   }
