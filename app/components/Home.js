@@ -12,6 +12,8 @@ import {
   Share
 } from 'react-native';
 
+import moment from 'moment';
+
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails } from '../redux/actions'
 
@@ -59,6 +61,18 @@ class Home extends Component {
 
 
   }
+
+  formatDate(dateString) {
+    var date = moment(dateString);
+    if (date.isValid()) {
+      if (moment(new Date().getTime()).diff(date, 'days') >= 7) {
+        return date.format('MMM D, YYYY');
+      }
+      return date.fromNow();
+    }
+    return 'Invalid Date';
+  }
+
   renderRow(item) {
 
     return (
@@ -66,7 +80,7 @@ class Home extends Component {
 
       <Card style={{ width: deviceWidth }}>
         <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
-          <CardTitle title={item.title.$t} subtitle={item.published.$t} />
+          <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)} />
         </TouchableOpacity>
         <CardContent text={item.summary.$t.substring(2)} />
         <CardAction seperator={true} inColumn={false}>
@@ -83,6 +97,11 @@ class Home extends Component {
           <CardButton
             onPress={() => { this.sharePost(item) }}
             title="Share"
+            color='blue'
+          />
+          <CardButton
+            onPress={() => { }}
+            title={(item.link[1].title).toString()}
             color='blue'
           />
         </CardAction>
