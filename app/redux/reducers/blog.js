@@ -9,6 +9,9 @@ const Blog = (state = {}, { type, payload }) => {
         case Type.GET_BLOG_POSTS:
             return { ...state, posts: payload }
 
+        case Type.GET_BLOG_POST_COMMENTS:
+            return { ...state, postComments: payload }
+
         case Type.GET_BLOG_POST_DETAILS:
          //   let hh = payload.replace(/(?:\r\n|\r|\n)/g, ' ');
          let hh = payload;

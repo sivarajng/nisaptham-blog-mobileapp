@@ -52,5 +52,26 @@ export const getPostDetails = (url) => {
     }
 }
 
+export const getPostComments = (url) => {
+    return (dispatch) => {
+
+        BlogServices.getPostComments(url).then(response => {
+
+       //     console.log('getPostDetails hh response :', response);
+
+            dispatch({
+                type: Type.GET_BLOG_POST_COMMENTS,
+                payload: response
+            })
+
+
+        }).catch(error => {
+            console.log('getPostDetails error :', error);
+        });
+
+
+    }
+}
+
 
 

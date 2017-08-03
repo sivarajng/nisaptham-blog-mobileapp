@@ -15,7 +15,7 @@ export default class CardContent extends Component {
           <Image source={this.props.avatarSource} resizeMode="stretch" style={styles.avatarStyle} />
         }
         <View style={styles.CardContentTextCont}>
-          {this.props.text !== undefined ? <Text numberOfLines={3} style={this.props.isDark ? [styles.contentText, styles.lightText] : styles.contentText}>{this.props.text}</Text> : this.props.children}
+          {this.props.text !== undefined ? <Text numberOfLines={ this.props.trim ? 3 : 0} style={this.props.isDark ? [styles.contentText, styles.lightText] : styles.contentText}>{this.props.text}</Text> : this.props.children}
         </View>
       </View>
     );

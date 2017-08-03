@@ -11,6 +11,7 @@ import {
   Dimensions,
   Share
 } from 'react-native';
+import HTMLView from 'react-native-htmlview';
 
 import moment from 'moment';
 
@@ -23,7 +24,7 @@ import commonStyles from '../styles/commonStyles';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
-class Home extends Component {
+class Comment extends Component {
 
   constructor(props) {
     super(props);
@@ -31,7 +32,7 @@ class Home extends Component {
 
   }
   componentWillMount() {
-    this.props.getPosts();
+   
   }
 
   gotoPost(item) {
@@ -82,36 +83,16 @@ class Home extends Component {
 
   renderRow(item) {
 
+    console.log('postComments items ',item)
     return (
 
 
       <Card style={{ width: deviceWidth }}>
-        <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
-          <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)} />
+        <TouchableOpacity style={{ width: deviceWidth }} >
+          <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t)} />
         </TouchableOpacity>
-        <CardContent trim={true} text={item.summary.$t.substring(2)} />
-        <CardAction seperator={true} inColumn={false}>
-          <CardButton
-            onPress={() => { alert('push') }}
-            title="Push"
-            color='blue'
-          />
-          <CardButton
-            onPress={() => { alert('later') }}
-            title="Later"
-            color='blue'
-          />
-          <CardButton
-            onPress={() => { this.sharePost(item) }}
-            title="Share"
-            color='blue'
-          />
-          <CardButton
-            onPress={() => this.gotoPostComments(item) }
-            title={(item.link[1].title).toString()}
-            color='blue'
-          />
-        </CardAction>
+        <CardContent trim={false} text={item.content.$t} />
+           <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
       </Card>
 
 
@@ -138,15 +119,15 @@ class Home extends Component {
     )
   }
   render() {
-    console.log('lllllllll ', this.props.posts);
+    console.log('lllllllll ', this.props.postComments);
     return (
       <View style={styles.container}>
 
-        {this.props.posts.feed
+        {this.props.postComments
           ? <ListView
             ref='_scrollView'
             enableEmptySections={true}
-            dataSource={this.ds.cloneWithRows(this.props.posts.feed.entry)}
+            dataSource={this.ds.cloneWithRows(this.props.postComments.feed.entry)}
             renderRow={this.renderRow.bind(this)}
           />
           : <View>
@@ -161,6 +142,107 @@ class Home extends Component {
     );
   }
 }
+
+var htmlStyles = StyleSheet.create({
+  div: {
+    fontSize: 20,
+    color: 'rgb(65,64,66)',
+    backgroundColor:'#ffffff',
+  },
+  img: {
+    width:300,
+  borderWidth:20,
+  borderColor:'red',
+    width:10,
+  },
+  a: {
+    fontSize: 20,
+    color: '#0000ff',
+  },
+  p: {
+    fontSize: 12,
+    color: 'rgb(65,64,66)',
+    marginTop: 40
+  },
+  h1: {
+    fontSize: 18,
+    color: 'rgb(65,64,66)',
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+  }, h2: {
+    fontSize: 18,
+    color: 'rgb(65,64,66)',
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+  }, h3: {
+    fontSize: 18,
+    color: 'rgb(65,64,66)',
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+  }, h4: {
+    fontSize: 18,
+    color: 'rgb(65,64,66)',
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+  }, h5: {
+    fontSize: 18,
+    color: 'rgb(65,64,66)',
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+  }, h6: {
+    fontSize: 18,
+    color: 'rgb(65,64,66)',
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+  },
+  titleText1: {
+    color: 'rgb(65,64,66)',
+    fontSize: 12,
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Medium' : 'gothammedium',
+    paddingBottom: 14,
+    lineHeight: 22,
+  },
+  paraGraphText: {
+    fontSize: 12,
+    fontFamily: (Platform.OS === 'ios') ? 'OpenSans' : 'opensans-regular',
+    color: 'rgb(65,64,66)',
+    paddingBottom: 14,
+    lineHeight: 18
+  },
+
+  titleText: {
+    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+    color: 'rgb(65,64,66)',
+    fontSize: 12,
+    paddingBottom: 16,
+    paddingTop: 14,
+    textAlign: 'left'
+
+  },
+  padding20: {
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  header: {
+    backgroundColor: 'rgb(21,147,204)'
+  },
+  headerClose: {
+    fontSize: 12,
+    color: '#FFF',
+    fontWeight: 'bold'
+  },
+  headerLogin: {
+    fontSize: 12,
+    alignSelf: 'center',
+    color: 'rgb(255,255,255)',
+    fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Semibold' : 'opensanssemibold',
+    lineHeight: 22
+  },
+  headerDummyClose: {
+    color: 'rgb(21,147,204)'
+  },
+
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -190,12 +272,12 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = ({ Blog }) => {
-  console.log('Blog.posts ', Blog.posts);
+  console.log('Blog.postComments ', Blog.postComments);
   return ({
-    posts: Blog.posts
+    postComments: Blog.postComments
   })
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails,getPostComments })(Home)
+export default connect(mapStateToProps, { })(Comment)
 

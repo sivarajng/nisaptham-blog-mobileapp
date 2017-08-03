@@ -69,6 +69,14 @@ class BlogServices {
         return fetch(url)
             .then(this.getStatus)
             .then(this.parseText);
+    }
+
+    getPostComments(url, type = "GET") {
+
+        return fetch(url+'?alt=json')
+            .then(this.getStatus)
+            .then(this.parseJson);
+    }
 
         // Performing a GET request
         // return axios.get(url)
@@ -83,7 +91,7 @@ class BlogServices {
         //   .catch(function(error) {
 
         //   });   
-    }
+    
 }
 
 export default new BlogServices();
