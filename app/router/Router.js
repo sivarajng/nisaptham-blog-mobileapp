@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity,TouchableHighlight } from 'react-native';
+import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Router, Scene, ActionConst, Actions, DefaultRenderer } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -22,18 +22,49 @@ import Menu from '../components/Menu';
        onPress={() =>        alert('click')} */
 
 const filterIcon = () => (
-  <TouchableHighlight onPress={() =>Actions.Menu()} style={{padding:10}} >
-    <Icon name="bars" size={30} color="black"/>
-  </TouchableHighlight> 
+  <TouchableHighlight onPress={() => Actions.Menu()} style={{ padding: 10 }} >
+    <Icon name="bars" size={30} color="white" />
+  </TouchableHighlight>
 );
+const navBarStyle = () => (
+  {
+    backgroundColor: '#0288d1',
+
+
+
+    color: '#FFFFFF',
+   fontWeight: 'bold',
+   // fontSize: 18,
+    textAlign: 'center',
+ 
+  //  paddingLeft: 40,
+  }
+);
+
+const styles = {
+  sceneStyle: {
+    paddingTop: 65
+  },
+  backButtonTextStyle: {
+    color: 'red'
+  },
+  barButtonIconStyle: {
+    tintColor: 'red'
+  }
+};
 
 
 const RouterComponent = () => (
   <Router>
-    <Scene key="root">
+    <Scene key="root"
+      navigationBarStyle={navBarStyle()}
+      sceneStyle={styles.sceneStyle}
+      backButtonTextStyle={styles.backButtonTextStyle}
+      barButtonIconStyle={styles.barButtonIconStyle}
+      titleStyle={navBarStyle()}>
 
-      <Scene key="Home" component={Home} title="Home" renderRightButton={() => filterIcon()} />
-      <Scene key="Post" component={Post} title="Post" />
+      <Scene key="Home" component={Home} title="Home" renderRightButton={() => filterIcon()} initial={true} />
+      <Scene key="Post" component={Post} title="Post" renderRightButton={() => filterIcon()} />
       <Scene key="Comment" component={Comment} title="Comment" />
       <Scene key="Search" component={Search} title="Search" />
       <Scene key="Menu" component={Menu} title="Menu" />
