@@ -10,6 +10,7 @@ import {
   Platform,
   Dimensions,
   ActivityIndicator,
+  TouchableOpacity
 
 
 } from 'react-native';
@@ -21,6 +22,7 @@ import { Get, getPostDetails } from '../redux/actions'
 import HTMLView from 'react-native-htmlview'
 
 const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
 
 class Post extends Component {
   constructor(props) {
@@ -42,14 +44,6 @@ class Post extends Component {
         /> */}
         {/* <Text style={styles.welcome}>{this.props.postDetails}</Text> */}
 
-
-        <ActivityIndicator
-          animating={true}
-          color='#01579b'
-          size={60}
-          style={styles.activityIndicator}
-        />
-
         {this.props.postDetailsLoader
           ? <ActivityIndicator
             animating={true}
@@ -69,14 +63,11 @@ class Post extends Component {
 
         <TouchableOpacity
           onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-          style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+         style={{  position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
           <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
         </TouchableOpacity>
 
-        {/* <Text
-          style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }}
-          onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-        >^</Text> */}
+     
       </View>
     );
   }
@@ -200,6 +191,13 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+
+    activityIndicator: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+     height: deviceHeight
+  }
 });
 
 

@@ -30,26 +30,30 @@ const navBarStyle = () => (
   {
     backgroundColor: '#0288d1',
 
+  }
+);
+const navBarTitleStyle = () => (
+  {
 
 
     color: '#FFFFFF',
-   fontWeight: 'bold',
-   // fontSize: 18,
+    fontWeight: 'bold',
+    // fontSize: 18,
     textAlign: 'center',
- 
-  //  paddingLeft: 40,
+
+    //  paddingLeft: 40,
   }
 );
 
 const styles = {
   sceneStyle: {
-    paddingTop: 65
+    //   paddingTop: 65
   },
   backButtonTextStyle: {
-    color: 'red'
+    //  color: 'red'
   },
   barButtonIconStyle: {
-    tintColor: 'red'
+    //  tintColor: 'red'
   }
 };
 
@@ -61,7 +65,7 @@ const RouterComponent = () => (
       sceneStyle={styles.sceneStyle}
       backButtonTextStyle={styles.backButtonTextStyle}
       barButtonIconStyle={styles.barButtonIconStyle}
-      titleStyle={navBarStyle()}>
+      titleStyle={navBarTitleStyle()}>
 
       <Scene key="Home" component={Home} title="Home" renderRightButton={() => filterIcon()} initial={true} />
       <Scene key="Post" component={Post} title="Post" renderRightButton={() => filterIcon()} />
