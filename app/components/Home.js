@@ -22,7 +22,7 @@ import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
-import Button from './Button';
+
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
@@ -37,6 +37,7 @@ class Home extends Component {
   }
   componentWillMount() {
     this.props.getPosts();
+    Actions.refresh({key: 'drawer', open: true });
   }
 
   _onRefresh() {
