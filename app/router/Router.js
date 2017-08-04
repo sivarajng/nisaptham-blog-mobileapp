@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity,TouchableHighlight } from 'react-native';
 import { Router, Scene, ActionConst, Actions, DefaultRenderer } from 'react-native-router-flux';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Home from '../components/Home';
 import Post from '../components/Post';
 import Comment from '../components/Comment';
 import Search from '../components/Search';
+import Menu from '../components/Menu';
 
 // import {RootDrawer} from '../components/RootDrawer';
 
@@ -20,31 +21,22 @@ import Search from '../components/Search';
        leftButtonIconStyle={styles.leftButtonStyle}
        onPress={() =>        alert('click')} */
 
-// const filterIcon = () => (
-//   <TouchableHighlight onPress={() =>} style={{ ...}}>
-//     <Icon name="filter" size={30} />
-//   </TouchableHighlight>
-// );
+const filterIcon = () => (
+  <TouchableHighlight onPress={() =>Actions.Menu()} style={{padding:10}} >
+    <Icon name="bars" size={30} color="black"/>
+  </TouchableHighlight> 
+);
 
 
 const RouterComponent = () => (
   <Router>
     <Scene key="root">
 
-      <Scene key="Home" component={Home} title="Home" renderLeftButton={() => {
-        return (
-          <View>
-            <TouchableOpacity>
-              <Text>
-                gggg
-              </Text>
-            </TouchableOpacity>
-          </View>
-        );
-      }} />
+      <Scene key="Home" component={Home} title="Home" renderRightButton={() => filterIcon()} />
       <Scene key="Post" component={Post} title="Post" />
       <Scene key="Comment" component={Comment} title="Comment" />
       <Scene key="Search" component={Search} title="Search" />
+      <Scene key="Menu" component={Menu} title="Menu" />
 
     </Scene>
   </Router>

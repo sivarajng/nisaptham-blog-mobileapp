@@ -14,6 +14,8 @@ import {
 
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import moment from 'moment';
 
 import { connect } from 'react-redux'
@@ -37,7 +39,7 @@ class Home extends Component {
   }
   componentWillMount() {
     this.props.getPosts();
-    Actions.refresh({key: 'drawer', open: true });
+
   }
 
   _onRefresh() {
@@ -184,8 +186,15 @@ class Home extends Component {
 
         }
 
+        <TouchableHighlight
+          onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
+          style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+          <Icon name="chevron-circle-up" size={30} color="black" />
+        </TouchableHighlight>
+
+
         <Text
-          style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }}
+          style={{ fontSize: 60, color: 'red', position: 'absolute', right: 80, bottom: 30, padding: 5 }}
           onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
         >^</Text>
       </View>
@@ -231,7 +240,7 @@ const mapStateToProps = ({ Blog }) => {
   console.log('Blog.posts ', Blog.posts);
   return ({
     posts: Blog.posts
-    ,postsRefresh: Blog.postsRefresh
+    , postsRefresh: Blog.postsRefresh
   })
 }
 

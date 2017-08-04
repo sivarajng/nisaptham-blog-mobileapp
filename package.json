@@ -16,7 +16,7 @@
 		"react-native-htmlview": "^0.12.0",
 		"react-native-material-cards": "^1.0.5",
 		"react-native-router-flux": "^4.0.0-beta.12",
-		"react-native-vector-icons": "^4.3.0",
+		"react-native-vector-icons": "4.2.0",
 		"react-redux": "^5.0.5",
 		"redux": "^3.7.2",
 		"redux-thunk": "^2.2.0",
