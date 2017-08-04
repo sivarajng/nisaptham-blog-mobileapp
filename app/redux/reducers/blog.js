@@ -9,6 +9,9 @@ const Blog = (state = {}, { type, payload }) => {
         case Type.GET_BLOG_POSTS:
             return { ...state, posts: payload }
 
+        case Type.GET_BLOG_POSTS_REFRESH:
+            return { ...state, postsRefresh: payload }
+
         case Type.GET_BLOG_POSTS_SEARCH:
             return { ...state, postsSearch: payload }
 

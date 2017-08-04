@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Dimensions,
-  Share
+  ActivityIndicator,
+  RefreshControl,
+
 } from 'react-native';
 
 import moment from 'moment';
@@ -29,10 +31,20 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
-
+    this.state = {
+      refreshing: false,
+    };
   }
   componentWillMount() {
     this.props.getPosts();
+  }
+
+  _onRefresh() {
+    this.setState({ refreshing: true });
+    this.props.getPosts("refresh");
+    // fetchData().then(() => {
+    //   this.setState({ refreshing: false });
+    // });
   }
 
   gotoPost(item) {
@@ -52,7 +64,7 @@ class Home extends Component {
   _gotoSearch() {
 
     // alert((item.link[4].href).toString());
-  //  this.props.getPostComments((item.link[0].href).toString());
+    //  this.props.getPostComments((item.link[0].href).toString());
     Actions.Search({ title: 'Search' });
   }
 
@@ -140,23 +152,36 @@ class Home extends Component {
     return (
       <View style={styles.container}>
 
-        <TouchableOpacity style={{padding:30}} onPress={() => { this._gotoSearch() }}>
+        <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._gotoSearch() }}>
           <Text>
             Search
           </Text>
         </TouchableOpacity>
 
 
+
         {this.props.posts.feed
           ? <ListView
             ref='_scrollView'
+            refreshControl={
+              <RefreshControl
+                refreshing={this.props.postsRefresh}
+                onRefresh={this._onRefresh.bind(this)}
+              />
+            }
             enableEmptySections={true}
             dataSource={this.ds.cloneWithRows(this.props.posts.feed.entry)}
             renderRow={this.renderRow.bind(this)}
           />
-          : <View>
-            <Text style={styles.welcome}>Loading...</Text>
-          </View>}
+          :
+          <ActivityIndicator
+            animating={true}
+            color='#01579b'
+            size={60}
+            style={styles.activityIndicator}
+          />
+
+        }
 
         <Text
           style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }}
@@ -190,6 +215,13 @@ const styles = StyleSheet.create({
   },
   button: {
     marginRight: 10
+  },
+
+  activityIndicator: {
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // height: 80
   }
 });
 
@@ -198,6 +230,7 @@ const mapStateToProps = ({ Blog }) => {
   console.log('Blog.posts ', Blog.posts);
   return ({
     posts: Blog.posts
+    ,postsRefresh: Blog.postsRefresh
   })
 }
 

@@ -10,8 +10,15 @@ export const Get = () => {
     }
 }
 
-export const getPosts = () => {
+export const getPosts = (mode = "") => {
     return (dispatch) => {
+
+        if (mode == "refresh") {
+            dispatch({
+                type: Type.GET_BLOG_POSTS_REFRESH,
+                payload: true
+            })
+        }
 
         BlogServices.getPosts().then(response => {
 
@@ -21,10 +28,18 @@ export const getPosts = () => {
                 type: Type.GET_BLOG_POSTS,
                 payload: response
             })
+            dispatch({
+                type: Type.GET_BLOG_POSTS_REFRESH,
+                payload: false
+            })
 
 
         }).catch(error => {
             console.log('getPosts error :', error);
+            dispatch({
+                type: Type.GET_BLOG_POSTS_REFRESH,
+                payload: false
+            })
         });
 
 
@@ -42,7 +57,7 @@ export const getPostsSearch = (query) => {
                 console.log("------------ TRUE", response.feed.entry);
             }
             else {
-                response.feed.entry=[];
+                response.feed.entry = [];
                 console.log("------------ FALSEE", response.feed);
             }
             dispatch({

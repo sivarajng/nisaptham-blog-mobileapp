@@ -6,6 +6,7 @@
         "posts": {},
         "postsSearch": {},
         "postDetails": "LOADING...........",
-        "postComments": null
+        "postComments": null,
+        "postsRefresh": false
     }
 }
