@@ -64,6 +64,13 @@ class BlogServices {
             .then(this.parseJson);
     }
 
+    getPostsSearch(query="",type = "GET") {
+        return fetch(CONFIG.BLOG_BASE_URL_QUERY+query, {
+            method: type,
+        }).then(this.getStatus)
+            .then(this.parseJson);
+    }
+
     getPostDetails(url, type = "GET") {
 
         return fetch(url)

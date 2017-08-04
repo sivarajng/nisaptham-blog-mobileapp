@@ -1,4 +1,11 @@
 {
-    "Get": {"Data":"0000000000000000000000"},
-    "Blog":{"posts":{},"postDetails":"LOADING...........","postComments":null}
+    "Get": {
+        "Data": "0000000000000000000000"
+    },
+    "Blog": {
+        "posts": {},
+        "postsSearch": {},
+        "postDetails": "LOADING...........",
+        "postComments": null
+    }
 }

@@ -31,12 +31,40 @@ export const getPosts = () => {
     }
 }
 
+export const getPostsSearch = (query) => {
+    return (dispatch) => {
+
+        BlogServices.getPostsSearch(query).then(response => {
+
+            console.log('getPostsSearch response :', response);
+
+            if (response.feed.entry) {
+                console.log("------------ TRUE", response.feed.entry);
+            }
+            else {
+                response.feed.entry=[];
+                console.log("------------ FALSEE", response.feed);
+            }
+            dispatch({
+                type: Type.GET_BLOG_POSTS_SEARCH,
+                payload: response
+            })
+
+
+        }).catch(error => {
+            console.log('getPostsSearch error :', error);
+        });
+
+
+    }
+}
+
 export const getPostDetails = (url) => {
     return (dispatch) => {
 
         BlogServices.getPostDetails(url).then(response => {
 
-       //     console.log('getPostDetails hh response :', response);
+            //     console.log('getPostDetails hh response :', response);
 
             dispatch({
                 type: Type.GET_BLOG_POST_DETAILS,
@@ -57,7 +85,7 @@ export const getPostComments = (url) => {
 
         BlogServices.getPostComments(url).then(response => {
 
-       //     console.log('getPostDetails hh response :', response);
+            //     console.log('getPostDetails hh response :', response);
 
             dispatch({
                 type: Type.GET_BLOG_POST_COMMENTS,

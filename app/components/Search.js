@@ -17,7 +17,7 @@ import {
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
+import { getPostsSearch, getPostDetails, getPostComments } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -32,9 +32,13 @@ class Search extends Component {
         super(props);
         this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
 
+        this.state = {
+            searchQuery: "",
+        }
+
     }
     componentWillMount() {
-        this.props.getPosts();
+
     }
 
     gotoPost(item) {
@@ -49,6 +53,22 @@ class Search extends Component {
         // alert((item.link[4].href).toString());
         this.props.getPostComments((item.link[0].href).toString());
         Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
+    }
+
+    _onChangeText(text) {
+
+        this.setState({ searchQuery: text });
+
+    }
+
+    _search() {
+
+        this.props.getPostsSearch(this.state.searchQuery);
+
+    }
+
+    _clearInput() {
+        this.setState({ searchQuery: "" });
     }
 
     sharePost(item) {
@@ -115,32 +135,32 @@ class Search extends Component {
 
         return (
             <View style={styles.container}>
-                
-                <View style={{  width: deviceWidth }}>
+
+                <View style={{ width: deviceWidth }}>
                     <View style={styles.searchMainView}>
                         <View style={styles.searchBox}>
                             <TextInput
                                 autoFocus={true}
                                 returnKeyType={'search'}
-                                onSubmitEditing={() => { }}
+                                onSubmitEditing={() => this._search()}
                                 //  underlineColorAndroid='transparent'
-                                onChangeText={(text) => { }}
-                                // value='enter'
+                                onChangeText={(text) => this._onChangeText(text)}
+                                value={this.state.searchQuery}
                                 placeholder="You want to search"
                                 placeholderTextColor='rgb(204,204,204)'
-                                style={[styles.searchInputStyle, commonStyles.opensansSemiBold, commonStyles.fontSize16,{  width: deviceWidth-120 }]}
+                                style={[styles.searchInputStyle, commonStyles.opensansSemiBold, commonStyles.fontSize16, { width: deviceWidth - 120 }]}
                             />
-                            <TouchableOpacity style={styles.closeIconStyle} onPress={() => { }}>
-                                <Image 
-                                style={{width:40,height:40}}
-                                source={{ uri: 'http://closethegapca.org/wp-content/plugins/itro-popup/images/close-icon.png' }} />
+                            <TouchableOpacity style={styles.closeIconStyle} onPress={() => { this._clearInput() }}>
+                                <Image
+                                    style={{ width: 40, height: 40 }}
+                                    source={{ uri: 'http://closethegapca.org/wp-content/plugins/itro-popup/images/close-icon.png' }} />
                             </TouchableOpacity>
                             {true
                                 ?
-                                <TouchableOpacity style={styles.searchIconStyle1} onPress={() => { }}>
-                                    <Image 
-                                      style={{width:40,height:40}}
-                                    source={{ uri: 'http://www.sabletopia.co.uk/wp-content/uploads/2013/09/256x256xsearch-2561.png.pagespeed.ic.uJb5O-KdTF.png' }} />
+                                <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
+                                    <Image
+                                        style={{ width: 40, height: 40 }}
+                                        source={{ uri: 'http://www.sabletopia.co.uk/wp-content/uploads/2013/09/256x256xsearch-2561.png.pagespeed.ic.uJb5O-KdTF.png' }} />
                                 </TouchableOpacity>
 
                                 : <View></View>
@@ -148,11 +168,11 @@ class Search extends Component {
                         </View>
                     </View>
                 </View>
-                {this.props.posts.feed
+                {this.props.postsSearch.feed
                     ? <ListView
                         ref='_scrollView'
                         enableEmptySections={true}
-                        dataSource={this.ds.cloneWithRows(this.props.posts.feed.entry)}
+                        dataSource={this.ds.cloneWithRows(this.props.postsSearch.feed.entry)}
                         renderRow={this.renderRow.bind(this)}
                     />
                     : <View>
@@ -171,8 +191,8 @@ class Search extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     welcome: {
@@ -266,7 +286,7 @@ const styles = StyleSheet.create({
     },
     searchInputStyle1: { height: 48, textAlign: 'center', paddingRight: 20, color: 'rgb(39,39,39)' },
     searchIconStyle1: {
-  position: 'absolute',
+        position: 'absolute',
         top: 0,
         padding: 0,
         right: 0,
@@ -312,12 +332,12 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = ({ Blog }) => {
-    console.log('Blog.posts ', Blog.posts);
+    console.log('Blog.postsSearch ', Blog.postsSearch);
     return ({
-        posts: Blog.posts
+        postsSearch: Blog.postsSearch
     })
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments })(Search)
+export default connect(mapStateToProps, { getPostsSearch, getPostDetails, getPostComments })(Search)
 
