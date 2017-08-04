@@ -132,6 +132,12 @@ class Menu extends Component {
           </Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Research() }}>
+                    <Text>
+                        Research
+          </Text>
+                </TouchableOpacity>
+
 
                 <Text
                     style={{ fontSize: 60, color: 'red' }}

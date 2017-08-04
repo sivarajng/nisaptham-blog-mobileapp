@@ -77,6 +77,10 @@ export const getPostsSearch = (query) => {
 
         }).catch(error => {
             console.log('getPostsSearch error :', error);
+
+              let res={feed:{entry:[]}};
+            
+
             dispatch({
                 type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
                 payload: false

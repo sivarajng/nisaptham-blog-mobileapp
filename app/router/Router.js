@@ -8,6 +8,7 @@ import Post from '../components/Post';
 import Comment from '../components/Comment';
 import Search from '../components/Search';
 import Menu from '../components/Menu';
+import Research from '../components/Research';
 
 // import {RootDrawer} from '../components/RootDrawer';
 
@@ -50,10 +51,10 @@ const styles = {
     //   paddingTop: 65
   },
   backButtonTextStyle: {
-    //  color: 'red'
+      color: 'red'
   },
   barButtonIconStyle: {
-    //  tintColor: 'red'
+     tintColor: 'red'
   }
 };
 
@@ -63,15 +64,18 @@ const RouterComponent = () => (
     <Scene key="root"
       navigationBarStyle={navBarStyle()}
       sceneStyle={styles.sceneStyle}
-      backButtonTextStyle={styles.backButtonTextStyle}
-      barButtonIconStyle={styles.barButtonIconStyle}
+      // backButtonTextStyle={styles.backButtonTextStyle} 
+// barButtonIconStyle={styles.barButtonIconStyle}
+//headerBackIconTextStyle={{ tintColor: 'green' }}
+//headerBackButtonTextStyle={{ color: 'green' }}
       titleStyle={navBarTitleStyle()}>
 
       <Scene key="Home" component={Home} title="Home" renderRightButton={() => filterIcon()} initial={true} />
-      <Scene key="Post" component={Post} title="Post" renderRightButton={() => filterIcon()} />
+      <Scene key="Post" component={Post} title="Post" />
       <Scene key="Comment" component={Comment} title="Comment" />
       <Scene key="Search" component={Search} title="Search" />
       <Scene key="Menu" component={Menu} title="Menu" />
+      <Scene key="Research" component={Menu} title="Research" />
 
     </Scene>
   </Router>
