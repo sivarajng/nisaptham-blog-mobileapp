@@ -58,7 +58,7 @@ class BlogServices {
 
 
     getPosts(type = "GET") {
-        return fetch(CONFIG.BLOG_BASE_URL, {
+        return fetch(CONFIG.BLOG_BASE_URL_MAX_LIMIT, {
             method: type,
         }).then(this.getStatus)
             .then(this.parseJson);

@@ -15,7 +15,7 @@ import {
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails,getPostComments } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -46,7 +46,14 @@ class Home extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: item.link[1].title+'-'+item.title.$t });
+    Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
+  }
+
+  _gotoSearch() {
+
+    // alert((item.link[4].href).toString());
+  //  this.props.getPostComments((item.link[0].href).toString());
+    Actions.Search({ title: 'Search' });
   }
 
   sharePost(item) {
@@ -93,22 +100,12 @@ class Home extends Component {
         <CardContent trim={true} text={item.summary.$t.substring(2)} />
         <CardAction seperator={true} inColumn={false}>
           <CardButton
-            onPress={() => { alert('push') }}
-            title="Push"
-            color='blue'
-          />
-          <CardButton
-            onPress={() => { alert('later') }}
-            title="Later"
-            color='blue'
-          />
-          <CardButton
             onPress={() => { this.sharePost(item) }}
             title="Share"
             color='blue'
           />
           <CardButton
-            onPress={() => this.gotoPostComments(item) }
+            onPress={() => this.gotoPostComments(item)}
             title={(item.link[1].title).toString()}
             color='blue'
           />
@@ -139,13 +136,17 @@ class Home extends Component {
     )
   }
   render() {
-    console.log('lllllllll ', this.props.posts);
+
     return (
       <View style={styles.container}>
- <Button
-            onPress={this.props.openDrawer}
-            text="Open Drawer"
-            />
+
+        <TouchableOpacity style={{padding:30}} onPress={() => { this._gotoSearch() }}>
+          <Text>
+            Search
+          </Text>
+        </TouchableOpacity>
+
+
         {this.props.posts.feed
           ? <ListView
             ref='_scrollView'
@@ -201,5 +202,5 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails,getPostComments })(Home)
+export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments })(Home)
 
