@@ -11,10 +11,12 @@ import {
     Dimensions,
     Image,
     Share,
-    TextInput
+    TextInput,
+    ActivityIndicator
 } from 'react-native';
 
 import moment from 'moment';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux'
 import { getPostsSearch, getPostDetails, getPostComments } from '../redux/actions'
@@ -168,6 +170,17 @@ class Search extends Component {
                         </View>
                     </View>
                 </View>
+
+                {this.props.postSearchLoader
+                    ? <ActivityIndicator
+                        animating={true}
+                        color='#01579b'
+                        size={60}
+                        style={styles.activityIndicator}
+                    />
+                    : null
+                }
+
                 {this.props.postsSearch.feed
                     ? <ListView
                         ref='_scrollView'
@@ -175,14 +188,18 @@ class Search extends Component {
                         dataSource={this.ds.cloneWithRows(this.props.postsSearch.feed.entry)}
                         renderRow={this.renderRow.bind(this)}
                     />
-                    : <View>
-                        <Text style={styles.welcome}>Loading...</Text>
-                    </View>}
+                    : null}
 
-                <Text
+                <TouchableOpacity
+                    onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
+                    style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+                    <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+                </TouchableOpacity>
+
+                {/* <Text
                     style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }}
                     onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-                >^</Text>
+                >^</Text> */}
             </View>
         );
     }
@@ -334,7 +351,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ Blog }) => {
     console.log('Blog.postsSearch ', Blog.postsSearch);
     return ({
-        postsSearch: Blog.postsSearch
+        postsSearch: Blog.postsSearch,
+        postSearchLoader: Blog.postSearchLoader
     })
 }
 

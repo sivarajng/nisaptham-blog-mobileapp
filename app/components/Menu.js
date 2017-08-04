@@ -126,6 +126,13 @@ class Menu extends Component {
         return (
             <View style={styles.container}>
 
+                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
+                    <Text>
+                        Search
+          </Text>
+                </TouchableOpacity>
+
+
                 <Text
                     style={{ fontSize: 60, color: 'red' }}
                     onPress={() => { }}>

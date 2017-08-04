@@ -49,6 +49,11 @@ export const getPosts = (mode = "") => {
 export const getPostsSearch = (query) => {
     return (dispatch) => {
 
+        dispatch({
+            type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
+            payload: true
+        })
+
         BlogServices.getPostsSearch(query).then(response => {
 
             console.log('getPostsSearch response :', response);
@@ -64,10 +69,18 @@ export const getPostsSearch = (query) => {
                 type: Type.GET_BLOG_POSTS_SEARCH,
                 payload: response
             })
+            dispatch({
+                type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
+                payload: false
+            })
 
 
         }).catch(error => {
             console.log('getPostsSearch error :', error);
+            dispatch({
+                type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
+                payload: false
+            })
         });
 
 
@@ -77,6 +90,15 @@ export const getPostsSearch = (query) => {
 export const getPostDetails = (url) => {
     return (dispatch) => {
 
+        dispatch({
+            type: Type.GET_BLOG_POST_DETAILS_LOADER,
+            payload: true
+        })
+        dispatch({
+            type: Type.GET_BLOG_POST_DETAILS,
+            payload: null
+        })
+
         BlogServices.getPostDetails(url).then(response => {
 
             //     console.log('getPostDetails hh response :', response);
@@ -85,10 +107,18 @@ export const getPostDetails = (url) => {
                 type: Type.GET_BLOG_POST_DETAILS,
                 payload: response
             })
+            dispatch({
+                type: Type.GET_BLOG_POST_DETAILS_LOADER,
+                payload: false
+            })
 
 
         }).catch(error => {
             console.log('getPostDetails error :', error);
+            dispatch({
+                type: Type.GET_BLOG_POST_DETAILS_LOADER,
+                payload: false
+            })
         });
 
 

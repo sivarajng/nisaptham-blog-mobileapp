@@ -155,11 +155,7 @@ class Home extends Component {
     return (
       <View style={styles.container}>
 
-        <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._gotoSearch() }}>
-          <Text>
-            Search
-          </Text>
-        </TouchableOpacity>
+
 
 
 

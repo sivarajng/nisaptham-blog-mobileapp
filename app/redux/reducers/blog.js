@@ -12,6 +12,12 @@ const Blog = (state = {}, { type, payload }) => {
         case Type.GET_BLOG_POSTS_REFRESH:
             return { ...state, postsRefresh: payload }
 
+        case Type.GET_BLOG_POST_DETAILS_LOADER:
+            return { ...state, postDetailsLoader: payload }
+
+        case Type.GET_BLOG_POSTS_SEARCH_LOADER:
+            return { ...state, postSearchLoader: payload }
+
         case Type.GET_BLOG_POSTS_SEARCH:
             return { ...state, postsSearch: payload }
 
@@ -19,14 +25,21 @@ const Blog = (state = {}, { type, payload }) => {
             return { ...state, postComments: payload }
 
         case Type.GET_BLOG_POST_DETAILS:
-         //   let hh = payload.replace(/(?:\r\n|\r|\n)/g, ' ');
-         let hh = payload;
 
-             hh = new DOMParser().parseFromString(hh,'text/html');
 
-            let jjj = new XMLSerializer().serializeToString(hh.getElementByClassName('post-body entry-content'));
-        //    console.log('HHH TEXTTTTTTTTTTT ', jjj.toString());
-        
+
+            if (payload) {
+                //   let hh = payload.replace(/(?:\r\n|\r|\n)/g, ' ');
+                let hh = payload;
+                hh = new DOMParser().parseFromString(hh, 'text/html');
+
+                let jjj = new XMLSerializer().serializeToString(hh.getElementByClassName('post-body entry-content'));
+                //    console.log('HHH TEXTTTTTTTTTTT ', jjj.toString());
+            }
+            else {
+                let jjj = "";
+            }
+
 
 
             return { ...state, postDetails: jjj.toString() }
