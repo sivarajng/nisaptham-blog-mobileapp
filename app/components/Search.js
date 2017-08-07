@@ -38,10 +38,18 @@ class Search extends Component {
 
         this.state = {
             searchQuery: "",
+            searchBy: "Date",
+            searchSwap: false,
         }
 
     }
     componentWillMount() {
+
+
+    }
+
+    pickDate(type) {
+
         try {
             const { action, year, month, day } = DatePickerAndroid.open({
                 // Use `new Date()` for current date.
@@ -55,7 +63,23 @@ class Search extends Component {
             console.warn('Cannot open date picker', message);
         }
 
+
     }
+
+    swapSearch() {
+
+        if (this.state.searchSwap) {
+            this.setState({ searchSwap: !this.state.searchSwap });
+            this.setState({ searchBy: "Date" });
+        }
+        else {
+            this.setState({ searchSwap: !this.state.searchSwap });
+            this.setState({ searchBy: "Text" });
+        }
+
+    }
+
+
 
     gotoPost(item) {
 
@@ -156,98 +180,103 @@ class Search extends Component {
 
         return (
             <View style={styles.container}>
-
-                <View style={{ width: deviceWidth }}>
-                    <View style={styles.searchMainView}>
-                        <View style={styles.searchBox}>
-                            <TextInput
-                                autoFocus={true}
-                                returnKeyType={'search'}
-                                onSubmitEditing={() => this._search()}
-                                //  underlineColorAndroid='transparent'
-                                onChangeText={(text) => this._onChangeText(text)}
-                                value={this.state.searchQuery}
-                                placeholder="You want to search"
-                                placeholderTextColor='rgb(204,204,204)'
-                                style={[styles.searchInputStyle, commonStyles.opensansSemiBold, commonStyles.fontSize16, { width: deviceWidth - 120 }]}
-                            />
-                            <TouchableOpacity style={styles.closeIconStyle} onPress={() => { this._clearInput() }}>
-                                <Icon name="close" size={40} color="#03A9F4" />
-                            </TouchableOpacity>
-                            {true
-                                ?
-                                <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
-                                    <Icon name="search" size={40} color="#03A9F4" />
+                {!this.state.searchSwap
+                    ? <View style={{ width: deviceWidth }}>
+                        <View style={styles.searchMainView}>
+                            <View style={styles.searchBox}>
+                                <TextInput
+                                    autoFocus={true}
+                                    returnKeyType={'search'}
+                                    onSubmitEditing={() => this._search()}
+                                    //  underlineColorAndroid='transparent'
+                                    onChangeText={(text) => this._onChangeText(text)}
+                                    value={this.state.searchQuery}
+                                    placeholder="You want to search"
+                                    placeholderTextColor='rgb(204,204,204)'
+                                    style={[styles.searchInputStyle, commonStyles.opensansSemiBold, commonStyles.fontSize16, { width: deviceWidth - 120 }]}
+                                />
+                                <TouchableOpacity style={styles.closeIconStyle} onPress={() => { this._clearInput() }}>
+                                    <Icon name="close" size={40} color="#03A9F4" />
                                 </TouchableOpacity>
+                                {true
+                                    ?
+                                    <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
+                                        <Icon name="search" size={40} color="#03A9F4" />
+                                    </TouchableOpacity>
 
-                                : <View></View>
-                            }
+                                    : <View></View>
+                                }
+                            </View>
                         </View>
                     </View>
-                </View>
 
-                <View style={{ width: deviceWidth }}>
-                    <View style={styles.searchMainView}>
-                        <View style={styles.searchBox}>
-                            <View
-                                style={[styles.searchInputStylefromto,
-                                commonStyles.opensansSemiBold,
-                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', padding: 0 }]}
-                            >
-                                <Text style={{ fontSize: 18, color: '#000000' }}>From</Text>
+                    : <View>
+                   
 
+                        <View style={{ width: deviceWidth }}>
+                            <View style={styles.searchMainView}>
+                                <View style={styles.searchBox}>
+                                    
+                                    <TouchableOpacity onPress={() => this.pickDate('start')}>
+                                         <Text style={{ fontSize: 18, color: '#000000' }}>From</Text>
+                                        <View
+                                            style={[styles.searchInputStyle,
+                                            commonStyles.opensansSemiBold,
+                                            commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
+                                        >
+                                            <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
+                                            <TouchableOpacity style={styles.searchIconStyle3}>
+                                                <Icon name="calendar" size={30} color="#03A9F4" />
+                                            </TouchableOpacity>
 
+                                        </View>
+                                    </TouchableOpacity >
+                                    
+                                    <TouchableOpacity onPress={() => this.pickDate('end')}>
+                                         <Text style={{ fontSize: 18, color: '#000000' }}>To</Text>
+                                        <View
+                                            style={[styles.searchInputStyle,
+                                            commonStyles.opensansSemiBold,
+                                            commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
+                                        >
+                                            <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
+                                            <TouchableOpacity style={styles.searchIconStyle3}>
+                                                <Icon name="calendar" size={30} color="#03A9F4" />
+                                            </TouchableOpacity>
+
+                                        </View>
+                                    </TouchableOpacity >
+
+                                    {true
+                                        ?
+                                        <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
+                                            <Icon name="search" size={40} color="#03A9F4" />
+                                        </TouchableOpacity>
+
+                                        : <View></View>
+                                    }
+                                </View>
                             </View>
-                            <View
-                                style={[styles.searchInputStylefromto,
-                                commonStyles.opensansSemiBold,
-                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', padding: 0 }]}
-                            >
-                                <Text style={{ fontSize: 18, color: '#000000' }}>To</Text>
-
-                            </View>
-
-
-
                         </View>
                     </View>
-                </View>
 
+                }
                 <View style={{ width: deviceWidth }}>
-                    <View style={styles.searchMainView}>
-                        <View style={styles.searchBox}>
-                            <View
-                                style={[styles.searchInputStyle,
-                                commonStyles.opensansSemiBold,
-                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
-                            >
-                                <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
-                                <TouchableOpacity style={styles.searchIconStyle3} onPress={() => this._search()}>
-                                    <Icon name="calendar" size={30} color="#03A9F4" />
-                                </TouchableOpacity>
+                    <View style={styles.searchMainView} >
+                        <TouchableOpacity onPress={() => this.swapSearch()}>
+                            <View style={styles.searchBox}>
 
+                                <View
+                                    style={[styles.searchInputStylefromto,
+                                    commonStyles.opensansSemiBold,
+                                    commonStyles.fontSize18, { width: deviceWidth - 120, backgroundColor: '#ffffff', padding: 0 }]}
+                                >
+                                    <Text style={{ fontSize: 18, color: '#03A9F4' }}>Search by {this.state.searchBy}</Text>
+
+
+                                </View>
                             </View>
-                            <View
-                                style={[styles.searchInputStyle,
-                                commonStyles.opensansSemiBold,
-                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
-                            >
-                                <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
-                                <TouchableOpacity style={styles.searchIconStyle3} onPress={() => this._search()}>
-                                    <Icon name="calendar" size={30} color="#03A9F4" />
-                                </TouchableOpacity>
-
-                            </View>
-
-                            {true
-                                ?
-                                <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
-                                    <Icon name="search" size={40} color="#03A9F4" />
-                                </TouchableOpacity>
-
-                                : <View></View>
-                            }
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
