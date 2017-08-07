@@ -54,7 +54,7 @@ class Home extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostDetails((item.link[4].href).toString());
-    Actions.Post({ title: item.title.$t });
+    Actions.Post({ title: item.title.$t,postInfo:item });
   }
 
   gotoPostComments(item) {

@@ -22,6 +22,7 @@ import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
@@ -137,10 +138,11 @@ class Comment extends Component {
             <Text style={styles.welcome}>Loading...</Text>
           </View>}
 
-        <Text
-          style={{ fontSize: 60, color: 'red', position: 'absolute', right: 30, bottom: 30, padding: 5 }}
+        <TouchableOpacity
           onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-        >^</Text>
+          style={{  position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+          <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+        </TouchableOpacity>
       </View>
     );
   }

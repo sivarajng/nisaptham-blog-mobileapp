@@ -10,16 +10,20 @@ import {
   Platform,
   Dimensions,
   ActivityIndicator,
-  TouchableOpacity
+  TouchableOpacity,
+  Share
 
 
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 
 import { connect } from 'react-redux'
-import { Get, getPostDetails } from '../redux/actions'
+import { Get, getPostDetails,getPostComments } from '../redux/actions'
 import HTMLView from 'react-native-htmlview'
+
+import { Actions } from 'react-native-router-flux';
 
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
@@ -32,6 +36,48 @@ class Post extends Component {
   componentWillMount() {
     // this.props.getPostDetails();
   }
+
+    gotoPostComments(item) {
+
+    // alert((item.link[4].href).toString());
+    this.props.getPostComments((item.link[0].href).toString());
+    Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
+  }
+
+  
+  sharePost(item) {
+
+    //  alert(item.title.$t);
+
+    Share.share({
+      message: (item.link[4].href).toString() + " - " + item.summary.$t,
+      title: item.title.$t,
+      url: (item.link[4].href).toString()
+
+    }, {
+        dialogTitle: item.title.$t,
+        excludedActivityTypes: [
+          'com.apple.UIKit.activity.PostToTwitter'
+        ],
+        tintColor: 'green'
+      })
+
+
+
+  }
+
+  formatDate(dateString) {
+    var date = moment(dateString);
+    if (date.isValid()) {
+      if (moment(new Date().getTime()).diff(date, 'days') >= 7) {
+        return date.format('MMM D, YYYY');
+      }
+      return date.fromNow();
+    }
+    return 'Invalid Date';
+  }
+
+
   render() {
 
 
@@ -59,15 +105,32 @@ class Post extends Component {
           contentContainerStyle={{ padding: 10, backgroundColor: '#ffffff', }}>
           <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
 
+          <Card style={{ width: deviceWidth }}>
+        
+            <CardAction seperator={true} inColumn={false}>
+              <CardButton
+                onPress={() => { this.sharePost(this.props.postInfo) }}
+                title="Share"
+                color='blue'
+              />
+              <CardButton
+                onPress={() => this.gotoPostComments(this.props.postInfo)}
+                title={(this.props.postInfo.link[1].title).toString()}
+                color='blue'
+              />
+            </CardAction>
+          </Card>
+
+
         </ScrollView>
 
         <TouchableOpacity
           onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-         style={{  position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+          style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
           <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
         </TouchableOpacity>
 
-     
+
       </View>
     );
   }
@@ -192,11 +255,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
-    activityIndicator: {
+  activityIndicator: {
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-     height: deviceHeight
+    height: deviceHeight
   }
 });
 
@@ -216,6 +279,6 @@ const mapDispatchToProps = dispatch =>
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, { Get })(Post)
+export default connect(mapStateToProps, { Get,getPostComments})(Post)
 
 

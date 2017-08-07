@@ -12,11 +12,13 @@ import {
     Image,
     Share,
     TextInput,
-    ActivityIndicator
+    ActivityIndicator,
+    DatePickerAndroid
 } from 'react-native';
 
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import { connect } from 'react-redux'
 import { getPostsSearch, getPostDetails, getPostComments } from '../redux/actions'
@@ -40,6 +42,18 @@ class Search extends Component {
 
     }
     componentWillMount() {
+        try {
+            const { action, year, month, day } = DatePickerAndroid.open({
+                // Use `new Date()` for current date.
+                // May 25 2020. Month 0 is January.
+                date: new Date(2020, 4, 25)
+            });
+            if (action !== DatePickerAndroid.dismissedAction) {
+                // Selected year, month (0-11), day
+            }
+        } catch ({ code, message }) {
+            console.warn('Cannot open date picker', message);
+        }
 
     }
 
@@ -158,16 +172,77 @@ class Search extends Component {
                                 style={[styles.searchInputStyle, commonStyles.opensansSemiBold, commonStyles.fontSize16, { width: deviceWidth - 120 }]}
                             />
                             <TouchableOpacity style={styles.closeIconStyle} onPress={() => { this._clearInput() }}>
-                                <Image
-                                    style={{ width: 40, height: 40 }}
-                                    source={{ uri: 'http://closethegapca.org/wp-content/plugins/itro-popup/images/close-icon.png' }} />
+                                <Icon name="close" size={40} color="#03A9F4" />
                             </TouchableOpacity>
                             {true
                                 ?
                                 <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
-                                    <Image
-                                        style={{ width: 40, height: 40 }}
-                                        source={{ uri: 'http://www.sabletopia.co.uk/wp-content/uploads/2013/09/256x256xsearch-2561.png.pagespeed.ic.uJb5O-KdTF.png' }} />
+                                    <Icon name="search" size={40} color="#03A9F4" />
+                                </TouchableOpacity>
+
+                                : <View></View>
+                            }
+                        </View>
+                    </View>
+                </View>
+
+                <View style={{ width: deviceWidth }}>
+                    <View style={styles.searchMainView}>
+                        <View style={styles.searchBox}>
+                            <View
+                                style={[styles.searchInputStylefromto,
+                                commonStyles.opensansSemiBold,
+                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', padding: 0 }]}
+                            >
+                                <Text style={{ fontSize: 18, color: '#000000' }}>From</Text>
+
+
+                            </View>
+                            <View
+                                style={[styles.searchInputStylefromto,
+                                commonStyles.opensansSemiBold,
+                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', padding: 0 }]}
+                            >
+                                <Text style={{ fontSize: 18, color: '#000000' }}>To</Text>
+
+                            </View>
+
+
+
+                        </View>
+                    </View>
+                </View>
+
+                <View style={{ width: deviceWidth }}>
+                    <View style={styles.searchMainView}>
+                        <View style={styles.searchBox}>
+                            <View
+                                style={[styles.searchInputStyle,
+                                commonStyles.opensansSemiBold,
+                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
+                            >
+                                <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
+                                <TouchableOpacity style={styles.searchIconStyle3} onPress={() => this._search()}>
+                                    <Icon name="calendar" size={30} color="#03A9F4" />
+                                </TouchableOpacity>
+
+                            </View>
+                            <View
+                                style={[styles.searchInputStyle,
+                                commonStyles.opensansSemiBold,
+                                commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
+                            >
+                                <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
+                                <TouchableOpacity style={styles.searchIconStyle3} onPress={() => this._search()}>
+                                    <Icon name="calendar" size={30} color="#03A9F4" />
+                                </TouchableOpacity>
+
+                            </View>
+
+                            {true
+                                ?
+                                <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
+                                    <Icon name="search" size={40} color="#03A9F4" />
                                 </TouchableOpacity>
 
                                 : <View></View>
@@ -198,7 +273,7 @@ class Search extends Component {
                 {this.props.postsSearch.feed
                     ? < TouchableOpacity
                         onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-               style={{  position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+                        style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
                         <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
                     </TouchableOpacity>
                     : null
@@ -315,6 +390,16 @@ const styles = StyleSheet.create({
         width: 40
 
     },
+    searchIconStyle3: {
+        position: 'absolute',
+        textAlign: 'right',
+        top: 5,
+        padding: 0,
+        right: 0,
+        height: 30,
+        width: 30
+
+    },
     closeIconStyle: {
         position: 'absolute',
         top: 0,
@@ -329,6 +414,7 @@ const styles = StyleSheet.create({
         //    borderBottomWidth: 1,
         //   borderBottomColor: 'rgb(7,124,229)',
         backgroundColor: '#fff',
+        flexDirection: 'row',
         marginTop: 5,
         marginLeft: 20,
         marginRight: 20,
@@ -336,6 +422,7 @@ const styles = StyleSheet.create({
 
     },
     searchInputStyle: { height: 48, textAlign: 'left', paddingRight: 20, color: 'rgb(39,39,39)' },
+    searchInputStylefromto: { height: 48, textAlign: 'left', paddingRight: 20, color: 'rgb(39,39,39)' },
     searchIconStyle: {
         position: 'absolute',
         top: 10,
