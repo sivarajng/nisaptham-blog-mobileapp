@@ -46,46 +46,66 @@ export const getPosts = (mode = "") => {
     }
 }
 
-export const getPostsSearch = (query) => {
+export const getPostsSearch = (query, queryType = "text") => {
     return (dispatch) => {
 
-        dispatch({
-            type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
-            payload: true
-        })
 
-        BlogServices.getPostsSearch(query).then(response => {
 
-            console.log('getPostsSearch response :', response);
+        if (queryType == "clear") {
 
-            if (response.feed.entry) {
-                console.log("------------ TRUE", response.feed.entry);
-            }
-            else {
-                response.feed.entry = [];
-                console.log("------------ FALSEE", response.feed);
-            }
+            let res = { feed: { entry: [] } };
             dispatch({
                 type: Type.GET_BLOG_POSTS_SEARCH,
-                payload: response
+                payload: res
             })
+
             dispatch({
                 type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
                 payload: false
             })
 
-
-        }).catch(error => {
-            console.log('getPostsSearch error :', error);
-
-              let res={feed:{entry:[]}};
-            
+        }
+        else {
 
             dispatch({
                 type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
-                payload: false
+                payload: true
             })
-        });
+
+            BlogServices.getPostsSearch(query, queryType).then(response => {
+
+                console.log('getPostsSearch response :', response);
+
+                if (response.feed.entry) {
+                    console.log("------------ TRUE", response.feed.entry);
+                }
+                else {
+                    response.feed.entry = [];
+                    console.log("------------ FALSEE", response.feed);
+                }
+                dispatch({
+                    type: Type.GET_BLOG_POSTS_SEARCH,
+                    payload: response
+                })
+                dispatch({
+                    type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
+                    payload: false
+                })
+
+
+            }).catch(error => {
+                console.log('getPostsSearch error :', error);
+
+                let res = { feed: { entry: [] } };
+
+
+                dispatch({
+                    type: Type.GET_BLOG_POSTS_SEARCH_LOADER,
+                    payload: false
+                })
+            });
+
+        }
 
 
     }

@@ -40,10 +40,20 @@ class Search extends Component {
             searchQuery: "",
             searchBy: "Date",
             searchSwap: false,
+            searchStartDate: "",
+            searchEndDate: "",
+            searchStartDateObj: {},
+            searchEndDateObj: {},
         }
+
 
     }
     componentWillMount() {
+
+ this.props.getPostsSearch("", "clear");
+
+        this.setState({ searchStartDate: moment().format("YYYY-MM-DD") });
+        this.setState({ searchEndDate: moment().format("YYYY-MM-DD") });
 
 
     }
@@ -51,14 +61,39 @@ class Search extends Component {
     pickDate(type) {
 
         try {
-            const { action, year, month, day } = DatePickerAndroid.open({
+
+            DatePickerAndroid.open({
                 // Use `new Date()` for current date.
                 // May 25 2020. Month 0 is January.
-                date: new Date(2020, 4, 25)
+                date: new Date()
+            }).then(({ action, year, month, day }) => {
+                if (action === DatePickerAndroid.dateSetAction) {
+
+
+                    if (type == "start") {
+                        let mm = (month + 1) <= 9 ? ("0" + (month + 1).toString()) : (month + 1);
+                        let dd = (day) <= 9 ? ("0" + day.toString()) : day;
+
+                        this.setState({ searchStartDate: year + "-" + mm + "-" + dd });
+                    }
+
+                    if (type == "end") {
+                        let mm = (month + 1) <= 9 ? ("0" + (month + 1).toString()) : (month + 1);
+                        let dd = (day) <= 9 ? ("0" + day.toString()) : day;
+                        this.setState({ searchEndDate: year + "-" + mm + "-" + dd });
+                    }
+                    // Selected year, month (0-11), day
+
+                }
+                if (action === DatePickerAndroid.dismissedAction) {
+                    // Selected year, month (0-11), day
+
+                }
+
             });
-            if (action !== DatePickerAndroid.dismissedAction) {
-                // Selected year, month (0-11), day
-            }
+
+
+
         } catch ({ code, message }) {
             console.warn('Cannot open date picker', message);
         }
@@ -103,7 +138,16 @@ class Search extends Component {
 
     _search() {
 
-        this.props.getPostsSearch(this.state.searchQuery);
+        if (this.state.searchSwap) {
+            let searchQueryDate = { startDate: this.state.searchStartDate, endDate: this.state.searchEndDate };
+            this.props.getPostsSearch(searchQueryDate, "date");
+
+
+        }
+        else {
+            this.props.getPostsSearch(this.state.searchQuery, "text");
+        }
+
 
     }
 
@@ -211,41 +255,45 @@ class Search extends Component {
                     </View>
 
                     : <View>
-                   
+
 
                         <View style={{ width: deviceWidth }}>
                             <View style={styles.searchMainView}>
                                 <View style={styles.searchBox}>
-                                    
+
                                     <TouchableOpacity onPress={() => this.pickDate('start')}>
-                                         <Text style={{ fontSize: 18, color: '#000000' }}>From</Text>
+
                                         <View
                                             style={[styles.searchInputStyle,
                                             commonStyles.opensansSemiBold,
                                             commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
                                         >
-                                            <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
-                                            <TouchableOpacity style={styles.searchIconStyle3}>
+                                            <Text style={{ fontSize: 18, color: '#000000' }}>{this.state.searchStartDate}</Text>
+                                            <View style={styles.searchIconStyle3}>
                                                 <Icon name="calendar" size={30} color="#03A9F4" />
-                                            </TouchableOpacity>
+                                            </View>
 
                                         </View>
+                                        <Text style={{ fontSize: 18, color: '#000000', paddingLeft: 5 }}>From</Text>
                                     </TouchableOpacity >
-                                    
+
+
                                     <TouchableOpacity onPress={() => this.pickDate('end')}>
-                                         <Text style={{ fontSize: 18, color: '#000000' }}>To</Text>
+
                                         <View
                                             style={[styles.searchInputStyle,
                                             commonStyles.opensansSemiBold,
                                             commonStyles.fontSize16, { width: deviceWidth - 225, backgroundColor: '#ffffff', paddingTop: 10, paddingBottom: 10, paddingLeft: 5 }]}
                                         >
-                                            <Text style={{ fontSize: 18, color: '#000000' }}>21-jul-2017</Text>
-                                            <TouchableOpacity style={styles.searchIconStyle3}>
+                                            <Text style={{ fontSize: 18, color: '#000000' }}>{this.state.searchEndDate}</Text>
+                                            <View style={styles.searchIconStyle3}>
                                                 <Icon name="calendar" size={30} color="#03A9F4" />
-                                            </TouchableOpacity>
+                                            </View>
 
                                         </View>
+                                        <Text style={{ fontSize: 18, color: '#000000', paddingLeft: 5 }}>To</Text>
                                     </TouchableOpacity >
+
 
                                     {true
                                         ?
@@ -269,7 +317,7 @@ class Search extends Component {
                                 <View
                                     style={[styles.searchInputStylefromto,
                                     commonStyles.opensansSemiBold,
-                                    commonStyles.fontSize18, { width: deviceWidth - 120, backgroundColor: '#ffffff', padding: 0 }]}
+                                    commonStyles.fontSize18, { width: deviceWidth - 120, height: 30, backgroundColor: '#ffffff', padding: 0 }]}
                                 >
                                     <Text style={{ fontSize: 18, color: '#03A9F4' }}>Search by {this.state.searchBy}</Text>
 

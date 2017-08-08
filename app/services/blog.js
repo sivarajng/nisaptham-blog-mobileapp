@@ -64,8 +64,19 @@ class BlogServices {
             .then(this.parseJson);
     }
 
-    getPostsSearch(query="",type = "GET") {
-        return fetch(CONFIG.BLOG_BASE_URL_QUERY+query, {
+    getPostsSearch(query = "", queryType = "text", type = "GET") {
+
+        let url = CONFIG.BLOG_BASE_URL_QUERY + query;
+
+        if (queryType == "date") {
+
+            url = CONFIG.BLOG_BASE_URL_QUERY_DATE + "published-min=" + query.startDate + "T00:00:00&published-max=" + query.endDate + "T23:59:59";
+
+
+        }
+
+        console.log('== SERACH URL ==',url);
+        return fetch(url, {
             method: type,
         }).then(this.getStatus)
             .then(this.parseJson);
@@ -80,25 +91,25 @@ class BlogServices {
 
     getPostComments(url, type = "GET") {
 
-        return fetch(url+'?alt=json')
+        return fetch(url + '?alt=json')
             .then(this.getStatus)
             .then(this.parseJson);
     }
 
-        // Performing a GET request
-        // return axios.get(url)
-        //     .then(this.getStatus)
-        //     .then(this.parseResponse);
+    // Performing a GET request
+    // return axios.get(url)
+    //     .then(this.getStatus)
+    //     .then(this.parseResponse);
 
 
-        //        // url='http://www.nisaptham.com/2017/08/blog-post_2.html';
-        //         return fetch(url).then(function(data) {
-        //   console.log('kkkkk',data.text())
-        //     })
-        //   .catch(function(error) {
+    //        // url='http://www.nisaptham.com/2017/08/blog-post_2.html';
+    //         return fetch(url).then(function(data) {
+    //   console.log('kkkkk',data.text())
+    //     })
+    //   .catch(function(error) {
 
-        //   });   
-    
+    //   });   
+
 }
 
 export default new BlogServices();
