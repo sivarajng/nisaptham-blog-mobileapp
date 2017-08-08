@@ -10,11 +10,16 @@ import {
     TouchableHighlight,
     Dimensions,
     Share,
-    Platform
+    Platform,
+    Image,
+    ScrollView,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
 import moment from 'moment';
+
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
@@ -124,45 +129,115 @@ class Menu extends Component {
     render() {
 
         return (
-            <View style={[styles.container,{backgroundColor:'#03A9F4'}]}>
+            <View style={[styles.container, { backgroundColor: '#03A9F4' }]}>
 
 
-                <View style={{height:60,backgroundColor:'#ffff00',width:deviceWidth}}>
-                    <View>
-                        <Image source={require('../images/prof.jpg')} style={{width:100,height:100}} />
-                        <View />
+                <View style={{ width: deviceWidth, padding: 0 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={require('../images/prof.jpg')} style={{ width: 80, height: 80, borderRadius: 50 }} />
+                        <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30 }}>
+                                Nisaptham
+                            </Text>
+                            <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 18 }}>
+                                by V.Manikandan
+                            </Text>
+                        </View >
                     </View>
                 </View>
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
-                    <Text>
-                        Search
-          </Text>
-                </TouchableOpacity>
 
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Research() }}>
-                    <Text>
-                        Research
-          </Text>
-                </TouchableOpacity>
+                <ScrollView>
+                    <TouchableOpacity
+                        onPress={() => { Actions.Search() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Search
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => { Actions.Research() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Research
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => { Actions.Search() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Search
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => { Actions.Research() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Research
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => { Actions.Search() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Search
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => { Actions.Research() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Research
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => { Actions.Search() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Search
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => { Actions.Research() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                Research
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+                </ScrollView>
 
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 1
-                </Text>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 2
-                </Text>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 3
-                </Text>
+
+
             </View>
         );
     }
