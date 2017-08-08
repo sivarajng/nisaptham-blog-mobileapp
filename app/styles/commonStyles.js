@@ -46,7 +46,7 @@ export default StyleSheet.create({
         fontFamily: (Platform.OS === 'ios') ? 'OpenSans' : 'opensans',
     },
     opensansSemiBold: {
-        fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Semibold' : 'opensanssemibold',
+        // fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Semibold' : 'opensanssemibold',
     },
     opensansBold: {
         fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Bold' : 'opensansbold',
@@ -68,10 +68,10 @@ export default StyleSheet.create({
         fontSize: wp(3.5),
     },
     fontSize16: {
-        fontSize: 16,
+      //  fontSize: 16,
     },
     fontSize18: {
-        fontSize: 18,
+    //    fontSize: 18,
     },
     fontSize20: {
         fontSize: wp(4.5),

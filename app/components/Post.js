@@ -20,7 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 
 import { connect } from 'react-redux'
-import { Get, getPostDetails,getPostComments } from '../redux/actions'
+import { Get, getPostDetails, getPostComments } from '../redux/actions'
 import HTMLView from 'react-native-htmlview'
 
 import { Actions } from 'react-native-router-flux';
@@ -31,20 +31,23 @@ const deviceHeight = Dimensions.get("window").height;
 class Post extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      scrollHead: 0
+    }
     //  this.props.Get();
   }
   componentWillMount() {
     // this.props.getPostDetails();
   }
 
-    gotoPostComments(item) {
+  gotoPostComments(item) {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
     Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
   }
 
-  
+
   sharePost(item) {
 
     //  alert(item.title.$t);
@@ -101,12 +104,13 @@ class Post extends Component {
         }
 
         <ScrollView
+          onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
           ref='_scrollView'
           contentContainerStyle={{ padding: 10, backgroundColor: '#ffffff', }}>
           <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
 
           <Card style={{ width: deviceWidth }}>
-        
+
             <CardAction seperator={true} inColumn={false}>
               <CardButton
                 onPress={() => { this.sharePost(this.props.postInfo) }}
@@ -124,11 +128,14 @@ class Post extends Component {
 
         </ScrollView>
 
-        <TouchableOpacity
-          onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-          style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
-          <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
-        </TouchableOpacity>
+        {this.state.scrollHead > 20
+          ? < TouchableOpacity
+            onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
+            style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+          </TouchableOpacity>
+          : null
+        }
 
 
       </View>
@@ -279,6 +286,6 @@ const mapDispatchToProps = dispatch =>
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, { Get,getPostComments})(Post)
+export default connect(mapStateToProps, { Get, getPostComments })(Post)
 
 

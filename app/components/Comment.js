@@ -31,7 +31,9 @@ class Comment extends Component {
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
-
+    this.state = {
+      scrollHead: 0
+    }
   }
   componentWillMount() {
 
@@ -129,6 +131,7 @@ class Comment extends Component {
 
         {this.props.postComments
           ? <ListView
+            onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             ref='_scrollView'
             enableEmptySections={true}
             dataSource={this.ds.cloneWithRows(this.props.postComments.feed.entry)}
@@ -137,12 +140,16 @@ class Comment extends Component {
           : <View>
             <Text style={styles.welcome}>Loading...</Text>
           </View>}
+        {this.state.scrollHead > 20
+          ?
+          <TouchableOpacity
+            onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
+            style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+          </TouchableOpacity>
+          : null
+        }
 
-        <TouchableOpacity
-          onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-          style={{  position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
-          <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
-        </TouchableOpacity>
       </View>
     );
   }

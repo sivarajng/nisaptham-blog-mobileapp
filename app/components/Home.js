@@ -35,6 +35,9 @@ class Home extends Component {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
     this.state = {
       refreshing: false,
+
+      scrollHead: 0,
+
     };
   }
   componentWillMount() {
@@ -54,7 +57,7 @@ class Home extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostDetails((item.link[4].href).toString());
-    Actions.Post({ title: item.title.$t,postInfo:item });
+    Actions.Post({ title: item.title.$t, postInfo: item });
   }
 
   gotoPostComments(item) {
@@ -162,6 +165,7 @@ class Home extends Component {
         {this.props.posts.feed
           ? <ListView
             ref='_scrollView'
+            onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             refreshControl={
               <RefreshControl
                 refreshing={this.props.postsRefresh}
@@ -181,12 +185,15 @@ class Home extends Component {
           />
 
         }
-
-        <TouchableOpacity
-          onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-          style={{  position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
-          <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
-        </TouchableOpacity>
+        {this.state.scrollHead > 20
+          ?
+          <TouchableOpacity
+            onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
+            style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+          </TouchableOpacity>
+          : null
+        }
 
       </View>
     );
