@@ -75,7 +75,7 @@ const RouterComponent = () => (
       <Scene key="Comment" component={Comment} title="Comment" />
       <Scene key="Search" component={Search} title="Search" />
       <Scene key="Menu" component={Menu} title="Menu" />
-      <Scene key="Research" component={Menu} title="Research" />
+      <Scene key="Research" component={Research} title="Research" />
 
     </Scene>
   </Router>
