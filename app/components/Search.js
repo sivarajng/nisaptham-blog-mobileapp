@@ -50,7 +50,7 @@ class Search extends Component {
     }
     componentWillMount() {
 
- this.props.getPostsSearch("", "clear");
+        this.props.getPostsSearch("", "clear");
 
         this.setState({ searchStartDate: moment().format("YYYY-MM-DD") });
         this.setState({ searchEndDate: moment().format("YYYY-MM-DD") });
@@ -191,7 +191,13 @@ class Search extends Component {
 
         let commentLink = "Comments";
         if (item.link) {
-            commentLink = (item.link[1].title).toString();
+            if (item.link.length > 1) {
+                if (item.link[1].title) {
+                    commentLink = (item.link[1].title).toString();
+                }
+
+            }
+
         }
 
         return (
