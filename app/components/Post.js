@@ -131,7 +131,7 @@ class Post extends Component {
         {this.state.scrollHead > 20
           ? < TouchableOpacity
             onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-            style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+            style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
             <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
           </TouchableOpacity>
           : null

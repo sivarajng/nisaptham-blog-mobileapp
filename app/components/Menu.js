@@ -124,8 +124,15 @@ class Menu extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{backgroundColor:'#03A9F4'}]}>
 
+
+                <View style={{height:60,backgroundColor:'#ffff00',width:deviceWidth}}>
+                    <View>
+                        <Image source={require('../images/prof.jpg')} style={{width:100,height:100}} />
+                        <View />
+                    </View>
+                </View>
                 <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
                     <Text>
                         Search

@@ -121,10 +121,10 @@ class Search extends Component {
 
     gotoPost(item) {
 
-        alert("asasassa");
-     //   alert(item.link[4].href);
-     //   this.props.getPostDetails((item.link[4].href).toString());
-        Actions.Post({ title: item.title.$t });
+    
+    // alert((item.link[4].href).toString());
+    this.props.getPostDetails((item.link[4].href).toString());
+    Actions.Post({ title: item.title.$t, postInfo: item });
     }
 
     gotoPostComments(item) {
@@ -208,7 +208,7 @@ class Search extends Component {
 
 
             <Card style={{ width: deviceWidth }}>
-                <TouchableOpacity style={{ width: deviceWidth }} onPress={() =>{}}> 
+                  <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
                     {/*this.gotoPost(item)}>*/}
                     <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)} />
                 </TouchableOpacity>
@@ -363,7 +363,7 @@ class Search extends Component {
                     ? (  this.state.scrollHead > 20
           ?< TouchableOpacity
                         onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-                        style={{ position: 'absolute', right: 30, bottom: 30, padding: 5 }} >
+                        style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
                         <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
                     </TouchableOpacity>  : null
        
