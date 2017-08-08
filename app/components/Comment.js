@@ -75,7 +75,7 @@ class Comment extends Component {
   formatDate(dateString) {
     var date = moment(dateString);
     if (date.isValid()) {
-      if (moment(new Date().getTime()).diff(date, 'days') >= 7) {
+      if (moment(new Date().getTime()).diff(date, 'days') >= 4) {
         return date.format('MMM D, YYYY');
       }
       return date.fromNow();
