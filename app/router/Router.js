@@ -9,6 +9,9 @@ import Comment from '../components/Comment';
 import Search from '../components/Search';
 import Menu from '../components/Menu';
 import Research from '../components/Research';
+import Category from '../components/Category';
+import Settings from '../components/Settings';
+import Theme from '../components/Theme';
 
 // import {RootDrawer} from '../components/RootDrawer';
 
@@ -76,6 +79,9 @@ const RouterComponent = () => (
       <Scene key="Search" component={Search} title="Search" />
       <Scene key="Menu" component={Menu} title="Menu" />
       <Scene key="Research" component={Research} title="Research" />
+      <Scene key="Category" component={Category} title="Category" />
+      <Scene key="Settings" component={Settings} title="Settings" />
+      <Scene key="Theme" component={Theme} title="Theme" />
 
     </Scene>
   </Router>

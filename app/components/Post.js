@@ -116,11 +116,13 @@ class Post extends Component {
                 onPress={() => { this.sharePost(this.props.postInfo) }}
                 title="Share"
                 color='blue'
+                  icon="share"
               />
               <CardButton
                 onPress={() => this.gotoPostComments(this.props.postInfo)}
                 title={(this.props.postInfo.link[1].title).toString()}
                 color='blue'
+                  icon="comment"
               />
             </CardAction>
           </Card>

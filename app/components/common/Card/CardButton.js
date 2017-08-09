@@ -5,12 +5,15 @@ import {
 } from 'react-native';
 import  Touchable  from '../Card/src/Touchable';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 export default class CardButton extends Component {
   render() {
     const newStyle = this.props.style || {};
     let directionStyle = this.props.inColumn===true ? styles.CardButtonInColumn : styles.CardButtonInRow;
     return (
-      <Touchable style={[directionStyle, newStyle]} onPress={ ()=>{this.props.onPress()} }>
+      <Touchable style={[directionStyle, newStyle,{flexDirection: 'row'}]} onPress={ ()=>{this.props.onPress()} }>
+       <Icon name={this.props.icon || "bars"} size={20} color="#03A9F4" style={{paddingRight:5}}/>
         <Text style={this.props.color!==undefined ? [styles.buttonText, {color: this.props.color}] : styles.buttonText}>{this.props.title.toUpperCase()}</Text>
       </Touchable>      
     );

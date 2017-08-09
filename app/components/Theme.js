@@ -10,16 +10,11 @@ import {
     TouchableHighlight,
     Dimensions,
     Share,
-    Platform,
-    Image,
-    ScrollView,
+    Platform
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
 import moment from 'moment';
-
-
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
@@ -30,7 +25,7 @@ import commonStyles from '../styles/commonStyles';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
-class Menu extends Component {
+class Theme extends Component {
 
     constructor(props) {
         super(props);
@@ -129,95 +124,32 @@ class Menu extends Component {
     render() {
 
         return (
-            <View style={[styles.container, { backgroundColor: '#03A9F4' }]}>
+            <View style={styles.container}>
+
+                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
+                    <Text>
+                        Search
+          </Text>
+                </TouchableOpacity>
 
 
-                <View style={{ width: deviceWidth, padding: 0 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <Image source={require('../images/prof.jpg')} style={{ width: 80, height: 80, borderRadius: 50 }} />
-                        <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30 }}>
-                                Nisaptham
-                            </Text>
-                            <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 18 }}>
-                                by V.Manikandan
-                            </Text>
-                        </View >
-                    </View>
-                </View>
+                <Text
+                    style={{ fontSize: 60, color: 'red' }}
+                    onPress={() => { }}>
+                    MENU 1
+                </Text>
 
-                <ScrollView>
-                    <TouchableOpacity
-                        onPress={() => { Actions.pop() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Home
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
+                <Text
+                    style={{ fontSize: 60, color: 'red' }}
+                    onPress={() => { }}>
+                    MENU 2
+                </Text>
 
-                    <TouchableOpacity
-                        onPress={() => { Actions.Search() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Search
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { Actions.Category() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Category
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { Actions.Settings() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Settings
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => { Actions.Theme() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Theme
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { Actions.About() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                About Author
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-
-                  
-                </ScrollView>
-
-
-
-
-
-
+                <Text
+                    style={{ fontSize: 60, color: 'red' }}
+                    onPress={() => { }}>
+                    MENU 3
+                </Text>
             </View>
         );
     }
@@ -359,5 +291,5 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, {})(Menu)
+export default connect(mapStateToProps, {})(Theme)
 

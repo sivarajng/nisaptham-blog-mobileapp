@@ -218,11 +218,13 @@ class Search extends Component {
                         onPress={() => { this.sharePost(item) }}
                         title="Share"
                         color='blue'
+                         icon="share"
                     />
                     <CardButton
                         onPress={() => this.gotoPostComments(item)}
                         title={commentLink}
                         color='blue'
+                         icon="comment"
                     />
                 </CardAction>
             </Card>

@@ -121,12 +121,18 @@ class Home extends Component {
             onPress={() => { this.sharePost(item) }}
             title="Share"
             color='blue'
+            icon="share"
           />
           <CardButton
             onPress={() => this.gotoPostComments(item)}
             title={(item.link[1].title).toString()}
             color='blue'
-          />
+            icon="comment"
+          >
+          <Text>
+            kjhhllh
+          </Text>
+          </ CardButton>
         </CardAction>
       </Card>
 
