@@ -453,11 +453,40 @@ export default StyleSheet.create({
         marginTop: 15,
         marginRight: 5
     },
+    btnViewStyleSelected: {
+        borderRadius: 22,
+        backgroundColor: 'rgb(7,124,229)',
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        paddingRight: 20,
+        marginTop: 15,
+        marginRight: 5
+    },
+    btnViewStyleUnselected: {
+        borderRadius: 22,
+        borderColor:'rgb(7,124,229)',
+        borderWidth:2,
+        backgroundColor: 'rgb(255,255,255)',
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        paddingRight: 20,
+        marginTop: 15,
+        marginRight: 5
+    },
     selectedBtnTxtStyle: {
         color: 'rgb(255,255,255)',
         backgroundColor: 'transparent',
         textAlign: 'left',
-        marginRight: 20
+        marginRight: 0,
+        // marginRight: 20,
+    },
+
+    unselectedBtnTxtStyle: {
+        color: 'rgb(7,124,229)',
+        backgroundColor: 'transparent',
+        textAlign: 'left',
+        marginRight: 0,
+        // marginRight: 20,
     },
     closeIconStyle: {
         position: 'absolute',

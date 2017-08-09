@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments,getCategoryList } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -41,6 +41,7 @@ class Home extends Component {
     };
   }
   componentWillMount() {
+    this.props.getCategoryList();
     this.props.getPosts();
 
   }
@@ -249,5 +250,5 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments })(Home)
+export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments ,getCategoryList})(Home)
 

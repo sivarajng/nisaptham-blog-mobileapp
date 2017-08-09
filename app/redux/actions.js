@@ -45,6 +45,26 @@ export const getPosts = (mode = "") => {
 
     }
 }
+export const selectCategory = (term) => {
+    return (dispatch) => {
+
+            dispatch({
+                type: Type.GET_BLOG_POST_CATEGORY_SELECT,
+                payload: term
+            })
+    }
+}
+export const unselectCategory = (term) => {
+    return (dispatch) => {
+
+            
+            dispatch({
+                type: Type.GET_BLOG_POST_CATEGORY_UNSELECT,
+                payload: term
+            })
+    }
+}
+
 export const getCategoryList = () => {
     return (dispatch) => {
 

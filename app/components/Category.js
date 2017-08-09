@@ -10,18 +10,27 @@ import {
     TouchableHighlight,
     Dimensions,
     Share,
-    Platform
+    Platform,
+    ScrollView,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments ,getCategoryList} from '../redux/actions'
+import {
+    getPosts
+    , getPostDetails
+    , getPostComments
+    , getCategoryList
+    , selectCategory
+    , unselectCategory
+} from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
+import { Buttons, Label } from './common';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
@@ -33,8 +42,20 @@ class Category extends Component {
 
     }
     componentWillMount() {
+        this.props.getCategoryList();
+    }
+
+    _toggleCategorySelection(item) {
+
+        if (item.isSelected) {
+            this.props.unselectCategory(item.term);
+        }
+        else {
+            this.props.selectCategory(item.term);
+        }
 
     }
+
 
     gotoPost(item) {
 
@@ -129,28 +150,37 @@ class Category extends Component {
             <View style={styles.container}>
 
 
+               
+                    <View style={[commonStyles.flex4, commonStyles.directionRow, commonStyles.alignCenter, commonStyles.wrapFlex]}>
 
 
-                {this.props.categoryList
 
-                    ? this.props.categoryList.map((itm) => {
+                        {this.props.categoryList.map((itm) => {
 
-                        return (
-                            <Text
-                                style={{ fontSize: 60, color: 'red' }
-                                }
-                                onPress={() => { }}>
-                                {itm.term}
-                </Text >
+                            return (
 
-                        )
-                    })
-                    : <Text
-                        style={{ fontSize: 60, color: 'red' }}
-                        onPress={() => { }}>
-                        MENU 1
-                </Text>
-                }
+                                <Buttons
+                                    key={itm.term}
+                                    buttonStyle={itm.isSelected ? commonStyles.btnViewStyleSelected : commonStyles.btnViewStyleUnselected}
+                                >
+                                    <TouchableOpacity onPress={() => this._toggleCategorySelection(itm)}>
+                                        <Label
+                                            textContent={itm.term}
+                                            textstyle={itm.isSelected ? commonStyles.selectedBtnTxtStyle : commonStyles.unselectedBtnTxtStyle}
+                                        />
+                                    </TouchableOpacity>
+
+                                </Buttons>
+
+
+
+                            )
+                        })
+                        }
+
+
+                    </View>
+               
 
 
 
@@ -289,7 +319,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = ({ Blog }) => {
-    console.log('Blog.postComments ', Blog.postComments);
+    console.log('Blog.categoryList ', Blog.categoryList);
     return ({
         postComments: Blog.postComments,
         categoryList: Blog.categoryList,
@@ -298,5 +328,9 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, {getCategoryList})(Category)
+export default connect(mapStateToProps, {
+    getCategoryList
+    , selectCategory
+    , unselectCategory
+})(Category)
 
