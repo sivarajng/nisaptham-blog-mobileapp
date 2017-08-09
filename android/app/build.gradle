@@ -94,7 +94,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.nisapthamblog"
+        applicationId "com.sivarajnagaraj.nisapthamblog"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -111,10 +111,22 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+        signingConfigs {
+      release {
+
+                      storeFile file("YourApp.keystore")
+                      storePassword ("S!vi@7482keystore")
+                      keyAlias ("YourApp")
+                      keyPassword ("S!vi@7482keystore")
+
+              }
+    }
+
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+              signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
