@@ -25,6 +25,7 @@ import {
     , getCategoryList
     , selectCategory
     , unselectCategory
+    , getCategoryPosts
 } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
@@ -34,7 +35,7 @@ import { Buttons, Label } from './common';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
-class Category extends Component {
+class CategorySelect extends Component {
 
     constructor(props) {
         super(props);
@@ -56,6 +57,12 @@ class Category extends Component {
 
     }
 
+    _gotoCategoryPosts() {
+
+        this.props.getCategoryPosts();
+        Actions.CategoryPosts();
+
+    }
 
     gotoPost(item) {
 
@@ -148,39 +155,48 @@ class Category extends Component {
 
         return (
             <View style={styles.container}>
-
-
-               
-                    <View style={[commonStyles.flex4, commonStyles.directionRow, commonStyles.alignCenter, commonStyles.wrapFlex]}>
-
-
-
+                <ScrollView>
+                    <View style={[commonStyles.flex4, commonStyles.directionRow, commonStyles.alignCenter, commonStyles.wrapFlex, { justifyContent: 'center' }]}>
                         {this.props.categoryList.map((itm) => {
-
                             return (
-
                                 <Buttons
                                     key={itm.term}
-                                    buttonStyle={itm.isSelected ? commonStyles.btnViewStyleSelected : commonStyles.btnViewStyleUnselected}
-                                >
-                                    <TouchableOpacity onPress={() => this._toggleCategorySelection(itm)}>
-                                        <Label
-                                            textContent={itm.term}
-                                            textstyle={itm.isSelected ? commonStyles.selectedBtnTxtStyle : commonStyles.unselectedBtnTxtStyle}
-                                        />
-                                    </TouchableOpacity>
-
+                                    buttonClick={() => this._toggleCategorySelection(itm)}
+                                    buttonStyle={itm.isSelected ? commonStyles.btnViewStyleSelected : commonStyles.btnViewStyleUnselected}>
+                                    <Label
+                                        textContent={itm.term}
+                                        textstyle={itm.isSelected ? commonStyles.selectedBtnTxtStyle : commonStyles.unselectedBtnTxtStyle}
+                                    />
                                 </Buttons>
-
-
-
                             )
-                        })
-                        }
-
-
+                        })}
                     </View>
-               
+                </ScrollView>
+                <TouchableOpacity
+                    onPress={() => this._gotoCategoryPosts()}>
+                    <View
+                        style={{ width: deviceWidth, padding: 0 }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: '#009688',
+                        }}>
+                            <View style={{
+                                flexDirection: 'column',
+                                alignItems: 'flex-start',
+                                justifyContent: 'center',
+                                padding: 10,
+                            }} >
+                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30 }}>
+                                    Go CATEGORY
+                            </Text>
+
+                            </View >
+                        </View>
+                    </View>
+                </TouchableOpacity>
+
 
 
 
@@ -332,5 +348,6 @@ export default connect(mapStateToProps, {
     getCategoryList
     , selectCategory
     , unselectCategory
-})(Category)
+    , getCategoryPosts
+})(CategorySelect)
 

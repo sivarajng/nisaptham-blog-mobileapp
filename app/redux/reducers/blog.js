@@ -2,6 +2,8 @@ import Type from '../actionTypes'
 var DOMParser = require('react-native-html-parser').DOMParser;
 var XMLSerializer = require('react-native-html-parser').XMLSerializer;
 
+import BlogServices from '../../services/blog';
+
 import * as _ from 'lodash';
 
 const Blog = (state = {}, { type, payload }) => {
@@ -10,6 +12,9 @@ const Blog = (state = {}, { type, payload }) => {
 
         case Type.GET_BLOG_POSTS:
             return { ...state, posts: payload }
+
+        case Type.GET_BLOG_POST_CATEGORY_POSTS:
+            return { ...state, categoryPosts: payload }
 
         case Type.GET_BLOG_POSTS_REFRESH:
             return { ...state, postsRefresh: payload }
@@ -29,7 +34,6 @@ const Blog = (state = {}, { type, payload }) => {
         case Type.GET_BLOG_POST_CATEGORY_LIST:
 
             let categoryList = payload;
-
             categoryList = categoryList.map((item) => {
                 item.isSelected = false;
                 return item;
@@ -39,27 +43,36 @@ const Blog = (state = {}, { type, payload }) => {
 
         case Type.GET_BLOG_POST_CATEGORY_SELECT:
 
+
+            let categoryFilterS = BlogServices.getCategoryFilter();
+            categoryFilterS = categoryFilterS + "/" + payload;
+            BlogServices.setCategoryFilter(categoryFilterS);
+            console.log("setCategoryFilter ", categoryFilterS);
+
             let categoryListSelect = state.categoryList;
-
-            let idxS = _.findIndex(categoryListSelect, { term: payload });
-
-            if (idxS > -1) {
-                categoryListSelect[idxS].isSelected = true;
-                console.log('SLECTED ',categoryListSelect[idxS]);
-            }
+            categoryListSelect = categoryListSelect.map((item) => {
+                if (item.term == payload) {
+                    item.isSelected = true;
+                }
+                return item;
+            });
 
             return { ...state, categoryList: categoryListSelect }
 
         case Type.GET_BLOG_POST_CATEGORY_UNSELECT:
 
+            let categoryFilterUS = BlogServices.getCategoryFilter();
+            categoryFilterUS = categoryFilterUS.replace("/" + payload,"");
+            BlogServices.setCategoryFilter(categoryFilterUS);
+            console.log("UN setCategoryFilter ", categoryFilterUS);
+
             let categoryListUnselect = state.categoryList;
-
-            let idxUS = _.findIndex(categoryListUnselect, { term: payload });
-
-            if (idxS > -1) {
-                categoryListUnselect[idxUS].isSelected = false;
-                console.log('UN SLECTED ',categoryListUnselect[idxS]);
-            }
+            categoryListUnselect = categoryListUnselect.map((item) => {
+                if (item.term == payload) {
+                    item.isSelected = false;
+                }
+                return item;
+            });
 
             return { ...state, categoryList: categoryListUnselect }
 

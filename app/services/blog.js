@@ -31,9 +31,18 @@ getPost = () => {
 }
 
 class BlogServices {
+
+    categoryFilter = "";
     constructor() {
 
 
+    }
+
+    setCategoryFilter(value) {
+        this.categoryFilter = value;
+    }
+    getCategoryFilter() {
+        return this.categoryFilter;
     }
 
     getStatus(response) {
@@ -64,6 +73,17 @@ class BlogServices {
             .then(this.parseJson);
     }
 
+    getCategoryPosts(type = "GET") {
+
+        let url = CONFIG.BLOG_BASE_URL_CATEGORY_FILTER +this.getCategoryFilter() +"?alt=json";
+
+        console.log("getCategoryPosts URL ",url);
+        return fetch(url, {
+            method: type,
+        }).then(this.getStatus)
+            .then(this.parseJson);
+    }
+
     getPostsSearch(query = "", queryType = "text", type = "GET") {
 
         let url = CONFIG.BLOG_BASE_URL_QUERY + query;
@@ -75,7 +95,7 @@ class BlogServices {
 
         }
 
-        console.log('== SERACH URL ==',url);
+        console.log('== SERACH URL ==', url);
         return fetch(url, {
             method: type,
         }).then(this.getStatus)

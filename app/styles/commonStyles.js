@@ -68,10 +68,10 @@ export default StyleSheet.create({
         fontSize: wp(3.5),
     },
     fontSize16: {
-      //  fontSize: 16,
+        //  fontSize: 16,
     },
     fontSize18: {
-    //    fontSize: 18,
+        //    fontSize: 18,
     },
     fontSize20: {
         fontSize: wp(4.5),
@@ -456,21 +456,23 @@ export default StyleSheet.create({
     btnViewStyleSelected: {
         borderRadius: 22,
         backgroundColor: 'rgb(7,124,229)',
-        paddingVertical: 10,
+        borderColor: 'rgb(7,124,229)',
+        borderWidth: 2,
+        paddingVertical: 8,
         paddingHorizontal: 12,
-        paddingRight: 20,
-        marginTop: 15,
+        paddingRight: 10,
+        marginTop: 10,
         marginRight: 5
     },
     btnViewStyleUnselected: {
         borderRadius: 22,
-        borderColor:'rgb(7,124,229)',
-        borderWidth:2,
+        borderColor: 'rgb(7,124,229)',
+        borderWidth: 2,
         backgroundColor: 'rgb(255,255,255)',
-        paddingVertical: 10,
+        paddingVertical: 8,
         paddingHorizontal: 12,
-        paddingRight: 20,
-        marginTop: 15,
+        paddingRight: 10,
+        marginTop: 10,
         marginRight: 5
     },
     selectedBtnTxtStyle: {
@@ -589,7 +591,7 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         bottom: 20,
         position: 'absolute',
-        width: device.width-150,
+        width: device.width - 150,
         flexDirection: 'row',
         height: 40,
         justifyContent: 'center',
@@ -609,8 +611,8 @@ export default StyleSheet.create({
         shadowRadius: 5,
         shadowColor: '#000',
         shadowOffset: { height: 0, width: 0 },
-        marginTop:50,
-        left:wp(19)
+        marginTop: 50,
+        left: wp(19)
 
 
     },
@@ -620,13 +622,13 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         bottom: 80,
         position: 'relative',
-        width: device.width-150,
+        width: device.width - 150,
         flexDirection: 'row',
         height: 40,
         justifyContent: 'center',
 
-       //flex: 1,
-      
+        //flex: 1,
+
 
         flexDirection: 'row',
         justifyContent: 'space-around',

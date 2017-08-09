@@ -9,48 +9,70 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Dimensions,
-  Share,
-  Platform
+  ActivityIndicator,
+  RefreshControl,
+
 } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments,getCategoryList } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
-class Comment extends Component {
+class CategoryPosts extends Component {
 
   constructor(props) {
     super(props);
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
     this.state = {
-      scrollHead: 0
-    }
+      refreshing: false,
+
+      scrollHead: 0,
+
+    };
   }
   componentWillMount() {
+    this.props.getCategoryList();
+    this.props.getPosts();
 
+  }
+
+  _onRefresh() {
+    this.setState({ refreshing: true });
+    this.props.getPosts("refresh");
+    // fetchData().then(() => {
+    //   this.setState({ refreshing: false });
+    // });
   }
 
   gotoPost(item) {
 
     // alert((item.link[4].href).toString());
     this.props.getPostDetails((item.link[4].href).toString());
-    Actions.Post({ title: item.title.$t });
+    Actions.Post({ title: item.title.$t, postInfo: item });
   }
 
   gotoPostComments(item) {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: 'Comments :' + item.title.$t });
+    Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
+  }
+
+  _gotoSearch() {
+
+    // alert((item.link[4].href).toString());
+    //  this.props.getPostComments((item.link[0].href).toString());
+    Actions.Search({ title: 'Search' });
   }
 
   sharePost(item) {
@@ -87,18 +109,32 @@ class Comment extends Component {
 
   renderRow(item) {
 
-    console.log('postComments items ', item)
     return (
 
 
       <Card style={{ width: deviceWidth }}>
-        <TouchableOpacity style={{ width: deviceWidth }} >
-          <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t)} />
+        <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
+          <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)} />
         </TouchableOpacity>
-        <CardContent trim={false}>
-          <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
-        </CardContent>
-
+        <CardContent trim={true} text={item.summary.$t.substring(2)} />
+        <CardAction seperator={true} inColumn={false}>
+          <CardButton
+            onPress={() => { this.sharePost(item) }}
+            title="Share"
+            color='blue'
+            icon="share"
+          />
+          <CardButton
+            onPress={() => this.gotoPostComments(item)}
+            title={(item.link[1].title).toString()}
+            color='blue'
+            icon="comment"
+          >
+          <Text>
+            kjhhllh
+          </Text>
+          </ CardButton>
+        </CardAction>
       </Card>
 
 
@@ -125,21 +161,37 @@ class Comment extends Component {
     )
   }
   render() {
-    console.log('lllllllll ', this.props.postComments);
+
     return (
       <View style={styles.container}>
 
-        {this.props.postComments
+
+
+
+
+        {this.props.categoryPosts.feed
           ? <ListView
-            onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             ref='_scrollView'
+            onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.props.postsRefresh}
+                onRefresh={this._onRefresh.bind(this)}
+              />
+            }
             enableEmptySections={true}
-            dataSource={this.ds.cloneWithRows(this.props.postComments.feed.entry)}
+            dataSource={this.ds.cloneWithRows(this.props.categoryPosts.feed.entry)}
             renderRow={this.renderRow.bind(this)}
           />
-          : <View>
-            <Text style={styles.welcome}>Loading...</Text>
-          </View>}
+          :
+          <ActivityIndicator
+            animating={true}
+            color='#01579b'
+            size={60}
+            style={styles.activityIndicator}
+          />
+
+        }
         {this.state.scrollHead > 20
           ?
           <TouchableOpacity
@@ -154,107 +206,6 @@ class Comment extends Component {
     );
   }
 }
-
-var htmlStyles = StyleSheet.create({
-  div: {
-    fontSize: 20,
-    color: 'rgb(65,64,66)',
-    backgroundColor: '#ffffff',
-  },
-  img: {
-    width: 300,
-    borderWidth: 20,
-    borderColor: 'red',
-    width: 10,
-  },
-  a: {
-    fontSize: 20,
-    color: '#0000ff',
-  },
-  p: {
-    fontSize: 12,
-    color: 'rgb(65,64,66)',
-    marginTop: 40
-  },
-  h1: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-
-  }, h2: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-
-  }, h3: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-
-  }, h4: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-
-  }, h5: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-
-  }, h6: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-
-  },
-  titleText1: {
-    color: 'rgb(65,64,66)',
-    fontSize: 12,
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Medium' : 'gothammedium',
-    paddingBottom: 14,
-    lineHeight: 22,
-  },
-  paraGraphText: {
-    fontSize: 12,
-    fontFamily: (Platform.OS === 'ios') ? 'OpenSans' : 'opensans-regular',
-    color: 'rgb(65,64,66)',
-    paddingBottom: 14,
-    lineHeight: 18
-  },
-
-  titleText: {
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-    color: 'rgb(65,64,66)',
-    fontSize: 12,
-    paddingBottom: 16,
-    paddingTop: 14,
-    textAlign: 'left'
-
-  },
-  padding20: {
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  header: {
-    backgroundColor: 'rgb(21,147,204)'
-  },
-  headerClose: {
-    fontSize: 12,
-    color: '#FFF',
-    fontWeight: 'bold'
-  },
-  headerLogin: {
-    fontSize: 12,
-    alignSelf: 'center',
-    color: 'rgb(255,255,255)',
-    fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Semibold' : 'opensanssemibold',
-    lineHeight: 22
-  },
-  headerDummyClose: {
-    color: 'rgb(21,147,204)'
-  },
-
-});
 
 const styles = StyleSheet.create({
   container: {
@@ -279,17 +230,25 @@ const styles = StyleSheet.create({
   },
   button: {
     marginRight: 10
+  },
+
+  activityIndicator: {
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // height: 80
   }
 });
 
 
 const mapStateToProps = ({ Blog }) => {
-  console.log('Blog.postComments ', Blog.postComments);
+  console.log('Blog.categoryPosts ', Blog.categoryPosts);
   return ({
-    postComments: Blog.postComments
+    categoryPosts: Blog.categoryPosts
+    , postsRefresh: Blog.postsRefresh
   })
 }
 
 
-export default connect(mapStateToProps, {})(Comment)
+export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments ,getCategoryList})(CategoryPosts)
 

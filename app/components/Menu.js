@@ -169,7 +169,7 @@ class Menu extends Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => { Actions.Category() }}
+                        onPress={() => { Actions.CategorySelect() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="chevron-circle-up" size={30} color="#ffffff" />

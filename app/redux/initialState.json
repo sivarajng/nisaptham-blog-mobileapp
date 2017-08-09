@@ -4,6 +4,7 @@
     },
     "Blog": {
         "posts": {},
+        "categoryPosts": {},
         "postsSearch": {},
         "postDetails": "LOADING...........",
         "postComments": null,

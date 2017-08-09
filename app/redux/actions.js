@@ -45,6 +45,42 @@ export const getPosts = (mode = "") => {
 
     }
 }
+
+export const getCategoryPosts = (mode = "") => {
+    return (dispatch) => {
+
+        if (mode == "refresh") {
+            dispatch({
+                type: Type.GET_BLOG_POSTS_REFRESH,
+                payload: true
+            })
+        }
+
+        BlogServices.getCategoryPosts().then(response => {
+
+            console.log('getCategoryPosts response :', response);
+
+            dispatch({
+                type: Type.GET_BLOG_POST_CATEGORY_POSTS,
+                payload: response
+            })
+            dispatch({
+                type: Type.GET_BLOG_POSTS_REFRESH,
+                payload: false
+            })
+
+
+        }).catch(error => {
+            console.log('getCategoryPosts error :', error);
+            dispatch({
+                type: Type.GET_BLOG_POST_CATEGORY_POSTS,
+                payload: false
+            })
+        });
+
+
+    }
+}
 export const selectCategory = (term) => {
     return (dispatch) => {
 
