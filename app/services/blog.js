@@ -96,6 +96,13 @@ class BlogServices {
             .then(this.parseJson);
     }
 
+    getCategoryList(url, type = "GET") {
+
+        return fetch(CONFIG.BLOG_BASE_URL_CATEGORY_LIST)
+            .then(this.getStatus)
+            .then(this.parseJson);
+    }
+
     // Performing a GET request
     // return axios.get(url)
     //     .then(this.getStatus)

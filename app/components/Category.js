@@ -17,7 +17,7 @@ import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments ,getCategoryList} from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -131,9 +131,9 @@ class Category extends Component {
 
 
 
-                {this.props.posts.feed
+                {this.props.categoryList
 
-                    ? this.props.posts.feed.category.map((itm) => {
+                    ? this.props.categoryList.map((itm) => {
 
                         return (
                             <Text
@@ -292,10 +292,11 @@ const mapStateToProps = ({ Blog }) => {
     console.log('Blog.postComments ', Blog.postComments);
     return ({
         postComments: Blog.postComments,
+        categoryList: Blog.categoryList,
         posts: Blog.posts
     })
 }
 
 
-export default connect(mapStateToProps, {})(Category)
+export default connect(mapStateToProps, {getCategoryList})(Category)
 

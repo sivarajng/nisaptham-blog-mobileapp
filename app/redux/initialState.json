@@ -9,6 +9,7 @@
         "postComments": null,
         "postsRefresh": false,
         "postDetailsLoader": false,
-        "postSearchLoader": false
+        "postSearchLoader": false,
+        "categoryList": []
     }
 }

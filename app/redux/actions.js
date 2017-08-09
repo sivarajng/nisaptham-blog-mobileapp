@@ -45,6 +45,29 @@ export const getPosts = (mode = "") => {
 
     }
 }
+export const getCategoryList = () => {
+    return (dispatch) => {
+
+
+        BlogServices.getCategoryList().then(response => {
+
+            dispatch({
+                type: Type.GET_BLOG_POST_CATEGORY_LIST,
+                payload: response.feed.category
+            })
+
+
+        }).catch(error => {
+          
+            dispatch({
+                type: Type.GET_BLOG_POST_CATEGORY_LIST,
+                payload: []
+            })
+        });
+
+
+    }
+}
 
 export const getPostsSearch = (query, queryType = "text") => {
     return (dispatch) => {
