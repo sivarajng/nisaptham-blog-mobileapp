@@ -17,6 +17,8 @@ import HTMLView from 'react-native-htmlview';
 
 import moment from 'moment';
 
+import BlogServices from '../services/blog';
+
 import { connect } from 'react-redux'
 import {
     getPosts
@@ -44,6 +46,7 @@ class CategorySelect extends Component {
     }
     componentWillMount() {
         this.props.getCategoryList();
+        BlogServices.setCategoryFilter("");
     }
 
     _toggleCategorySelection(item) {

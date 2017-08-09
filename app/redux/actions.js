@@ -60,6 +60,14 @@ export const getCategoryPosts = (mode = "") => {
 
             console.log('getCategoryPosts response :', response);
 
+
+            if (response.feed.entry) {
+            }
+            else {
+                response.feed.entry = [];
+
+            }
+
             dispatch({
                 type: Type.GET_BLOG_POST_CATEGORY_POSTS,
                 payload: response
@@ -84,20 +92,20 @@ export const getCategoryPosts = (mode = "") => {
 export const selectCategory = (term) => {
     return (dispatch) => {
 
-            dispatch({
-                type: Type.GET_BLOG_POST_CATEGORY_SELECT,
-                payload: term
-            })
+        dispatch({
+            type: Type.GET_BLOG_POST_CATEGORY_SELECT,
+            payload: term
+        })
     }
 }
 export const unselectCategory = (term) => {
     return (dispatch) => {
 
-            
-            dispatch({
-                type: Type.GET_BLOG_POST_CATEGORY_UNSELECT,
-                payload: term
-            })
+
+        dispatch({
+            type: Type.GET_BLOG_POST_CATEGORY_UNSELECT,
+            payload: term
+        })
     }
 }
 
@@ -114,7 +122,7 @@ export const getCategoryList = () => {
 
 
         }).catch(error => {
-          
+
             dispatch({
                 type: Type.GET_BLOG_POST_CATEGORY_LIST,
                 payload: []
