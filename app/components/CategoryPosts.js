@@ -45,7 +45,10 @@ class CategoryPosts extends Component {
     }
 
     componentWillUnmount() {
-        console.log("UN MOUNTING");
+
+    }
+
+    componentDidMount() {
         BlogServices.setCategoryFilter("");
     }
     componentWillMount() {
