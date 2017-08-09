@@ -99,6 +99,8 @@ class Category extends Component {
             </Card>
 
 
+
+
             // <TouchableOpacity onPress={() => this.gotoPost(item)}>
             //   <Card>
             //     <CardSection>
@@ -126,31 +128,34 @@ class Category extends Component {
         return (
             <View style={styles.container}>
 
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
-                    <Text>
-                        Search
-          </Text>
-                </TouchableOpacity>
 
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 1
+
+                {this.props.posts.feed
+
+                    ? this.props.posts.feed.category.map((itm) => {
+
+                        return (
+                            <Text
+                                style={{ fontSize: 60, color: 'red' }
+                                }
+                                onPress={() => { }}>
+                                {itm.term}
+                </Text >
+
+                        )
+                    })
+                    : <Text
+                        style={{ fontSize: 60, color: 'red' }}
+                        onPress={() => { }}>
+                        MENU 1
                 </Text>
+                }
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 2
-                </Text>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 3
-                </Text>
-            </View>
+
+
+            </View >
         );
     }
 }
@@ -286,7 +291,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ Blog }) => {
     console.log('Blog.postComments ', Blog.postComments);
     return ({
-        postComments: Blog.postComments
+        postComments: Blog.postComments,
+        posts: Blog.posts
     })
 }
 
