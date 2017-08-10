@@ -149,7 +149,13 @@ class Search extends Component {
 
         }
         else {
-            this.props.getPostsSearch(this.state.searchQuery, "text");
+
+            if (this.state.searchQuery.length == 0) {
+                alert("Please enter some text");
+            }
+            else {
+                this.props.getPostsSearch(this.state.searchQuery, "text");
+            }
         }
 
 
