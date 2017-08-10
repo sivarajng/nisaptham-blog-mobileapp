@@ -98,6 +98,15 @@ export const selectCategory = (term) => {
         })
     }
 }
+export const popup = (value=true) => {
+    return (dispatch) => {
+
+        dispatch({
+            type: Type.POPUP,
+            payload: value
+        })
+    }
+}
 
 export const getCategoryList = () => {
     return (dispatch) => {

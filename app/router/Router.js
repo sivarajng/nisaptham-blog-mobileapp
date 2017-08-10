@@ -14,6 +14,11 @@ import CategoryPosts from '../components/CategoryPosts';
 import Settings from '../components/Settings';
 import Theme from '../components/Theme';
 
+
+import { connect } from 'react-redux'
+
+import { popup } from '../redux/actions'
+
 // import {RootDrawer} from '../components/RootDrawer';
 
 /* sceneStyle={{ paddingTop: 60 }}
@@ -31,6 +36,16 @@ const filterIcon = () => (
     <Icon name="bars" size={30} color="white" />
   </TouchableHighlight>
 );
+
+const postIcon = (props) => {
+
+  console.log('ROUTER ',props);
+  return (
+  <TouchableHighlight onPress={() => this.props.popup(true)} style={{ padding: 10 }} >
+    <Icon name="search" size={30} color="white" />
+  </TouchableHighlight>
+  )
+}
 const navBarStyle = () => (
   {
     backgroundColor: '#0288d1',
@@ -63,7 +78,9 @@ const styles = {
 };
 
 
-const RouterComponent = () => (
+const RouterComponent = (props) => (
+
+
   <Router>
     <Scene key="root"
       navigationBarStyle={navBarStyle()}
@@ -75,7 +92,7 @@ const RouterComponent = () => (
       titleStyle={navBarTitleStyle()}>
 
       <Scene key="Home" component={Home} title="Home" renderRightButton={() => filterIcon()} initial={true} />
-      <Scene key="Post" component={Post} title="Post" />
+      <Scene key="Post" component={Post} title="Post" renderRightButton={() => postIcon(props)} />
       <Scene key="Comment" component={Comment} title="Comment" />
       <Scene key="Search" component={Search} title="Search" />
       <Scene key="Menu" component={Menu} title="Menu" />
@@ -99,4 +116,13 @@ const RouterComponent = () => (
   // </Router>
 );
 
-export default RouterComponent;
+const mapStateToProps = ({ Blog, Get }) => {
+  console.log('Blog.postDetails ', Blog.postDetails);
+  return ({
+    Data: Get.Data,
+    postDetails: Blog.postDetails,
+    postDetailsLoader: Blog.postDetailsLoader,
+  })
+}
+
+export default connect(mapStateToProps, { popup })(RouterComponent)

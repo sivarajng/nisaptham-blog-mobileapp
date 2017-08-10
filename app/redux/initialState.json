@@ -11,6 +11,7 @@
         "postsRefresh": false,
         "postDetailsLoader": false,
         "postSearchLoader": false,
-        "categoryList": []
+        "categoryList": [],
+        "popup":false
     }
 }

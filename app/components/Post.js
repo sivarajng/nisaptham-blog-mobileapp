@@ -102,7 +102,13 @@ class Post extends Component {
           />
           : null
         }
-
+        {this.props.popup
+          ? <View style={{ height: 60 }}>
+            <Text>
+              JJJJJJJJJJJJJJJJJJJJJJJJJJJJ
+  </Text>
+          </View>
+          : null}
         <ScrollView
           onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
           ref='_scrollView'
@@ -116,13 +122,13 @@ class Post extends Component {
                 onPress={() => { this.sharePost(this.props.postInfo) }}
                 title="Share"
                 color='blue'
-                  icon="share"
+                icon="share"
               />
               <CardButton
                 onPress={() => this.gotoPostComments(this.props.postInfo)}
                 title={(this.props.postInfo.link[1].title).toString()}
                 color='blue'
-                  icon="comment"
+                icon="comment"
               />
             </CardAction>
           </Card>
@@ -279,6 +285,7 @@ const mapStateToProps = ({ Blog, Get }) => {
     Data: Get.Data,
     postDetails: Blog.postDetails,
     postDetailsLoader: Blog.postDetailsLoader,
+    popup: Blog.popup,
   })
 }
 
