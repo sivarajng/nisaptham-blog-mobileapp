@@ -95,9 +95,9 @@ android {
 
     defaultConfig {
         //RELEASE
-        applicationId "com.sivarajnagaraj.nisapthamblog"
+        // applicationId "com.sivarajnagaraj.nisapthamblog"
         //DEBUG
-        // applicationId "com.sivarajnagaraj.nisapthamdebug"
+        applicationId "com.sivarajnagaraj.nisapthamdebug"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1

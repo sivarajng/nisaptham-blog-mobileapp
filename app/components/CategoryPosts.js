@@ -49,7 +49,7 @@ class CategoryPosts extends Component {
     }
 
     componentDidMount() {
-        BlogServices.setCategoryFilter("");
+      
     }
     componentWillMount() {
         this.props.getCategoryList();
@@ -121,6 +121,18 @@ class CategoryPosts extends Component {
 
     renderRow(item) {
 
+          let commentLink = "";
+        if (item.link) {
+            if (item.link.length > 1) {
+                if (item.link[1].title) {
+                    commentLink = (item.link[1].title).toString();
+                }
+
+            }
+
+        }
+
+
         return (
 
 
@@ -136,16 +148,15 @@ class CategoryPosts extends Component {
                         color='blue'
                         icon="share"
                     />
-                    <CardButton
-                        onPress={() => this.gotoPostComments(item)}
-                        title={(item.link[1].title).toString()}
-                        color='blue'
-                        icon="comment"
-                    >
-                        <Text>
-                            kjhhllh
-          </Text>
-                    </ CardButton>
+                    {commentLink != ""
+                        ? <CardButton
+                            onPress={() => this.gotoPostComments(item)}
+                            title={commentLink}
+                            color='blue'
+                            icon="comment"
+                        />
+                        : null
+                    }
                 </CardAction>
             </Card>
 

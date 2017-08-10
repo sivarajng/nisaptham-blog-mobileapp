@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments,getCategoryList } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments, getCategoryList } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -109,6 +109,17 @@ class Home extends Component {
 
   renderRow(item) {
 
+    let commentLink = "";
+    if (item.link) {
+      if (item.link.length > 1) {
+        if (item.link[1].title) {
+          commentLink = (item.link[1].title).toString();
+        }
+
+      }
+
+    }
+
     return (
 
 
@@ -124,16 +135,15 @@ class Home extends Component {
             color='blue'
             icon="share"
           />
-          <CardButton
-            onPress={() => this.gotoPostComments(item)}
-            title={(item.link[1].title).toString()}
-            color='blue'
-            icon="comment"
-          >
-          <Text>
-            kjhhllh
-          </Text>
-          </ CardButton>
+          {commentLink != ""
+            ? <CardButton
+              onPress={() => this.gotoPostComments(item)}
+              title={commentLink}
+              color='blue'
+              icon="comment"
+            />
+            : null
+          }
         </CardAction>
       </Card>
 
@@ -250,5 +260,5 @@ const mapStateToProps = ({ Blog }) => {
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments ,getCategoryList})(Home)
+export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments, getCategoryList })(Home)
 

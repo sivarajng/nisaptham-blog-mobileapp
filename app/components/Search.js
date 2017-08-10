@@ -44,9 +44,9 @@ class Search extends Component {
             searchEndDate: "",
             searchStartDateObj: {},
             searchEndDateObj: {},
-               
-      scrollHead: 0,
- 
+
+            scrollHead: 0,
+
         }
 
 
@@ -121,10 +121,10 @@ class Search extends Component {
 
     gotoPost(item) {
 
-    
-    // alert((item.link[4].href).toString());
-    this.props.getPostDetails((item.link[4].href).toString());
-    Actions.Post({ title: item.title.$t, postInfo: item });
+
+        // alert((item.link[4].href).toString());
+        this.props.getPostDetails((item.link[4].href).toString());
+        Actions.Post({ title: item.title.$t, postInfo: item });
     }
 
     gotoPostComments(item) {
@@ -193,7 +193,7 @@ class Search extends Component {
 
     renderRow(item) {
 
-        let commentLink = "Comments";
+        let commentLink = "";
         if (item.link) {
             if (item.link.length > 1) {
                 if (item.link[1].title) {
@@ -208,7 +208,7 @@ class Search extends Component {
 
 
             <Card style={{ width: deviceWidth }}>
-                  <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
+                <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
                     {/*this.gotoPost(item)}>*/}
                     <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)} />
                 </TouchableOpacity>
@@ -218,14 +218,17 @@ class Search extends Component {
                         onPress={() => { this.sharePost(item) }}
                         title="Share"
                         color='blue'
-                         icon="share"
+                        icon="share"
                     />
-                    <CardButton
-                        onPress={() => this.gotoPostComments(item)}
-                        title={commentLink}
-                        color='blue'
-                         icon="comment"
-                    />
+                    {commentLink != ""
+                        ? <CardButton
+                            onPress={() => this.gotoPostComments(item)}
+                            title={commentLink}
+                            color='blue'
+                            icon="comment"
+                        />
+                        : null
+                    }
                 </CardAction>
             </Card>
 
@@ -353,7 +356,7 @@ class Search extends Component {
 
                 {this.props.postsSearch.feed
                     ? <ListView
-                     onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
+                        onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
                         ref='_scrollView'
                         enableEmptySections={true}
                         dataSource={this.ds.cloneWithRows(this.props.postsSearch.feed.entry)}
@@ -362,14 +365,14 @@ class Search extends Component {
                     : null}
 
                 {this.props.postsSearch.feed
-                    ? (  this.state.scrollHead > 20
-          ?< TouchableOpacity
-                        onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-                        style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
-                        <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
-                    </TouchableOpacity>  : null
-       
-)
+                    ? (this.state.scrollHead > 20
+                        ? < TouchableOpacity
+                            onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
+                            style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
+                            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+                        </TouchableOpacity> : null
+
+                    )
                     : null
                 }
 
@@ -486,7 +489,7 @@ const styles = StyleSheet.create({
     },
     searchIconStyle3: {
         position: 'absolute',
-     //   textAlign: 'right',
+        //   textAlign: 'right',
         top: 5,
         padding: 0,
         right: 0,
@@ -517,7 +520,7 @@ const styles = StyleSheet.create({
     },
     // searchInputStyle: { height: 48, textAlign: 'left', paddingRight: 20, color: 'rgb(39,39,39)' },
     // searchInputStylefromto: { height: 48, textAlign: 'left', paddingRight: 20, color: 'rgb(39,39,39)' },
-    searchInputStyle: { height: 48,  paddingRight: 20},
+    searchInputStyle: { height: 48, paddingRight: 20 },
     searchInputStylefromto: { height: 48, paddingRight: 20 },
     searchIconStyle: {
         position: 'absolute',

@@ -39,42 +39,32 @@ const Blog = (state = {}, { type, payload }) => {
                 return item;
             });
 
+            if (categoryList.length > 0) {
+                categoryList[0].isSelected = true;
+                 BlogServices.setCategoryFilter("/" + categoryList[0].term);
+            }
+
+
             return { ...state, categoryList }
 
         case Type.GET_BLOG_POST_CATEGORY_SELECT:
 
 
-            let categoryFilterS = BlogServices.getCategoryFilter();
-            categoryFilterS = categoryFilterS + "/" + payload;
-            BlogServices.setCategoryFilter(categoryFilterS);
-            console.log("setCategoryFilter ", categoryFilterS);
+            BlogServices.setCategoryFilter("/" + payload);
 
             let categoryListSelect = state.categoryList;
+
             categoryListSelect = categoryListSelect.map((item) => {
                 if (item.term == payload) {
                     item.isSelected = true;
                 }
-                return item;
-            });
-
-            return { ...state, categoryList: categoryListSelect }
-
-        case Type.GET_BLOG_POST_CATEGORY_UNSELECT:
-
-            let categoryFilterUS = BlogServices.getCategoryFilter();
-            categoryFilterUS = categoryFilterUS.replace("/" + payload,"");
-            BlogServices.setCategoryFilter(categoryFilterUS);
-            console.log("UN setCategoryFilter ", categoryFilterUS);
-
-            let categoryListUnselect = state.categoryList;
-            categoryListUnselect = categoryListUnselect.map((item) => {
-                if (item.term == payload) {
+                else {
                     item.isSelected = false;
                 }
                 return item;
             });
 
-            return { ...state, categoryList: categoryListUnselect }
+            return { ...state, categoryList: categoryListSelect }
 
         case Type.GET_BLOG_POST_DETAILS:
 

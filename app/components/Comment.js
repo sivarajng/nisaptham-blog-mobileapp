@@ -10,7 +10,8 @@ import {
   TouchableHighlight,
   Dimensions,
   Share,
-  Platform
+  Platform,
+    ActivityIndicator,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
@@ -137,9 +138,12 @@ class Comment extends Component {
             dataSource={this.ds.cloneWithRows(this.props.postComments.feed.entry)}
             renderRow={this.renderRow.bind(this)}
           />
-          : <View>
-            <Text style={styles.welcome}>Loading...</Text>
-          </View>}
+          :   <ActivityIndicator
+            animating={true}
+            color='#01579b'
+            size={60}
+            style={styles.activityIndicator}
+          />}
         {this.state.scrollHead > 20
           ?
           <TouchableOpacity

@@ -26,8 +26,7 @@ import {
     , getPostComments
     , getCategoryList
     , selectCategory
-    , unselectCategory
-    , getCategoryPosts
+   , getCategoryPosts
 } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
@@ -49,15 +48,10 @@ class CategorySelect extends Component {
         BlogServices.setCategoryFilter("");
     }
 
-    _toggleCategorySelection(item) {
-
-        if (item.isSelected) {
-            this.props.unselectCategory(item.term);
-        }
-        else {
+    _selectCategory(item) {
+        if(!item.isSelected){
             this.props.selectCategory(item.term);
         }
-
     }
 
     _gotoCategoryPosts() {
@@ -164,7 +158,7 @@ class CategorySelect extends Component {
                             return (
                                 <Buttons
                                     key={itm.term}
-                                    buttonClick={() => this._toggleCategorySelection(itm)}
+                                    buttonClick={() => this._selectCategory(itm)}
                                     buttonStyle={itm.isSelected ? commonStyles.btnViewStyleSelected : commonStyles.btnViewStyleUnselected}>
                                     <Label
                                         textContent={itm.term}
@@ -350,7 +344,6 @@ const mapStateToProps = ({ Blog }) => {
 export default connect(mapStateToProps, {
     getCategoryList
     , selectCategory
-    , unselectCategory
     , getCategoryPosts
 })(CategorySelect)
 
