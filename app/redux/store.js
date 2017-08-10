@@ -17,7 +17,9 @@ const consoleMessages = store => next => action => {
     return result
 
 }
-
+//RELEASE
+storeFactory = applyMiddleware(thunk)(createStore)(combinedReducers,initialState)
+//DEBUG
 storeFactory = applyMiddleware(thunk, consoleMessages)(createStore)(combinedReducers,initialState)
 // storeFactory = createStore(combinedReducers,initialState,applyMiddleware(thunk, consoleMessages))
 export default storeFactory
