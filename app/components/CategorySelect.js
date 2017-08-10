@@ -29,6 +29,8 @@ import {
    , getCategoryPosts
 } from '../redux/actions'
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
@@ -57,7 +59,7 @@ class CategorySelect extends Component {
     _gotoCategoryPosts() {
 
         this.props.getCategoryPosts();
-        Actions.CategoryPosts();
+        Actions.CategoryPosts({title:BlogServices.getCategoryFilter().substring(1)});
 
     }
 
@@ -177,17 +179,18 @@ class CategorySelect extends Component {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: '#009688',
+                            backgroundColor: 'rgb(7,124,229)',
                         }}>
                             <View style={{
-                                flexDirection: 'column',
-                                alignItems: 'flex-start',
+                                flexDirection: 'row',
+                                alignItems: 'center',
                                 justifyContent: 'center',
                                 padding: 10,
                             }} >
-                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30 }}>
-                                    Go CATEGORY
+                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30,paddingRight:20 }}>
+                                    See Posts
                             </Text>
+                              <Icon name="arrow-circle-o-right" size={40} color="#ffffff" />
 
                             </View >
                         </View>
