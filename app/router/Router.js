@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Router, Scene, ActionConst, Actions, DefaultRenderer } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,10 +14,11 @@ import CategoryPosts from '../components/CategoryPosts';
 import Settings from '../components/Settings';
 import Theme from '../components/Theme';
 
+import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux'
 
-import { popup } from '../redux/actions'
+import { popupCall } from '../redux/actions'
 
 // import {RootDrawer} from '../components/RootDrawer';
 
@@ -31,21 +32,7 @@ import { popup } from '../redux/actions'
        leftButtonIconStyle={styles.leftButtonStyle}
        onPress={() =>        alert('click')} */
 
-const filterIcon = () => (
-  <TouchableHighlight onPress={() => Actions.Menu()} style={{ padding: 10 }} >
-    <Icon name="bars" size={30} color="white" />
-  </TouchableHighlight>
-);
 
-const postIcon = (props) => {
-
-  console.log('ROUTER ',props);
-  return (
-  <TouchableHighlight onPress={() => this.props.popup(true)} style={{ padding: 10 }} >
-    <Icon name="search" size={30} color="white" />
-  </TouchableHighlight>
-  )
-}
 const navBarStyle = () => (
   {
     backgroundColor: '#0288d1',
@@ -70,59 +57,101 @@ const styles = {
     //   paddingTop: 65
   },
   backButtonTextStyle: {
-      color: 'red'
+    color: 'red'
   },
   barButtonIconStyle: {
-     tintColor: 'red'
+    tintColor: 'red'
   }
 };
 
+class RouterComponent extends Component {
 
-const RouterComponent = (props) => (
+  constructor(props) {
+    super(props);
+
+    this.state={flag:true};
+
+   console.log('ROUTER POP 111', this.props.popup);
+    console.log('ROUTER CALL 1111', this.props.popupCall);
+
+  }
+  componentWillMount() {
 
 
-  <Router>
-    <Scene key="root"
-      navigationBarStyle={navBarStyle()}
-      sceneStyle={styles.sceneStyle}
-      // backButtonTextStyle={styles.backButtonTextStyle} 
-// barButtonIconStyle={styles.barButtonIconStyle}
-//headerBackIconTextStyle={{ tintColor: 'green' }}
-//headerBackButtonTextStyle={{ color: 'green' }}
-      titleStyle={navBarTitleStyle()}>
+  }
 
-      <Scene key="Home" component={Home} title="Home" renderRightButton={() => filterIcon()} initial={true} />
-      <Scene key="Post" component={Post} title="Post" renderRightButton={() => postIcon(props)} />
-      <Scene key="Comment" component={Comment} title="Comment" />
-      <Scene key="Search" component={Search} title="Search" />
-      <Scene key="Menu" component={Menu} title="Menu" />
-      <Scene key="Research" component={Research} title="Research" />
-      <Scene key="CategorySelect" component={CategorySelect} title="CategorySelect" />
-      <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
-      <Scene key="Settings" component={Settings} title="Settings" />
-      <Scene key="Theme" component={Theme} title="Theme" />
 
-    </Scene>
-  </Router>
-  //  <Router>
-  //   <Scene key="drawer" component={Drawer} open={true}>
-  //     <Scene key="Main" tabs={false}> 
-  //       <Scene key="Home" component={Home} title="Home" initial={true} onRight={() => {Actions.Search()}} rightTitle='Profile'/>
-  //       <Scene key="Post" component={Post} title="Post" />
-  //       <Scene key="Comment" component={Comment} title="Comment" />
-  //       <Scene key="Search" component={Search} title="Search" />
-  //     </Scene> 
-  //   </Scene>
-  // </Router>
-);
+
+  filterIcon() {
+    return (
+      <TouchableHighlight onPress={() => Actions.Menu()} style={{ padding: 10 }} >
+        <Icon name="bars" size={30} color="white" />
+      </TouchableHighlight>
+    )
+
+  }
+
+  postIcon() {
+
+    // this.setState({flag:!this.state.flag});
+
+    //  console.log('ROUTER POP 111', this.props.popup);
+    // console.log('ROUTER CALL 1111', this.props.popupCall);
+    
+
+    return (
+      <TouchableHighlight onPress={() => this.props.popupCall(this.state.flag)} style={{ padding: 10 }} >
+        <Icon name="search" size={30} color="white" />
+      </TouchableHighlight>
+    )
+  }
+
+  render() {
+    return (
+      <Router>
+        <Scene key="root"
+          navigationBarStyle={navBarStyle()}
+          sceneStyle={styles.sceneStyle}
+          // backButtonTextStyle={styles.backButtonTextStyle} 
+          // barButtonIconStyle={styles.barButtonIconStyle}
+          //headerBackIconTextStyle={{ tintColor: 'green' }}
+          //headerBackButtonTextStyle={{ color: 'green' }}
+          titleStyle={navBarTitleStyle()}>
+
+          <Scene key="Home" component={Home} title="Home" renderRightButton={() => this.filterIcon()} initial={true} />
+          <Scene key="Post" component={Post} title="Post" renderRightButton={() => this.props.popupCall(!this.props.popup)} />
+          <Scene key="Comment" component={Comment} title="Comment" />
+          <Scene key="Search" component={Search} title="Search" />
+          <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
+          <Scene key="Research" component={Research} title="Research" />
+          <Scene key="CategorySelect" component={CategorySelect} title="CategorySelect" />
+          <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
+          <Scene key="Settings" component={Settings} title="Settings" />
+          <Scene key="Theme" component={Theme} title="Theme" />
+
+        </Scene>
+      </Router>
+    )
+  }
+}
 
 const mapStateToProps = ({ Blog, Get }) => {
   console.log('Blog.postDetails ', Blog.postDetails);
   return ({
-    Data: Get.Data,
-    postDetails: Blog.postDetails,
-    postDetailsLoader: Blog.postDetailsLoader,
+    popup: Blog.popup,
   })
 }
 
-export default connect(mapStateToProps, { popup })(RouterComponent)
+
+function mapDispatchToProps1(dispatch) {
+  return bindActionCreators(popupCall, dispatch);
+}
+
+const mapDispatchToProps = dispatch =>
+  ({
+    popupCall() { dispatch(popupCall()) }
+  })
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RouterComponent)

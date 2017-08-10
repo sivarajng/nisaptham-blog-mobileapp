@@ -98,7 +98,7 @@ export const selectCategory = (term) => {
         })
     }
 }
-export const popup = (value=true) => {
+export const popupCall = (value=true) => {
     return (dispatch) => {
 
         dispatch({
