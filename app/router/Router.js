@@ -119,7 +119,7 @@ class RouterComponent extends Component {
           titleStyle={navBarTitleStyle()}>
 
           <Scene key="Home" component={Home} title="Home" renderRightButton={() => this.filterIcon()} initial={true} />
-          <Scene key="Post" component={Post} title="Post" renderRightButton={() => this.postIcon()} />
+          <Scene key="Post" component={Post} title="Post"  />
           <Scene key="Comment" component={Comment} title="Comment" />
           <Scene key="Search" component={Search} title="Search" />
           <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />

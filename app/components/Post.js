@@ -17,7 +17,9 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card';
+
+import moment from 'moment';
 
 import { connect } from 'react-redux'
 import { Get, getPostDetails, getPostComments } from '../redux/actions'
@@ -83,11 +85,11 @@ class Post extends Component {
 
   render() {
 
-        let categoryTerm = "";
-    if (item.category) {
-      categoryTerm = " - " + item.category[0].term;
+    let categoryTerm = "";
+    if (this.props.postInfo.category) {
+      categoryTerm = " - " + this.props.postInfo.category[0].term;
     }
-    
+
 
     return (
       <View style={styles.container}>
@@ -121,6 +123,12 @@ class Post extends Component {
           <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
 
           <Card style={{ width: deviceWidth }}>
+
+            <TouchableOpacity style={{ width: deviceWidth }} >
+              <CardTitle subtitle={this.formatDate(this.props.postInfo.published.$t) + categoryTerm} color={this.props.theme.color} />
+            </TouchableOpacity>
+
+
 
             <CardAction seperator={true} inColumn={false}>
               <CardButton
@@ -284,7 +292,7 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog, Get ,  Settings }) => {
+const mapStateToProps = ({ Blog, Get, Settings }) => {
   console.log('Blog.postDetails ', Blog.postDetails);
   return ({
     Data: Get.Data,
