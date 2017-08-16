@@ -146,6 +146,12 @@ class RouterComponent extends Component {
         <Scene key="root"
           navigationBarStyle={{ backgroundColor: this.props.theme.color }}
           sceneStyle={styles.sceneStyle}
+           backButtonImage={require('../images/left.jpg')}
+        leftButtonIconStyle={{ width: 40,
+         height: 40,
+         marginLeft: 3,
+        marginTop:  -3,
+        zIndex:999}}
           // backButtonTextStyle={styles.backButtonTextStyle} 
           // barButtonIconStyle={styles.barButtonIconStyle}
           //headerBackIconTextStyle={{ tintColor: 'green' }}
