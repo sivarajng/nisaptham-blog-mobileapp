@@ -12,7 +12,7 @@
         "postDetailsLoader": false,
         "postSearchLoader": false,
         "categoryList": [],
-        "popup":false,
+        "postPopup":false,
         "postWebview":false
     },
     "Settings":{

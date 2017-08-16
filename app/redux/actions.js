@@ -127,11 +127,11 @@ export const selectCategory = (term) => {
         })
     }
 }
-export const popupCall = (value = true) => {
+export const togglePostPopup = (value) => {
     return (dispatch) => {
 
         dispatch({
-            type: Type.POPUP,
+            type: Type.POST_POPUP,
             payload: value
         })
     }

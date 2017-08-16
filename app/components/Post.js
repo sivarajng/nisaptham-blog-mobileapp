@@ -25,7 +25,7 @@ import moment from 'moment';
 import PostModal from './PostModal';
 
 import { connect } from 'react-redux'
-import { Get, getPostDetails, getPostComments, popupCall, togglePostWebview } from '../redux/actions'
+import { Get, getPostDetails, getPostComments, popupCall, togglePostWebview, togglePostPopup } from '../redux/actions'
 import HTMLView from 'react-native-htmlview'
 
 import { Actions } from 'react-native-router-flux';
@@ -56,7 +56,7 @@ class Post extends Component {
   componentWillUnmount() {
 
     if (this.props.postWebview) {
-      this.props.togglePostWebview();
+   //   this.props.togglePostWebview();
     }
 
     // alert('sasasasa');
@@ -123,6 +123,18 @@ class Post extends Component {
     return (
       <View style={styles.container}>
 
+        <View
+
+          style={{ padding: 5, margin: 0, backgroundColor: this.props.theme.color, borderColor: '#ffffff', width: deviceWidth }} >
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40, position: 'relative', left: 0 }}>
+            <Text numberOfLines={1} style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
+              {this.props.title}
+            </Text>
+            <TouchableOpacity onPress={() => this.props.togglePostPopup(true)} style={{ position: 'absolute', right: 0 }} >
+              <Icon name="gear" size={30} color="#ffffff" />
+            </TouchableOpacity>
+          </View>
+        </View>
 
 
         {/* <WebView
@@ -192,7 +204,7 @@ class Post extends Component {
 
         < TouchableOpacity
           onPress={() => this.props.togglePostWebview()}
-          style={{ position: 'absolute', right: this.props.postWebview ? 20 : (this.state.scrollHead > 20 ? 80 : 20), bottom: 15, padding: 2 }} >
+          style={{ position: 'absolute', right: this.props.postWebview ? 20 : (this.state.scrollHead > 20 ? 80 : 20), bottom: 55, padding: 2 }} >
           <Icon name={this.props.postWebview ? "mobile" : "desktop"} size={this.props.postWebview ? 60 : 40} color={this.props.theme.color} />
         </TouchableOpacity>
 
@@ -200,7 +212,7 @@ class Post extends Component {
         {this.state.scrollHead > 20
           ? < TouchableOpacity
             onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-            style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
+            style={{ position: 'absolute', right: 15, bottom: 55, padding: 0 }} >
             <Icon name="chevron-circle-up" size={60} color={this.props.theme.color} />
           </TouchableOpacity>
           : null
@@ -208,10 +220,16 @@ class Post extends Component {
 
         {/* <PostModal isVisible={this.props.popup} /> */}
 
-        <Modal isVisible={false}>
-          <View style={{ flex: 1, height: 300 }}>
-            <Text>Hello!</Text>
-          </View>
+        <Modal isVisible={this.props.postPopup}
+          animationIn={'slideInLeft'}
+          animationOut={'slideOutRight'}
+        >
+          <TouchableOpacity onPress={() => this.props.togglePostPopup(false)}>
+            <View style={{ backgroundColor: 'white', height: 200, width: deviceWidth }}>
+              <Text>Hello!</Text>
+
+            </View>
+          </TouchableOpacity>
         </Modal>
 
 
@@ -354,7 +372,7 @@ const mapStateToProps = ({ Blog, Get, Settings }) => {
     Data: Get.Data,
     postDetails: Blog.postDetails,
     postDetailsLoader: Blog.postDetailsLoader,
-    popup: Blog.popup,
+    postPopup: Blog.postPopup,
     postWebview: Blog.postWebview,
     theme: Settings.theme
   })
@@ -366,6 +384,6 @@ const mapDispatchToProps = dispatch =>
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, { Get, getPostComments, togglePostWebview })(Post)
+export default connect(mapStateToProps, { Get, getPostComments, togglePostWebview, togglePostPopup })(Post)
 
 

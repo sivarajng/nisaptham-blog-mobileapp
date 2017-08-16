@@ -26,8 +26,8 @@ const Blog = (state = {}, { type, payload }) => {
 
             return { ...state, posts: posts }
 
-        case Type.POPUP:
-            return { ...state, popup: payload }
+        case Type.POST_POPUP:
+            return { ...state, postPopup: payload }
 
         case Type.GET_BLOG_POST_CATEGORY_POSTS:
             return { ...state, categoryPosts: payload }

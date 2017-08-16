@@ -18,7 +18,7 @@ import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux'
 
-import { popupCall } from '../redux/actions'
+import { togglePostPopup } from '../redux/actions'
 
 // import {RootDrawer} from '../components/RootDrawer';
 
@@ -105,9 +105,9 @@ class RouterComponent extends Component {
     return (
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
-              {/* <TouchableHighlight onPress={() => this.props.popupCall(false)} style={{ padding: 10 }} >
+               <TouchableHighlight onPress={() => this.props.togglePostPopup(true)} style={{ padding: 10 }} >
           <Icon name="gear" size={30} color="white" />
-        </TouchableHighlight> */}
+        </TouchableHighlight> 
       </View>
 
     )
@@ -126,7 +126,7 @@ class RouterComponent extends Component {
           titleStyle={navBarTitleStyle()}>
 
           <Scene key="Home" component={Home} title="Home" renderRightButton={() => this.filterIcon()} initial={true} />
-          <Scene key="Post" component={Post} title="Post" renderRightButton={this._postIcon} />
+          <Scene key="Post" component={Post} title="Post" hideNavBar={true}/>
           <Scene key="Comment" component={Comment} title="Comment" />
           <Scene key="Search" component={Search} title="Search" />
           <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
@@ -145,7 +145,7 @@ class RouterComponent extends Component {
 const mapStateToProps = ({ Blog, Settings }) => {
 //  console.log('Blog.postDetails ', Blog.postDetails);
   return ({
-    popup: Blog.popup,
+    postPopup: Blog.postPopup,
     postWebview: Blog.postWebview,
     theme: Settings.theme,
   })
@@ -158,9 +158,9 @@ const mapStateToProps = ({ Blog, Settings }) => {
 
 const mapDispatchToProps = dispatch =>
   ({
-    popupCall() { dispatch(popupCall()) }
+    togglePostPopup() { dispatch(togglePostPopup()) }
   })
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RouterComponent)
+export default connect(mapStateToProps, {togglePostPopup})(RouterComponent)
