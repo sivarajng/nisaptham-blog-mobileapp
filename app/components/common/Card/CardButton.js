@@ -14,7 +14,7 @@ export default class CardButton extends Component {
     return (
       <Touchable style={[directionStyle, newStyle,{flexDirection: 'row'}]} onPress={ ()=>{this.props.onPress()} }>
        <Icon name={this.props.icon || "bars"} size={20} color={this.props.color} style={{paddingRight:5}}/>
-        <Text style={this.props.color!==undefined ? [styles.buttonText, {color: this.props.color,fontSize:18}] : styles.buttonText}>{this.props.title.toUpperCase()}</Text>
+        <Text style={this.props.color!==undefined ? [styles.buttonText, {color: this.props.color,fontSize:16}] : styles.buttonText}>{this.props.title.toUpperCase()}</Text>
       </Touchable>      
     );
   }

@@ -15,14 +15,16 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 import BlogServices from '../services/blog';
-
 import moment from 'moment';
-
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments, getCategoryList } from '../redux/actions'
+import {
+    getPosts
+    , getPostDetails
+    , getPostComments
+    , getCategoryList
+    , setselectedPost
+} from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -49,7 +51,7 @@ class CategoryPosts extends Component {
     }
 
     componentDidMount() {
-      
+
     }
     componentWillMount() {
         this.props.getCategoryList();
@@ -70,6 +72,7 @@ class CategoryPosts extends Component {
 
         // alert((item.link[4].href).toString());
         this.props.getPostDetails((item.link[4].href).toString());
+        this.props.setselectedPost(item);
         Actions.Post({ title: item.title.$t, postInfo: item });
     }
 
@@ -121,7 +124,7 @@ class CategoryPosts extends Component {
 
     renderRow(item) {
 
-          let commentLink = "";
+        let commentLink = "";
         if (item.link) {
             if (item.link.length > 1) {
                 if (item.link[1].title) {
@@ -131,11 +134,13 @@ class CategoryPosts extends Component {
             }
 
         }
+        commentLink = commentLink.toLowerCase().replace("comments", "கருத்துக்கள்");
 
-            let categoryTerm = "";
-    if (item.category) {
-      categoryTerm = " - " + item.category[0].term;
-    }
+        let categoryTerm = "";
+        if (item.category) {
+            categoryTerm = " - " + item.category[0].term;
+        }
+
 
 
         return (
@@ -143,13 +148,13 @@ class CategoryPosts extends Component {
 
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
-                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)+ categoryTerm}  color={this.props.theme.color} />
+                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} color={this.props.theme.color} />
                 </TouchableOpacity>
                 <CardContent trim={true} text={item.summary.$t.substring(2)} />
                 <CardAction seperator={true} inColumn={false}>
                     <CardButton
                         onPress={() => { this.sharePost(item) }}
-                        title="Share"
+                        title="பகிர்"
                         color={this.props.theme.color}
                         icon="share"
                     />
@@ -269,15 +274,21 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog,  Settings }) => {
+const mapStateToProps = ({ Blog, Settings }) => {
     console.log('Blog.categoryPosts ', Blog.categoryPosts);
     return ({
         categoryPosts: Blog.categoryPosts
         , postsRefresh: Blog.postsRefresh
-         ,  theme: Settings.theme
+        , theme: Settings.theme
     })
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments, getCategoryList })(CategoryPosts)
+export default connect(mapStateToProps, {
+    getPosts
+    , getPostDetails
+    , getPostComments
+    , getCategoryList
+    , setselectedPost
+})(CategoryPosts)
 

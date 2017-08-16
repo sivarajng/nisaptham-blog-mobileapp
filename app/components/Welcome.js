@@ -33,7 +33,7 @@ import { Actions } from 'react-native-router-flux';
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 
-class Post extends Component {
+class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -124,103 +124,32 @@ class Post extends Component {
     return (
       <View style={styles.container}>
 
-        {/* <View
 
-          style={{ padding: 5, margin: 0, backgroundColor: this.props.theme.color, borderColor: '#ffffff', width: deviceWidth }} >
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40, position: 'relative', left: 0 }}>
-            <Text numberOfLines={1} style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
-              {this.props.title}
-            </Text>
-            <TouchableOpacity onPress={() => this.props.togglePostPopup(true)} style={{ position: 'absolute', right: 0 }} >
-              <Icon name="gear" size={30} color="#ffffff" />
-            </TouchableOpacity>
-          </View>
-        </View> */}
+<Text>
+    asdhdsahd
+    asdhdsahdasjdasasjada
+    d
+</Text>
 
+<Text>
+    asdhdsahd
+    asdhdsahdasjdasasjada
+    d
+</Text>
 
-        {/* <WebView
-          scalesPageToFit={true}
-          source={{ html: this.props.postDetails }}
-          style={{ marginTop: 20 }}
-        /> */}
-        {/* <Text style={styles.welcome}>{this.props.postDetails}</Text> */}
+<Text>
+    asdhdsahd
+    asdhdsahdasjdasasjada
+    d
+</Text>
 
-        {this.props.postDetailsLoader
-          ? <ActivityIndicator
-            animating={true}
-            color='#01579b'
-            size={60}
-            style={styles.activityIndicator}
-          />
-          : null
-        }
+<Text>
+    asdhdsahd
+    asdhdsahdasjdasasjada
+    d
+</Text>
+       
 
-        {this.props.postWebview
-          ?
-          <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth }}>
-            <WebView
-              scalesPageToFit={true}
-              source={{ html: this.props.postDetails }}
-
-            />
-          </View>
-          : <ScrollView
-            onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
-            ref='_scrollView'
-            contentContainerStyle={{ padding: 10, backgroundColor: '#ffffff', }}>
-
-            <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
-
-
-            <Card style={{ width: deviceWidth }}>
-
-              <TouchableOpacity style={{ width: deviceWidth }} >
-                <CardTitle subtitle={this.formatDate(this.props.postInfo.published.$t) + categoryTerm} color={this.props.theme.color} />
-              </TouchableOpacity>
-
-
-
-              <CardAction seperator={true} inColumn={false}>
-                <CardButton
-                  onPress={() => { this.sharePost(this.props.postInfo) }}
-                  title="பகிர்"
-                  color={this.props.theme.color}
-                  icon="share"
-                />
-                <CardButton
-                  onPress={() => this.gotoPostComments(this.props.postInfo)}
-                  title={(this.props.postInfo.link[1].title).toString()}
-                  color={this.props.theme.color}
-                  icon="comment"
-                />
-              </CardAction>
-            </Card>
-
-
-          </ScrollView>
-        }
-
-
-        {this.state.scrollHead > 20
-          ? < TouchableOpacity
-            onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
-            style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
-            <Icon name="chevron-circle-up" size={60} color={this.props.theme.color} />
-          </TouchableOpacity>
-          : null
-        }
-
-        {/* <PostModal isVisible={this.props.popup} /> */}
-
-        <Modal isVisible={this.props.postPopup}
-        >
-          <TouchableOpacity onPress={() => this.props.togglePostPopup(false)}>
-            <View style={{ backgroundColor: 'white', height: 200, width: deviceWidth }}>
-              <Text>Hello!</Text>
-
-            </View>
-          </TouchableOpacity>
-        </Modal>
 
 
       </View>
@@ -374,6 +303,6 @@ const mapDispatchToProps = dispatch =>
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, { Get, getPostComments, togglePostWebview, togglePostPopup })(Post)
+export default connect(mapStateToProps, { Get, getPostComments, togglePostWebview, togglePostPopup })(Welcome)
 
 

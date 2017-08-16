@@ -14,6 +14,8 @@ import CategorySelect from '../components/CategorySelect';
 import CategoryPosts from '../components/CategoryPosts';
 import Settings from '../components/Settings';
 import Theme from '../components/Theme';
+import Welcome from '../components/Welcome';
+import About from '../components/About';
 
 import { bindActionCreators } from 'redux';
 
@@ -169,6 +171,8 @@ class RouterComponent extends Component {
           <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
           <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
           <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
+          <Scene key="Welcome" component={Welcome} title="Welcome" />
+          <Scene key="About" component={About} title="எழுத்தாளரைப் பற்றி" />
 
         </Scene>
       </Router>

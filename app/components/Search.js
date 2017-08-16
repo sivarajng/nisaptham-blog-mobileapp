@@ -21,7 +21,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import { connect } from 'react-redux'
-import { getPostsSearch, getPostDetails, getPostComments } from '../redux/actions'
+import {
+    getPostsSearch
+    , getPostDetails
+    , getPostComments
+    , setselectedPost
+} from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -131,6 +136,7 @@ class Search extends Component {
 
         // alert((item.link[4].href).toString());
         this.props.getPostComments((item.link[0].href).toString());
+        this.props.setselectedPost(item);
         Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
     }
 
@@ -209,11 +215,12 @@ class Search extends Component {
             }
 
         }
+        commentLink = commentLink.toLowerCase().replace("comments", "கருத்துக்கள்");
 
-            let categoryTerm = "";
-    if (item.category) {
-      categoryTerm = " - " + item.category[0].term;
-    }
+        let categoryTerm = "";
+        if (item.category) {
+            categoryTerm = " - " + item.category[0].term;
+        }
 
         return (
 
@@ -221,13 +228,13 @@ class Search extends Component {
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
                     {/*this.gotoPost(item)}>*/}
-                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)+ categoryTerm}  color={this.props.theme.color} />
+                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} color={this.props.theme.color} />
                 </TouchableOpacity>
                 <CardContent trim={true} text={item.summary.$t.substring(2)} />
                 <CardAction seperator={true} inColumn={false}>
                     <CardButton
                         onPress={() => { this.sharePost(item) }}
-                        title="Share"
+                        title="பகிர்"
                         color={this.props.theme.color}
                         icon="share"
                     />
@@ -346,7 +353,7 @@ class Search extends Component {
                                     commonStyles.opensansSemiBold,
                                     commonStyles.fontSize18, { width: deviceWidth - 120, height: 30, backgroundColor: '#ffffff', padding: 0 }]}
                                 >
-                                    <Text style={{ fontSize: 18, color: this.props.theme.color,fontStyle:'italic' }}>Search by {this.state.searchBy}</Text>
+                                    <Text style={{ fontSize: 18, color: this.props.theme.color, fontStyle: 'italic' }}>Search by {this.state.searchBy}</Text>
 
 
                                 </View>
@@ -559,5 +566,10 @@ const mapStateToProps = ({ Blog, Settings }) => {
 }
 
 
-export default connect(mapStateToProps, { getPostsSearch, getPostDetails, getPostComments })(Search)
+export default connect(mapStateToProps, {
+    getPostsSearch
+    , getPostDetails
+    , getPostComments
+    , setselectedPost
+})(Search)
 

@@ -192,8 +192,8 @@ class CategorySelect extends Component {
                                 justifyContent: 'center',
                                 padding: 10,
                             }} >
-                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30,paddingRight:20 }}>
-                                    See Posts
+                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 26,paddingRight:20 }}>
+                                    பதிவுகளைப் பார்க்க
                             </Text>
                               <Icon name="arrow-circle-o-right" size={40} color="#ffffff" />
 
