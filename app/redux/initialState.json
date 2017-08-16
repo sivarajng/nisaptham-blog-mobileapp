@@ -17,6 +17,8 @@
         "selectedPost":{}
     },
     "Settings":{
-        "theme":{"name":"Neidhal","color":"#2196f3"}
+        "theme":{"name":"Neidhal","color":"#2196f3"},
+        "fonrSize":16,
+        "nightMode":false
     }
 }

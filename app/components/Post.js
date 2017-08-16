@@ -230,7 +230,7 @@ class Post extends Component {
 
 var htmlStyles = StyleSheet.create({
   div: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'rgb(65,64,66)',
     backgroundColor: '#ffffff',
   },

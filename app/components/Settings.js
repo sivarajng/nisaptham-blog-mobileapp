@@ -10,7 +10,7 @@ import {
     TouchableHighlight,
     Dimensions,
     Share,
-    Platform
+    Platform,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
@@ -85,10 +85,10 @@ class Settings extends Component {
     renderRow(item) {
 
 
-            let categoryTerm = "";
-    if (item.category) {
-      categoryTerm = " - " + item.category[0].term;
-    }
+        let categoryTerm = "";
+        if (item.category) {
+            categoryTerm = " - " + item.category[0].term;
+        }
 
 
         console.log('postComments items ', item)
@@ -97,7 +97,7 @@ class Settings extends Component {
 
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} >
-                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm } />
+                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} />
                 </TouchableOpacity>
                 <CardContent trim={false}>
                     <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
@@ -133,30 +133,59 @@ class Settings extends Component {
         return (
             <View style={styles.container}>
 
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
-                    <Text>
-                        Search
-          </Text>
-                </TouchableOpacity>
-
-
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 1
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+                        <Text
+                            style={{ fontSize: 18, color: 'red' }}
+                        >
+                            A
                 </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 2
+                        <Text
+                            style={{ fontSize: 22, color: 'red' }}
+                        >
+                            A
                 </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 3
+                        <Text
+                            style={{ fontSize: 26, color: 'red' }}
+                        >
+                            A
                 </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+
+                        <Text
+                            style={{ fontSize: 30, color: 'red' }}
+                        >
+                            A
+                </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+                        <Text
+                            style={{ fontSize: 30, color: 'red' }}
+                        >
+                            Day
+                </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+
+                        <Text
+                            style={{ fontSize: 30, color: 'red' }}
+                        >
+                            Night
+                </Text>
+                    </TouchableOpacity>
+                  
+                </View>
+
+
             </View>
         );
     }
