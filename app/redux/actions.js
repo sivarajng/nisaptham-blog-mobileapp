@@ -136,6 +136,15 @@ export const togglePostPopup = (value) => {
         })
     }
 }
+export const setselectedPost = (item) => {
+    return (dispatch) => {
+
+        dispatch({
+            type: Type.SET_SELECTED_POST,
+            payload: item
+        })
+    }
+}
 
 export const getCategoryList = () => {
     return (dispatch) => {

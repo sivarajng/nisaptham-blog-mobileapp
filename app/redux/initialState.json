@@ -13,7 +13,8 @@
         "postSearchLoader": false,
         "categoryList": [],
         "postPopup":false,
-        "postWebview":false
+        "postWebview":false,
+        "selectedPost":{}
     },
     "Settings":{
         "theme":{"name":"Neidhal","color":"#2196f3"}

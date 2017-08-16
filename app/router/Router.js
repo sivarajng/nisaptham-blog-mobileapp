@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Home from '../components/Home';
 import Post from '../components/Post';
+import PostWeb from '../components/PostWeb';
 import Comment from '../components/Comment';
 import Search from '../components/Search';
 import Menu from '../components/Menu';
@@ -75,7 +76,7 @@ class RouterComponent extends Component {
     console.log('ROUTER CALL 1111', this.props.popupCall);
 
     this._postIcon = this.postIcon.bind(this);
-  
+
 
   }
   componentWillMount() {
@@ -94,6 +95,32 @@ class RouterComponent extends Component {
 
   }
 
+  _rightMenuPost() {
+    return (
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+        <TouchableHighlight onPress={() => Actions.PostWeb({title:this.props.selectedPost.title.$t})} style={{ padding: 0 }} >
+          <Icon name="desktop" size={30} color="white" />
+        </TouchableHighlight>
+        <TouchableHighlight onPress={() => this.props.togglePostPopup(true)} style={{ padding: 8 }} >
+          <Icon name="gear" size={35} color="white" />
+        </TouchableHighlight>
+      </View>
+
+    )
+  }
+
+  _rightMenuPostWeb() {
+    return (
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+         <TouchableHighlight onPress={() => Actions.pop()} style={{ padding: 10 }} >
+          <Icon name="mobile" size={40} color="white" />
+        </TouchableHighlight>
+      </View>
+
+    )
+  }
   postIcon() {
 
     //  this.setState({ flag: !this.state.flag });
@@ -105,9 +132,9 @@ class RouterComponent extends Component {
     return (
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
-               <TouchableHighlight onPress={() => this.props.togglePostPopup(true)} style={{ padding: 10 }} >
+        <TouchableHighlight onPress={() => this.props.togglePostPopup(true)} style={{ padding: 10 }} >
           <Icon name="gear" size={30} color="white" />
-        </TouchableHighlight> 
+        </TouchableHighlight>
       </View>
 
     )
@@ -126,7 +153,8 @@ class RouterComponent extends Component {
           titleStyle={navBarTitleStyle()}>
 
           <Scene key="Home" component={Home} title="Home" renderRightButton={() => this.filterIcon()} initial={true} />
-          <Scene key="Post" component={Post} title="Post" hideNavBar={true}/>
+          <Scene key="Post" component={Post} title="Post" renderRightButton={() => this._rightMenuPost()} />
+          <Scene key="PostWeb" component={PostWeb} title="PostWeb" renderRightButton={() => this._rightMenuPostWeb()} />
           <Scene key="Comment" component={Comment} title="Comment" />
           <Scene key="Search" component={Search} title="Search" />
           <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
@@ -143,9 +171,10 @@ class RouterComponent extends Component {
 }
 
 const mapStateToProps = ({ Blog, Settings }) => {
-//  console.log('Blog.postDetails ', Blog.postDetails);
+  //  console.log('Blog.postDetails ', Blog.postDetails);
   return ({
     postPopup: Blog.postPopup,
+    selectedPost: Blog.selectedPost,
     postWebview: Blog.postWebview,
     theme: Settings.theme,
   })
@@ -163,4 +192,4 @@ const mapDispatchToProps = dispatch =>
 
 
 
-export default connect(mapStateToProps, {togglePostPopup})(RouterComponent)
+export default connect(mapStateToProps, { togglePostPopup })(RouterComponent)
