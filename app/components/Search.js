@@ -221,7 +221,7 @@ class Search extends Component {
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
                     {/*this.gotoPost(item)}>*/}
-                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t +' -' +item.category.term)}  color={this.props.theme.color} />
+                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)+ categoryTerm}  color={this.props.theme.color} />
                 </TouchableOpacity>
                 <CardContent trim={true} text={item.summary.$t.substring(2)} />
                 <CardAction seperator={true} inColumn={false}>
