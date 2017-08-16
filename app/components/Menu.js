@@ -138,13 +138,13 @@ class Menu extends Component {
 
                 <View style={{ width: deviceWidth, paddingTop: 20 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <Image source={require('../images/prof.jpg')} style={{ width: 80, height: 80, borderRadius: 50 }} />
+                        <Image source={require('../images/profileImage.png')} style={{ width: 80, height: 80, borderRadius: 50 }} />
                         <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30 }}>
-                                Nisaptham
+                                நிசப்தம்
                             </Text>
                             <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 18 }}>
-                                by V.Manikandan
+                                வா. மணிகண்டன்
                             </Text>
                         </View >
                     </View>
@@ -157,7 +157,7 @@ class Menu extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="home" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Home
+                                முகப்பு பக்கம்
                        </Text>
                         </View>
                     </TouchableOpacity>
@@ -168,7 +168,7 @@ class Menu extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="search" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Search
+                                தேடல்
                        </Text>
                         </View>
                     </TouchableOpacity>
@@ -178,7 +178,7 @@ class Menu extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="list-ul" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Category
+                                பிரிவுகள்
                        </Text>
                         </View>
                     </TouchableOpacity>
@@ -188,7 +188,7 @@ class Menu extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="gear" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Settings
+                                அமைப்புகள்
                        </Text>
                         </View>
                     </TouchableOpacity>
@@ -199,7 +199,7 @@ class Menu extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="pie-chart" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                Theme
+                                விருப்ப நிறங்கள்
                        </Text>
                         </View>
                     </TouchableOpacity>
@@ -209,7 +209,7 @@ class Menu extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="user" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                About Author
+                                எழுத்தாளரைப் பற்றி
                        </Text>
                         </View>
                     </TouchableOpacity>

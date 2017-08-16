@@ -11,6 +11,7 @@ import {
   Dimensions,
   ActivityIndicator,
   RefreshControl,
+  Share
 
 } from 'react-native';
 
@@ -155,6 +156,7 @@ class Home extends Component {
       }
 
     }
+    commentLink = commentLink.toLowerCase().replace("comments","கருத்துக்கள்");
 
     let categoryTerm = "";
     if (item.category) {
@@ -172,7 +174,7 @@ class Home extends Component {
         <CardAction seperator={true} inColumn={false}>
           <CardButton
             onPress={() => { this.sharePost(item) }}
-            title="Share"
+            title="பகிர்"
             color={this.props.theme.color}
             icon="share"
           />

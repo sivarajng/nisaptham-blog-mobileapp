@@ -146,9 +146,9 @@ class RouterComponent extends Component {
         <Scene key="root"
           navigationBarStyle={{ backgroundColor: this.props.theme.color }}
           sceneStyle={styles.sceneStyle}
-           backButtonImage={require('../images/left.jpg')}
-        leftButtonIconStyle={{ width: 40,
-         height: 40,
+           backButtonImage={require('../images/backButton.png')}
+        leftButtonIconStyle={{ width: 33,
+         height: 33,
          marginLeft: 3,
         marginTop:  -3,
         zIndex:999}}
@@ -158,17 +158,17 @@ class RouterComponent extends Component {
           //headerBackButtonTextStyle={{ color: 'green' }}
           titleStyle={navBarTitleStyle()}>
 
-          <Scene key="Home" component={Home} title="Home" renderRightButton={() => this.filterIcon()} initial={true} />
+          <Scene key="Home" component={Home} title="நிசப்தம்" renderRightButton={() => this.filterIcon()} initial={true} />
           <Scene key="Post" component={Post} title="Post" renderRightButton={() => this._rightMenuPost()} />
           <Scene key="PostWeb" component={PostWeb} title="PostWeb" renderRightButton={() => this._rightMenuPostWeb()} />
           <Scene key="Comment" component={Comment} title="Comment" />
-          <Scene key="Search" component={Search} title="Search" />
+          <Scene key="Search" component={Search} title="தேடல்" />
           <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
-          <Scene key="Research" component={Research} title="Research" />
-          <Scene key="CategorySelect" component={CategorySelect} title="CategorySelect" />
+          <Scene key="Research" component={Research} title="ஆராய்ச்சி" />
+          <Scene key="CategorySelect" component={CategorySelect} title="பிரிவுகள்" />
           <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
-          <Scene key="Settings" component={Settings} title="Settings" />
-          <Scene key="Theme" component={Theme} title="Theme" />
+          <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
+          <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
 
         </Scene>
       </Router>

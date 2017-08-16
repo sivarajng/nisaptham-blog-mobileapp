@@ -39,12 +39,12 @@ class Theme extends Component {
 
             themes: [
 
-                { name: "Kurinji", color: "#757575" },
-                { name: "Mullai", color: "#009688" },
-                { name: "Marudham", color: "#4caf50" },
-                { name: "Neidhal", color: "#2196f3" },
-                { name: "Paalai", color: "#795548" },
-                { name: "Red", color: "#f44336" }
+                { name: "குறிஞ்சி", color: "#757575" },
+                { name: "முல்லை", color: "#009688" },
+                { name: "மருதம்", color: "#4caf50" },
+                { name: "நெய்தல்", color: "#2196f3" },
+                { name: "பாலை", color: "#795548" },
+                { name: "நெருப்புடா", color: "#f44336" }
 
 
 
@@ -75,8 +75,8 @@ class Theme extends Component {
                     <TouchableOpacity
                         onPress={() => {this._setTheme(0) }}
                         style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[0].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
                                 {this.state.themes[0].name}
                             </Text>
                              {this.props.theme.color == this.state.themes[0].color
@@ -88,8 +88,8 @@ class Theme extends Component {
                     <TouchableOpacity
                           onPress={() => {this._setTheme(1) }}
                         style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[1].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
                                 {this.state.themes[1].name}
                             </Text>
                              {this.props.theme.color == this.state.themes[1].color
@@ -101,8 +101,8 @@ class Theme extends Component {
                     <TouchableOpacity
                           onPress={() => {this._setTheme(2) }}
                         style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[2].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
                                 {this.state.themes[2].name}
                             </Text>
                              {this.props.theme.color == this.state.themes[2].color
@@ -114,8 +114,8 @@ class Theme extends Component {
                     <TouchableOpacity
                           onPress={() => {this._setTheme(3) }}
                         style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[3].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
                                 {this.state.themes[3].name}
                             </Text>
                             {this.props.theme.color == this.state.themes[3].color
@@ -127,8 +127,8 @@ class Theme extends Component {
                     <TouchableOpacity
                            onPress={() => {this._setTheme(4) }}
                         style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[4].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
                                 {this.state.themes[4].name}
                             </Text>
                              {this.props.theme.color == this.state.themes[4].color
@@ -136,11 +136,13 @@ class Theme extends Component {
                                 : null}
                         </View>
                     </TouchableOpacity>
+                    <View style={{height:3,backgroundColor:'gray'}}>
+                    </View>
                     <TouchableOpacity
                         onPress={() => {this._setTheme(5) }}
                         style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[5].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 30 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 0 }}>
                                 {this.state.themes[5].name}
                             </Text>
                             {this.props.theme.color == this.state.themes[5].color
