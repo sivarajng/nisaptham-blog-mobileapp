@@ -28,13 +28,13 @@ export default class CardTitle extends Component {
     }
     if(this.props.subtitleAbove!==true) {
       return (
-        <View style={[styles.cardTitle, newStyle]}>
+        <View style={[styles.cardTitle, newStyle,{backgroundColor:'#eceff1'}]}>
           {this.props.avatarSource!==undefined &&
             <Image source={this.props.avatarSource} resizeMode="stretch" style={styles.avatarStyle} />
           }
           <View style={styles.cardTitleTextCont}>
             {this.props.title!==undefined &&
-              <Text style={this.props.avatarSource===undefined ? titleStyle : [titleStyle, {fontSize: 14}]}>{this.props.title}</Text>
+              <Text style={this.props.avatarSource===undefined ? [titleStyle,{color: this.props.color}] : [titleStyle, {fontSize: 14,color: this.props.color}]}>{this.props.title}</Text>
             }
             {this.props.subtitle!==undefined &&
               <Text style={subtitleStyle}>{this.props.subtitle}</Text>
@@ -54,7 +54,7 @@ export default class CardTitle extends Component {
               <Text style={subtitleStyle}>{this.props.subtitle}</Text>
             }
             {this.props.title!==undefined &&
-              <Text style={this.props.avatarSource===undefined ? titleStyle : [titleStyle, {fontSize: 14}]}>{this.props.title}</Text>
+              <Text style={this.props.avatarSource===undefined ? [titleStyle,{color: this.props.color}] : [titleStyle, {fontSize: 14,color: this.props.color}]}>{this.props.title}</Text>
             }
           </View>
         </View>
@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   titleText: {
-    fontSize: 24
+    fontSize: 22,
+   fontWeight: 'bold',
   },
   subtitleText: {
     fontSize:14,

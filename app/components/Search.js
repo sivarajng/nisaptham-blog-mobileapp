@@ -210,27 +210,32 @@ class Search extends Component {
 
         }
 
+            let categoryTerm = "";
+    if (item.category) {
+      categoryTerm = " - " + item.category[0].term;
+    }
+
         return (
 
 
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
                     {/*this.gotoPost(item)}>*/}
-                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)} />
+                    <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t +' -' +item.category.term)}  color={this.props.theme.color} />
                 </TouchableOpacity>
                 <CardContent trim={true} text={item.summary.$t.substring(2)} />
                 <CardAction seperator={true} inColumn={false}>
                     <CardButton
                         onPress={() => { this.sharePost(item) }}
                         title="Share"
-                        color='blue'
+                        color={this.props.theme.color}
                         icon="share"
                     />
                     {commentLink != ""
                         ? <CardButton
                             onPress={() => this.gotoPostComments(item)}
                             title={commentLink}
-                            color='blue'
+                            color={this.props.theme.color}
                             icon="comment"
                         />
                         : null
@@ -262,12 +267,12 @@ class Search extends Component {
                                     style={[styles.searchInputStyle, commonStyles.opensansSemiBold, commonStyles.fontSize16, { width: deviceWidth - 120 }]}
                                 />
                                 <TouchableOpacity style={styles.closeIconStyle} onPress={() => { this._clearInput() }}>
-                                    <Icon name="close" size={40} color="#03A9F4" />
+                                    <Icon name="close" size={40} color={this.props.theme.color} />
                                 </TouchableOpacity>
                                 {true
                                     ?
                                     <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
-                                        <Icon name="search" size={40} color="#03A9F4" />
+                                        <Icon name="search" size={40} color={this.props.theme.color} />
                                     </TouchableOpacity>
 
                                     : <View></View>
@@ -292,7 +297,7 @@ class Search extends Component {
                                         >
                                             <Text style={{ fontSize: 18, color: '#000000' }}>{this.state.searchStartDate}</Text>
                                             <View style={styles.searchIconStyle3}>
-                                                <Icon name="calendar" size={30} color="#03A9F4" />
+                                                <Icon name="calendar" size={30} color={this.props.theme.color} />
                                             </View>
 
                                         </View>
@@ -309,7 +314,7 @@ class Search extends Component {
                                         >
                                             <Text style={{ fontSize: 18, color: '#000000' }}>{this.state.searchEndDate}</Text>
                                             <View style={styles.searchIconStyle3}>
-                                                <Icon name="calendar" size={30} color="#03A9F4" />
+                                                <Icon name="calendar" size={30} color={this.props.theme.color} />
                                             </View>
 
                                         </View>
@@ -320,7 +325,7 @@ class Search extends Component {
                                     {true
                                         ?
                                         <TouchableOpacity style={styles.searchIconStyle1} onPress={() => this._search()}>
-                                            <Icon name="search" size={40} color="#03A9F4" />
+                                            <Icon name="search" size={40} color={this.props.theme.color} />
                                         </TouchableOpacity>
 
                                         : <View></View>
@@ -341,7 +346,7 @@ class Search extends Component {
                                     commonStyles.opensansSemiBold,
                                     commonStyles.fontSize18, { width: deviceWidth - 120, height: 30, backgroundColor: '#ffffff', padding: 0 }]}
                                 >
-                                    <Text style={{ fontSize: 18, color: '#03A9F4' }}>Search by {this.state.searchBy}</Text>
+                                    <Text style={{ fontSize: 18, color: this.props.theme.color,fontStyle:'italic' }}>Search by {this.state.searchBy}</Text>
 
 
                                 </View>
@@ -375,7 +380,7 @@ class Search extends Component {
                         ? < TouchableOpacity
                             onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
                             style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
-                            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+                            <Icon name="chevron-circle-up" size={60} color={this.props.theme.color} />
                         </TouchableOpacity> : null
 
                     )
@@ -544,11 +549,12 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
+const mapStateToProps = ({ Blog, Settings }) => {
     console.log('Blog.postsSearch ', Blog.postsSearch);
     return ({
-        postsSearch: Blog.postsSearch,
-        postSearchLoader: Blog.postSearchLoader
+        postsSearch: Blog.postsSearch
+        , postSearchLoader: Blog.postSearchLoader
+        , theme: Settings.theme
     })
 }
 

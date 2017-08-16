@@ -87,6 +87,10 @@ class Comment extends Component {
   }
 
   renderRow(item) {
+        let categoryTerm = "";
+    if (item.category) {
+      categoryTerm = " - " + item.category[0].term;
+    }
 
     console.log('postComments items ', item)
     return (
@@ -94,7 +98,7 @@ class Comment extends Component {
 
       <Card style={{ width: deviceWidth }}>
         <TouchableOpacity style={{ width: deviceWidth }} >
-          <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t)} />
+          <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm } />
         </TouchableOpacity>
         <CardContent trim={false}>
           <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
@@ -149,7 +153,7 @@ class Comment extends Component {
           <TouchableOpacity
             onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
             style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
-            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+            <Icon name="chevron-circle-up" size={60} color={this.props.theme.color} />
           </TouchableOpacity>
           : null
         }
@@ -287,10 +291,11 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
+const mapStateToProps = ({ Blog ,  Settings }) => {
   console.log('Blog.postComments ', Blog.postComments);
   return ({
     postComments: Blog.postComments
+     ,  theme: Settings.theme
   })
 }
 

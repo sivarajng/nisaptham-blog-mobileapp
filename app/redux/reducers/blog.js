@@ -13,6 +13,16 @@ const Blog = (state = {}, { type, payload }) => {
         case Type.GET_BLOG_POSTS:
             return { ...state, posts: payload }
 
+        case Type.GET_BLOG_POSTS_LOADMORE:
+
+            let posts = state.posts;
+
+            posts.feed.entry = [...posts.feed.entry,...payload.feed.entry];
+
+            console.log("TOTALLL ",posts);
+
+            return { ...state, posts: posts }
+
         case Type.POPUP:
             return { ...state, popup: payload }
 

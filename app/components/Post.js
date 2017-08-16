@@ -83,6 +83,11 @@ class Post extends Component {
 
   render() {
 
+        let categoryTerm = "";
+    if (item.category) {
+      categoryTerm = " - " + item.category[0].term;
+    }
+    
 
     return (
       <View style={styles.container}>
@@ -121,13 +126,13 @@ class Post extends Component {
               <CardButton
                 onPress={() => { this.sharePost(this.props.postInfo) }}
                 title="Share"
-                color='blue'
+                color={this.props.theme.color}
                 icon="share"
               />
               <CardButton
                 onPress={() => this.gotoPostComments(this.props.postInfo)}
                 title={(this.props.postInfo.link[1].title).toString()}
-                color='blue'
+                color={this.props.theme.color}
                 icon="comment"
               />
             </CardAction>
@@ -140,7 +145,7 @@ class Post extends Component {
           ? < TouchableOpacity
             onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
             style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
-            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+            <Icon name="chevron-circle-up" size={60} color={this.props.theme.color} />
           </TouchableOpacity>
           : null
         }
@@ -279,13 +284,14 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog, Get }) => {
+const mapStateToProps = ({ Blog, Get ,  Settings }) => {
   console.log('Blog.postDetails ', Blog.postDetails);
   return ({
     Data: Get.Data,
     postDetails: Blog.postDetails,
     postDetailsLoader: Blog.postDetailsLoader,
     popup: Blog.popup,
+    theme: Settings.theme
   })
 }
 

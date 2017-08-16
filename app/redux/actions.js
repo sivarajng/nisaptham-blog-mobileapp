@@ -19,7 +19,8 @@ export const setTheme = (theme) => {
     }
 }
 
-export const getPosts = (mode = "") => {
+
+export const getPosts = (mode = "", offset = 0) => {
     return (dispatch) => {
 
         if (mode == "refresh") {
@@ -29,14 +30,25 @@ export const getPosts = (mode = "") => {
             })
         }
 
-        BlogServices.getPosts().then(response => {
+        BlogServices.getPosts(offset).then(response => {
 
             console.log('getPosts response :', response);
 
-            dispatch({
-                type: Type.GET_BLOG_POSTS,
-                payload: response
-            })
+
+            if (offset > 0) {
+                dispatch({
+                    type: Type.GET_BLOG_POSTS_LOADMORE,
+                    payload: response
+                })
+
+            } else {
+                dispatch({
+                    type: Type.GET_BLOG_POSTS,
+                    payload: response
+                })
+
+            }
+
             dispatch({
                 type: Type.GET_BLOG_POSTS_REFRESH,
                 payload: false
@@ -107,7 +119,7 @@ export const selectCategory = (term) => {
         })
     }
 }
-export const popupCall = (value=true) => {
+export const popupCall = (value = true) => {
     return (dispatch) => {
 
         dispatch({

@@ -35,7 +35,7 @@ class Home extends Component {
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
     this.state = {
       refreshing: false,
-
+      offset: 0,
       scrollHead: 0,
 
     };
@@ -44,6 +44,18 @@ class Home extends Component {
     this.props.getCategoryList();
     this.props.getPosts();
 
+  }
+
+  _loadMore() {
+
+    let offset = this.state.offset + 5;
+
+    this.setState({ offset });
+
+
+    this.props.getPosts("refresh", offset);
+
+    console.log("HOME OFFSET ",offset);
   }
 
   _onRefresh() {
@@ -107,9 +119,30 @@ class Home extends Component {
     return 'Invalid Date';
   }
 
+
+  renderFooter() {
+
+    return (
+      <TouchableOpacity
+        onPress={() => { this._loadMore() }}
+        style={{ padding: 5, margin: 0, backgroundColor: this.props.theme.color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 0, width: deviceWidth }} >
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+          <Icon name="arrow-circle-down" size={30} color="#ffffff" />
+          <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+            Load More
+          </Text>
+        </View>
+      </TouchableOpacity>
+    )
+
+  }
+
+
+
   renderRow(item) {
 
     let commentLink = "";
+
     if (item.link) {
       if (item.link.length > 1) {
         if (item.link[1].title) {
@@ -120,26 +153,31 @@ class Home extends Component {
 
     }
 
+    let categoryTerm = "";
+    if (item.category) {
+      categoryTerm = " - " + item.category[0].term;
+    }
+
     return (
 
 
       <Card style={{ width: deviceWidth }}>
         <TouchableOpacity style={{ width: deviceWidth }} onPress={() => this.gotoPost(item)}>
-          <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t)} />
+          <CardTitle title={item.title.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} color={this.props.theme.color} />
         </TouchableOpacity>
         <CardContent trim={true} text={item.summary.$t.substring(2)} />
         <CardAction seperator={true} inColumn={false}>
           <CardButton
             onPress={() => { this.sharePost(item) }}
             title="Share"
-            color='blue'
+            color={this.props.theme.color}
             icon="share"
           />
           {commentLink != ""
             ? <CardButton
               onPress={() => this.gotoPostComments(item)}
               title={commentLink}
-              color='blue'
+              color={this.props.theme.color}
               icon="comment"
             />
             : null
@@ -189,9 +227,11 @@ class Home extends Component {
                 onRefresh={this._onRefresh.bind(this)}
               />
             }
+
             enableEmptySections={true}
             dataSource={this.ds.cloneWithRows(this.props.posts.feed.entry)}
             renderRow={this.renderRow.bind(this)}
+            renderFooter={this.renderFooter.bind(this)}
           />
           :
           <ActivityIndicator
@@ -207,7 +247,7 @@ class Home extends Component {
           <TouchableOpacity
             onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
             style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
-            <Icon name="chevron-circle-up" size={60} color="#03A9F4" />
+            <Icon name="chevron-circle-up" size={60} color={this.props.theme.color} />
           </TouchableOpacity>
           : null
         }
@@ -251,11 +291,12 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
+const mapStateToProps = ({ Blog, Settings }) => {
   console.log('Blog.posts ', Blog.posts);
   return ({
     posts: Blog.posts
     , postsRefresh: Blog.postsRefresh
+    , theme: Settings.theme
   })
 }
 

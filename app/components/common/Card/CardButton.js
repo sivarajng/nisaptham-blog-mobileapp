@@ -13,7 +13,7 @@ export default class CardButton extends Component {
     let directionStyle = this.props.inColumn===true ? styles.CardButtonInColumn : styles.CardButtonInRow;
     return (
       <Touchable style={[directionStyle, newStyle,{flexDirection: 'row'}]} onPress={ ()=>{this.props.onPress()} }>
-       <Icon name={this.props.icon || "bars"} size={20} color="#03A9F4" style={{paddingRight:5}}/>
+       <Icon name={this.props.icon || "bars"} size={20} color={this.props.color} style={{paddingRight:5}}/>
         <Text style={this.props.color!==undefined ? [styles.buttonText, {color: this.props.color}] : styles.buttonText}>{this.props.title.toUpperCase()}</Text>
       </Touchable>      
     );

@@ -89,13 +89,17 @@ class Menu extends Component {
 
     renderRow(item) {
 
+            let categoryTerm = "";
+    if (item.category) {
+      categoryTerm = " - " + item.category[0].term;
+    }
         console.log('postComments items ', item)
         return (
 
 
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} >
-                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t)} />
+                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm } />
                 </TouchableOpacity>
                 <CardContent trim={false}>
                     <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
@@ -132,7 +136,7 @@ class Menu extends Component {
             <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
 
-                <View style={{ width: deviceWidth, padding: 0 }}>
+                <View style={{ width: deviceWidth, paddingTop: 20 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Image source={require('../images/prof.jpg')} style={{ width: 80, height: 80, borderRadius: 50 }} />
                         <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
@@ -151,7 +155,7 @@ class Menu extends Component {
                         onPress={() => { Actions.pop() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Icon name="home" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
                                 Home
                        </Text>
@@ -162,7 +166,7 @@ class Menu extends Component {
                         onPress={() => { Actions.Search() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Icon name="search" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
                                 Search
                        </Text>
@@ -172,7 +176,7 @@ class Menu extends Component {
                         onPress={() => { Actions.CategorySelect() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Icon name="list-ul" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
                                 Category
                        </Text>
@@ -182,7 +186,7 @@ class Menu extends Component {
                         onPress={() => { Actions.Settings() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Icon name="gear" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
                                 Settings
                        </Text>
@@ -193,7 +197,7 @@ class Menu extends Component {
                         onPress={() => { Actions.Theme() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Icon name="pie-chart" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
                                 Theme
                        </Text>
@@ -203,7 +207,7 @@ class Menu extends Component {
                         onPress={() => { Actions.About() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="chevron-circle-up" size={30} color="#ffffff" />
+                            <Icon name="user" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
                                 About Author
                        </Text>

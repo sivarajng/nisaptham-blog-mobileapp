@@ -111,13 +111,18 @@ class CategorySelect extends Component {
 
     renderRow(item) {
 
+            let categoryTerm = "";
+    if (item.category) {
+      categoryTerm = " - " + item.category[0].term;
+    }
+
         console.log('postComments items ', item)
         return (
 
 
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} >
-                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t)} />
+                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm } />
                 </TouchableOpacity>
                 <CardContent trim={false}>
                     <HTMLView value={item.content.$t} stylesheet={htmlStyles} />

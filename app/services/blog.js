@@ -66,8 +66,11 @@ class BlogServices {
     };
 
 
-    getPosts(type = "GET") {
-        return fetch(CONFIG.BLOG_BASE_URL_MAX_LIMIT, {
+    getPosts(offset = 0, type = "GET") {
+        let url = CONFIG.BLOG_BASE_URL_MAX_LIMIT + "&start-index=" + (offset + 1);
+
+    
+        return fetch(url, {
             method: type,
         }).then(this.getStatus)
             .then(this.parseJson);
@@ -75,9 +78,9 @@ class BlogServices {
 
     getCategoryPosts(type = "GET") {
 
-        let url = CONFIG.BLOG_BASE_URL_CATEGORY_FILTER +this.getCategoryFilter() +"?alt=json";
+        let url = CONFIG.BLOG_BASE_URL_CATEGORY_FILTER + this.getCategoryFilter() + "?alt=json";
 
-        console.log("getCategoryPosts URL ",url);
+        console.log("getCategoryPosts URL ", url);
         return fetch(url, {
             method: type,
         }).then(this.getStatus)
