@@ -21,7 +21,7 @@ export const setTheme = (theme) => {
 export const togglePostWebview = () => {
     return (dispatch) => {
         dispatch({
-            type: Type.TOGGLE_POST_WEBVIEW,
+            type: Type.TOGGLE_POST_WEBVIEW
             
         })
     }

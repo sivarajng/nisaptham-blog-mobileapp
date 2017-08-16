@@ -18,7 +18,7 @@ import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux'
 
-import { popupCall,togglePostWebview } from '../redux/actions'
+import { popupCall } from '../redux/actions'
 
 // import {RootDrawer} from '../components/RootDrawer';
 
@@ -75,7 +75,7 @@ class RouterComponent extends Component {
     console.log('ROUTER CALL 1111', this.props.popupCall);
 
     this._postIcon = this.postIcon.bind(this);
-    this._toggle = this.props.togglePostWebview.bind(this);
+  
 
   }
   componentWillMount() {
@@ -105,9 +105,9 @@ class RouterComponent extends Component {
     return (
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
-              <TouchableHighlight onPress={() => this.props.popupCall(false)} style={{ padding: 10 }} >
+              {/* <TouchableHighlight onPress={() => this.props.popupCall(false)} style={{ padding: 10 }} >
           <Icon name="gear" size={30} color="white" />
-        </TouchableHighlight>
+        </TouchableHighlight> */}
       </View>
 
     )
@@ -143,7 +143,7 @@ class RouterComponent extends Component {
 }
 
 const mapStateToProps = ({ Blog, Settings }) => {
-  console.log('Blog.postDetails ', Blog.postDetails);
+//  console.log('Blog.postDetails ', Blog.postDetails);
   return ({
     popup: Blog.popup,
     postWebview: Blog.postWebview,
@@ -156,11 +156,11 @@ const mapStateToProps = ({ Blog, Settings }) => {
 //   return bindActionCreators(popupCall, dispatch);
 // }
 
-// const mapDispatchToProps = dispatch =>
-//   ({
-//     popupCall() { dispatch(popupCall()) }
-//   })
+const mapDispatchToProps = dispatch =>
+  ({
+    popupCall() { dispatch(popupCall()) }
+  })
 
 
 
-export default connect(mapStateToProps, { popupCall,togglePostWebview })(RouterComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(RouterComponent)

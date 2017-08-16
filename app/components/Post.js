@@ -37,15 +37,32 @@ class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      scrollHead: 0
+      scrollHead: 0,
+
+      postDetails: this.props.postDetails,
+      postInfo: this.props.postInfo,
+
     }
-    //  this.props.Get();
-    //  this.props.togglePostWebview();
+
+
+
   }
   componentWillMount() {
+
+    if (this.props.postWebview) {
+      //   this.props.togglePostWebview();
+    }
+
+  }
+
+  componentWillUnmount() {
+
+    // alert('sasasasa');
     // this.props.getPostDetails();
 
   }
+
+
   componentDidMount() {
 
     // this.props.togglePostWebview();
@@ -97,7 +114,7 @@ class Post extends Component {
 
     let categoryTerm = "";
     if (this.props.postInfo.category) {
-      categoryTerm = " - " + this.props.postInfo.category[0].term;
+      //  categoryTerm = " - " + this.props.postInfo.category[0].term;
     }
 
 
@@ -173,7 +190,7 @@ class Post extends Component {
 
         < TouchableOpacity
           onPress={() => this.props.togglePostWebview()}
-          style={{ position: 'absolute', right: this.props.postWebview ? 20 : (this.state.scrollHead > 20 ? 80 :20), bottom: 15, padding: 2 }} >
+          style={{ position: 'absolute', right: this.props.postWebview ? 20 : (this.state.scrollHead > 20 ? 80 : 20), bottom: 15, padding: 2 }} >
           <Icon name={this.props.postWebview ? "mobile" : "desktop"} size={this.props.postWebview ? 60 : 40} color={this.props.theme.color} />
         </TouchableOpacity>
 
@@ -347,6 +364,6 @@ const mapDispatchToProps = dispatch =>
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, { Get, getPostComments, popupCall, togglePostWebview })(Post)
+export default connect(mapStateToProps, { Get, getPostComments, togglePostWebview })(Post)
 
 
