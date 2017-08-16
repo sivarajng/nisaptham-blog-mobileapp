@@ -49,13 +49,15 @@ class Post extends Component {
   }
   componentWillMount() {
 
-    if (this.props.postWebview) {
-      //   this.props.togglePostWebview();
-    }
+
 
   }
 
   componentWillUnmount() {
+
+    if (this.props.postWebview) {
+      this.props.togglePostWebview();
+    }
 
     // alert('sasasasa');
     // this.props.getPostDetails();
