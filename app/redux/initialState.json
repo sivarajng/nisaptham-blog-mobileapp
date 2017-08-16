@@ -12,7 +12,8 @@
         "postDetailsLoader": false,
         "postSearchLoader": false,
         "categoryList": [],
-        "popup":false
+        "popup":false,
+        "postWebview":false
     },
     "Settings":{
         "theme":{"name":"Neidhal","color":"#2196f3"}

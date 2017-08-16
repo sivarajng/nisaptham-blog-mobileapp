@@ -18,6 +18,14 @@ export const setTheme = (theme) => {
         })
     }
 }
+export const togglePostWebview = () => {
+    return (dispatch) => {
+        dispatch({
+            type: Type.TOGGLE_POST_WEBVIEW,
+            
+        })
+    }
+}
 
 
 export const getPosts = (mode = "", offset = 0) => {

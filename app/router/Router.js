@@ -18,7 +18,7 @@ import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux'
 
-import { popupCall } from '../redux/actions'
+import { popupCall,togglePostWebview } from '../redux/actions'
 
 // import {RootDrawer} from '../components/RootDrawer';
 
@@ -74,6 +74,9 @@ class RouterComponent extends Component {
     console.log('ROUTER POP 111', this.props.popup);
     console.log('ROUTER CALL 1111', this.props.popupCall);
 
+    this._postIcon = this.postIcon.bind(this);
+    this._toggle = this.props.togglePostWebview.bind(this);
+
   }
   componentWillMount() {
 
@@ -93,16 +96,20 @@ class RouterComponent extends Component {
 
   postIcon() {
 
-    this.setState({ flag: !this.state.flag });
+    //  this.setState({ flag: !this.state.flag });
 
     //  console.log('ROUTER POP 111', this.props.popup);
     // console.log('ROUTER CALL 1111', this.props.popupCall);
 
 
     return (
-      <TouchableHighlight onPress={() => this.props.popupCall(this.state.flag)} style={{ padding: 10 }} >
-        <Icon name="search" size={30} color="white" />
-      </TouchableHighlight>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+              <TouchableHighlight onPress={() => this.props.popupCall(false)} style={{ padding: 10 }} >
+          <Icon name="gear" size={30} color="white" />
+        </TouchableHighlight>
+      </View>
+
     )
   }
 
@@ -119,7 +126,7 @@ class RouterComponent extends Component {
           titleStyle={navBarTitleStyle()}>
 
           <Scene key="Home" component={Home} title="Home" renderRightButton={() => this.filterIcon()} initial={true} />
-          <Scene key="Post" component={Post} title="Post"  />
+          <Scene key="Post" component={Post} title="Post" renderRightButton={this._postIcon} />
           <Scene key="Comment" component={Comment} title="Comment" />
           <Scene key="Search" component={Search} title="Search" />
           <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
@@ -139,20 +146,21 @@ const mapStateToProps = ({ Blog, Settings }) => {
   console.log('Blog.postDetails ', Blog.postDetails);
   return ({
     popup: Blog.popup,
-      theme: Settings.theme
+    postWebview: Blog.postWebview,
+    theme: Settings.theme,
   })
 }
 
 
-function mapDispatchToProps1(dispatch) {
-  return bindActionCreators(popupCall, dispatch);
-}
+// function mapDispatchToProps1(dispatch) {
+//   return bindActionCreators(popupCall, dispatch);
+// }
 
-const mapDispatchToProps = dispatch =>
-  ({
-    popupCall() { dispatch(popupCall()) }
-  })
+// const mapDispatchToProps = dispatch =>
+//   ({
+//     popupCall() { dispatch(popupCall()) }
+//   })
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(RouterComponent)
+export default connect(mapStateToProps, { popupCall,togglePostWebview })(RouterComponent)

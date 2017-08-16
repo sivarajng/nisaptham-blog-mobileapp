@@ -13,6 +13,9 @@ const Blog = (state = {}, { type, payload }) => {
         case Type.GET_BLOG_POSTS:
             return { ...state, posts: payload }
 
+        case Type.TOGGLE_POST_WEBVIEW:
+            return { ...state, postWebview: !state.postWebview }
+
         case Type.GET_BLOG_POSTS_LOADMORE:
 
             let posts = state.posts;

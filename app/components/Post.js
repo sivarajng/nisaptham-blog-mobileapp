@@ -16,13 +16,16 @@ import {
 
 } from 'react-native';
 
+import Modal from 'react-native-modal';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card';
 
 import moment from 'moment';
+import PostModal from './PostModal';
 
 import { connect } from 'react-redux'
-import { Get, getPostDetails, getPostComments } from '../redux/actions'
+import { Get, getPostDetails, getPostComments, popupCall, togglePostWebview } from '../redux/actions'
 import HTMLView from 'react-native-htmlview'
 
 import { Actions } from 'react-native-router-flux';
@@ -37,10 +40,17 @@ class Post extends Component {
       scrollHead: 0
     }
     //  this.props.Get();
+    //  this.props.togglePostWebview();
   }
   componentWillMount() {
     // this.props.getPostDetails();
+
   }
+  componentDidMount() {
+
+    // this.props.togglePostWebview();
+  }
+
 
   gotoPostComments(item) {
 
@@ -93,6 +103,9 @@ class Post extends Component {
 
     return (
       <View style={styles.container}>
+
+
+
         {/* <WebView
           scalesPageToFit={true}
           source={{ html: this.props.postDetails }}
@@ -109,45 +122,61 @@ class Post extends Component {
           />
           : null
         }
-        {this.props.popup
-          ? <View style={{ height: 60 }}>
-            <Text>
-              JJJJJJJJJJJJJJJJJJJJJJJJJJJJ
-  </Text>
+
+        {this.props.postWebview
+          ?
+          <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth }}>
+            <WebView
+              scalesPageToFit={true}
+              source={{ html: this.props.postDetails }}
+
+            />
           </View>
-          : null}
-        <ScrollView
-          onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
-          ref='_scrollView'
-          contentContainerStyle={{ padding: 10, backgroundColor: '#ffffff', }}>
-          <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
+          : <ScrollView
+            onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
+            ref='_scrollView'
+            contentContainerStyle={{ padding: 10, backgroundColor: '#ffffff', }}>
 
-          <Card style={{ width: deviceWidth }}>
-
-            <TouchableOpacity style={{ width: deviceWidth }} >
-              <CardTitle subtitle={this.formatDate(this.props.postInfo.published.$t) + categoryTerm} color={this.props.theme.color} />
-            </TouchableOpacity>
+            <HTMLView value={this.props.postDetails} stylesheet={htmlStyles} />
 
 
+            <Card style={{ width: deviceWidth }}>
 
-            <CardAction seperator={true} inColumn={false}>
-              <CardButton
-                onPress={() => { this.sharePost(this.props.postInfo) }}
-                title="Share"
-                color={this.props.theme.color}
-                icon="share"
-              />
-              <CardButton
-                onPress={() => this.gotoPostComments(this.props.postInfo)}
-                title={(this.props.postInfo.link[1].title).toString()}
-                color={this.props.theme.color}
-                icon="comment"
-              />
-            </CardAction>
-          </Card>
+              <TouchableOpacity style={{ width: deviceWidth }} >
+                <CardTitle subtitle={this.formatDate(this.props.postInfo.published.$t) + categoryTerm} color={this.props.theme.color} />
+              </TouchableOpacity>
 
 
-        </ScrollView>
+
+              <CardAction seperator={true} inColumn={false}>
+                <CardButton
+                  onPress={() => { this.sharePost(this.props.postInfo) }}
+                  title="Share"
+                  color={this.props.theme.color}
+                  icon="share"
+                />
+                <CardButton
+                  onPress={() => this.gotoPostComments(this.props.postInfo)}
+                  title={(this.props.postInfo.link[1].title).toString()}
+                  color={this.props.theme.color}
+                  icon="comment"
+                />
+              </CardAction>
+            </Card>
+
+
+          </ScrollView>
+        }
+
+
+
+
+        < TouchableOpacity
+          onPress={() => this.props.togglePostWebview()}
+          style={{ position: 'absolute', right: this.props.postWebview ? 20 : (this.state.scrollHead > 20 ? 80 :20), bottom: 15, padding: 2 }} >
+          <Icon name={this.props.postWebview ? "mobile" : "desktop"} size={this.props.postWebview ? 60 : 40} color={this.props.theme.color} />
+        </TouchableOpacity>
+
 
         {this.state.scrollHead > 20
           ? < TouchableOpacity
@@ -157,6 +186,14 @@ class Post extends Component {
           </TouchableOpacity>
           : null
         }
+
+        {/* <PostModal isVisible={this.props.popup} /> */}
+
+        <Modal isVisible={false}>
+          <View style={{ flex: 1, height: 300 }}>
+            <Text>Hello!</Text>
+          </View>
+        </Modal>
 
 
       </View>
@@ -299,6 +336,7 @@ const mapStateToProps = ({ Blog, Get, Settings }) => {
     postDetails: Blog.postDetails,
     postDetailsLoader: Blog.postDetailsLoader,
     popup: Blog.popup,
+    postWebview: Blog.postWebview,
     theme: Settings.theme
   })
 }
@@ -309,6 +347,6 @@ const mapDispatchToProps = dispatch =>
     Get() { dispatch(Get()) }
   })
 
-export default connect(mapStateToProps, { Get, getPostComments })(Post)
+export default connect(mapStateToProps, { Get, getPostComments, popupCall, togglePostWebview })(Post)
 
 
