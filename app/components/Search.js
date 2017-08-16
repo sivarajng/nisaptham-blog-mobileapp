@@ -257,7 +257,8 @@ class Search extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
+              <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
+
                 {!this.state.searchSwap
                     ? <View style={{ width: deviceWidth }}>
                         <View style={styles.searchMainView}>
@@ -373,7 +374,8 @@ class Search extends Component {
                 }
 
                 {this.props.postsSearch.feed
-                    ? <ListView
+                    ? <ListView 
+                     style={{paddingRight:5}} 
                         onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
                         ref='_scrollView'
                         enableEmptySections={true}

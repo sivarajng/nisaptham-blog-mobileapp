@@ -133,7 +133,7 @@ class Home extends Component {
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
           <Icon name="arrow-circle-down" size={30} color="#ffffff" />
           <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-            Load More
+            மேலும் பார்க்க
           </Text>
         </View>
       </TouchableOpacity>
@@ -216,14 +216,15 @@ class Home extends Component {
   render() {
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
 
 
 
 
 
         {this.props.posts.feed
-          ? <ListView
+          ? <ListView 
+          style={{paddingRight:5}}
             ref='_scrollView'
             onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             refreshControl={

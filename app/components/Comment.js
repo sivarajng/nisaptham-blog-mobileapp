@@ -132,10 +132,10 @@ class Comment extends Component {
   render() {
     console.log('lllllllll ', this.props.postComments);
     return (
-      <View style={styles.container}>
+   <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
 
         {this.props.postComments
-          ? <ListView
+          ? <ListView  style={{paddingRight:5}} 
             onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             ref='_scrollView'
             enableEmptySections={true}

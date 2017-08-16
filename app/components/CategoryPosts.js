@@ -196,14 +196,14 @@ class CategoryPosts extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
+       <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
 
 
 
 
 
                 {this.props.categoryPosts.feed
-                    ? <ListView
+                    ? <ListView  style={{paddingRight:5}} 
                         ref='_scrollView'
                         onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
                         refreshControl={

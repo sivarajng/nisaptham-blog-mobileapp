@@ -147,17 +147,17 @@ class About extends Component {
   render() {
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
 
 
                 <View style={{ width: deviceWidth, paddingTop: 10,paddingBottom: 10 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Image source={require('../images/profileImage.png')} style={{ width: 80, height: 80, borderRadius: 50 }} />
                         <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
-                            <Text style={{ fontWeight: 'bold', color: '#000000', fontSize: 26 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 26 }}>
                                 வா. மணிகண்டன்
                             </Text>
-                            <Text style={{ fontWeight: 'normal', color: '#000000', fontSize: 20 }}>
+                            <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 20 }}>
                                 
                                 நிசப்தம்
                             </Text>
