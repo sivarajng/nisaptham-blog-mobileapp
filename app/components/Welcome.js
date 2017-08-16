@@ -11,7 +11,9 @@ import {
   Dimensions,
   ActivityIndicator,
   TouchableOpacity,
-  Share
+  Share,
+  Navigator
+  //https://stackoverflow.com/questions/35331737/react-native-button-click-move-to-another-screen
 
 
 } from 'react-native';
@@ -27,7 +29,7 @@ import PostModal from './PostModal';
 import { connect } from 'react-redux'
 import { Get, getPostDetails, getPostComments, popupCall, togglePostWebview, togglePostPopup } from '../redux/actions'
 import HTMLView from 'react-native-htmlview'
-
+import Router from '../router/Router';
 import { Actions } from 'react-native-router-flux';
 
 const deviceWidth = Dimensions.get("window").width;
@@ -114,11 +116,6 @@ class Welcome extends Component {
 
 
   render() {
-
-    let categoryTerm = "";
-    if (this.props.postInfo.category) {
-      //  categoryTerm = " - " + this.props.postInfo.category[0].term;
-    }
 
 
     return (

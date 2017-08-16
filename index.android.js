@@ -14,6 +14,7 @@ import {
 import { Provider } from 'react-redux'
 
 import Router from './app/router/Router';
+import Welcome from './app/components/Welcome';
 import store from './app/redux/store';
 import services from './app/services/blog';
 
@@ -22,7 +23,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router />
+        <Welcome />
       </Provider>
     )
   }
