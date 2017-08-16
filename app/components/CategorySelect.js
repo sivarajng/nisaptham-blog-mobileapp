@@ -166,10 +166,10 @@ class CategorySelect extends Component {
                                 <Buttons
                                     key={itm.term}
                                     buttonClick={() => this._selectCategory(itm)}
-                                    buttonStyle={itm.isSelected ? commonStyles.btnViewStyleSelected : commonStyles.btnViewStyleUnselected}>
+                                    buttonStyle={itm.isSelected ? [commonStyles.btnViewStyleSelected,{ backgroundColor: this.props.theme.color,borderColor:this.props.theme.color}] : [commonStyles.btnViewStyleUnselected,{borderColor:this.props.theme.color}]}>
                                     <Label
                                         textContent={itm.term}
-                                        textstyle={itm.isSelected ? commonStyles.selectedBtnTxtStyle : commonStyles.unselectedBtnTxtStyle}
+                                        textstyle={itm.isSelected ? commonStyles.selectedBtnTxtStyle : [commonStyles.unselectedBtnTxtStyle,{color:this.props.theme.color}]}
                                     />
                                 </Buttons>
                             )
@@ -184,7 +184,7 @@ class CategorySelect extends Component {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            backgroundColor: 'rgb(7,124,229)',
+                            backgroundColor: this.props.theme.color,
                         }}>
                             <View style={{
                                 flexDirection: 'row',
@@ -339,12 +339,13 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
+const mapStateToProps = ({ Blog ,Settings}) => {
     console.log('Blog.categoryList ', Blog.categoryList);
     return ({
         postComments: Blog.postComments,
         categoryList: Blog.categoryList,
-        posts: Blog.posts
+        posts: Blog.posts,
+        theme: Settings.theme,
     })
 }
 
