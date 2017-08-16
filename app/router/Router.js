@@ -102,7 +102,7 @@ class RouterComponent extends Component {
         <TouchableHighlight onPress={() => Actions.PostWeb({title:this.props.selectedPost.title.$t})} style={{ padding: 0 }} >
           <Icon name="desktop" size={30} color="white" />
         </TouchableHighlight>
-        <TouchableHighlight onPress={() => this.props.togglePostPopup(true)} style={{ padding: 8 }} >
+        <TouchableHighlight onPress={() => Actions.Settings()} style={{ padding: 8 }} >
           <Icon name="gear" size={35} color="white" />
         </TouchableHighlight>
       </View>
