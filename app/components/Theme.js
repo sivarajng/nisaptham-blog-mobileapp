@@ -10,14 +10,18 @@ import {
     TouchableHighlight,
     Dimensions,
     Share,
-    Platform
+    Platform,
+    ScrollView
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
+import { setTheme } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -31,125 +35,129 @@ class Theme extends Component {
         super(props);
         this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
 
+        this.state = {
+
+            themes: [
+
+                { name: "Kurinji", color: "#757575" },
+                { name: "Mullai", color: "#009688" },
+                { name: "Marudham", color: "#4caf50" },
+                { name: "Neidhal", color: "#2196f3" },
+                { name: "Paalai", color: "#795548" },
+                { name: "Red", color: "#f44336" }
+
+
+
+            ]
+
+        }
     }
     componentWillMount() {
 
     }
 
-    gotoPost(item) {
-
-        // alert((item.link[4].href).toString());
-        this.props.getPostDetails((item.link[4].href).toString());
-        Actions.Post({ title: item.title.$t });
+    _setTheme(index) {
+        this.props.setTheme(this.state.themes[index]);
     }
 
-    gotoPostComments(item) {
-
-        // alert((item.link[4].href).toString());
-        this.props.getPostComments((item.link[0].href).toString());
-        Actions.Comment({ title: 'Comments :' + item.title.$t });
-    }
-
-    sharePost(item) {
-
-        //  alert(item.title.$t);
-
-        Share.share({
-            message: (item.link[4].href).toString() + " - " + item.summary.$t,
-            title: item.title.$t,
-            url: (item.link[4].href).toString()
-
-        }, {
-                dialogTitle: item.title.$t,
-                excludedActivityTypes: [
-                    'com.apple.UIKit.activity.PostToTwitter'
-                ],
-                tintColor: 'green'
-            })
 
 
 
-    }
-
-    formatDate(dateString) {
-        var date = moment(dateString);
-        if (date.isValid()) {
-            if (moment(new Date().getTime()).diff(date, 'days') >= 4) {
-                return date.format('MMM D, YYYY');
-            }
-            return date.fromNow();
-        }
-        return 'Invalid Date';
-    }
-
-    renderRow(item) {
-
-        console.log('postComments items ', item)
-        return (
-
-
-            <Card style={{ width: deviceWidth }}>
-                <TouchableOpacity style={{ width: deviceWidth }} >
-                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t)} />
-                </TouchableOpacity>
-                <CardContent trim={false}>
-                    <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
-                </CardContent>
-
-            </Card>
-
-
-            // <TouchableOpacity onPress={() => this.gotoPost(item)}>
-            //   <Card>
-            //     <CardSection>
-            //       <View >
-            //         <Text style={{
-            //           color: '#0d47a1'
-            //           , fontSize: 20
-            //           , fontWeight: 'bold'
-
-            //         }}>{item.title.$t}</Text>
-            //       </View>
-            //       <View style={{ paddingTop: 4 }}>
-            //         <Text numberOfLines={3} >
-            //           {item.summary.$t.substring(2)}
-            //         </Text>
-            //       </View>
-
-            //     </CardSection>
-            //   </Card>
-            // </TouchableOpacity>
-        )
-    }
     render() {
 
         return (
-            <View style={styles.container}>
-
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
-                    <Text>
-                        Search
-          </Text>
-                </TouchableOpacity>
+            <View style={[styles.container, { backgroundColor: '#ffffff' }]}>
 
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 1
-                </Text>
+                <ScrollView>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 2
-                </Text>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 3
-                </Text>
+                    <TouchableOpacity
+                        onPress={() => {this._setTheme(0) }}
+                        style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[0].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                {this.state.themes[0].name}
+                            </Text>
+                             {this.props.theme.color == this.state.themes[0].color
+                                ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                : null}
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                          onPress={() => {this._setTheme(1) }}
+                        style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[1].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                {this.state.themes[1].name}
+                            </Text>
+                             {this.props.theme.color == this.state.themes[1].color
+                                ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                : null}
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                          onPress={() => {this._setTheme(2) }}
+                        style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[2].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                {this.state.themes[2].name}
+                            </Text>
+                             {this.props.theme.color == this.state.themes[2].color
+                                ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                : null}
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                          onPress={() => {this._setTheme(3) }}
+                        style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[3].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                {this.state.themes[3].name}
+                            </Text>
+                            {this.props.theme.color == this.state.themes[3].color
+                                ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                : null}
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                           onPress={() => {this._setTheme(4) }}
+                        style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[4].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                {this.state.themes[4].name}
+                            </Text>
+                             {this.props.theme.color == this.state.themes[4].color
+                                ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                : null}
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {this._setTheme(5) }}
+                        style={{ padding: 12, margin: 10, backgroundColor: this.state.themes[5].color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: 40 }}>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                {this.state.themes[5].name}
+                            </Text>
+                            {this.props.theme.color == this.state.themes[5].color
+                                ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                : null}
+                        </View>
+                    </TouchableOpacity>
+
+
+
+                </ScrollView>
+
+
+
+
+
+
             </View>
         );
     }
@@ -283,13 +291,14 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
-    console.log('Blog.postComments ', Blog.postComments);
+const mapStateToProps = ({ Settings }) => {
+
+    console.log("Settings.theme ",Settings.theme)
     return ({
-        postComments: Blog.postComments
+        theme: Settings.theme
     })
 }
 
 
-export default connect(mapStateToProps, {})(Theme)
+export default connect(mapStateToProps, { setTheme })(Theme)
 

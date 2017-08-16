@@ -13,5 +13,8 @@
         "postSearchLoader": false,
         "categoryList": [],
         "popup":false
+    },
+    "Settings":{
+        "theme":{"name":"Neidhal","color":"#2196f3"}
     }
 }

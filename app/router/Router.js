@@ -69,9 +69,9 @@ class RouterComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state={flag:true};
+    this.state = { flag: true };
 
-   console.log('ROUTER POP 111', this.props.popup);
+    console.log('ROUTER POP 111', this.props.popup);
     console.log('ROUTER CALL 1111', this.props.popupCall);
 
   }
@@ -93,11 +93,11 @@ class RouterComponent extends Component {
 
   postIcon() {
 
-     this.setState({flag:!this.state.flag});
+    this.setState({ flag: !this.state.flag });
 
     //  console.log('ROUTER POP 111', this.props.popup);
     // console.log('ROUTER CALL 1111', this.props.popupCall);
-    
+
 
     return (
       <TouchableHighlight onPress={() => this.props.popupCall(this.state.flag)} style={{ padding: 10 }} >
@@ -110,7 +110,7 @@ class RouterComponent extends Component {
     return (
       <Router>
         <Scene key="root"
-          navigationBarStyle={navBarStyle()}
+          navigationBarStyle={{ backgroundColor: this.props.theme.color }}
           sceneStyle={styles.sceneStyle}
           // backButtonTextStyle={styles.backButtonTextStyle} 
           // barButtonIconStyle={styles.barButtonIconStyle}
@@ -135,10 +135,11 @@ class RouterComponent extends Component {
   }
 }
 
-const mapStateToProps = ({ Blog, Get }) => {
+const mapStateToProps = ({ Blog, Settings }) => {
   console.log('Blog.postDetails ', Blog.postDetails);
   return ({
     popup: Blog.popup,
+      theme: Settings.theme
   })
 }
 

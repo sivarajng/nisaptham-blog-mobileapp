@@ -10,6 +10,15 @@ export const Get = () => {
     }
 }
 
+export const setTheme = (theme) => {
+    return (dispatch) => {
+        dispatch({
+            type: Type.SET_THEME,
+            payload: theme
+        })
+    }
+}
+
 export const getPosts = (mode = "") => {
     return (dispatch) => {
 

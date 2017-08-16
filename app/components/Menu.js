@@ -129,7 +129,7 @@ class Menu extends Component {
     render() {
 
         return (
-            <View style={[styles.container, { backgroundColor: '#03A9F4' }]}>
+            <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
 
                 <View style={{ width: deviceWidth, padding: 0 }}>
@@ -351,10 +351,11 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
+const mapStateToProps = ({ Blog,Settings }) => {
     console.log('Blog.postComments ', Blog.postComments);
     return ({
-        postComments: Blog.postComments
+        postComments: Blog.postComments,
+           theme: Settings.theme
     })
 }
 
