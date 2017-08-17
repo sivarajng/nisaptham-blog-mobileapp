@@ -43,7 +43,7 @@ class Search extends Component {
 
         this.state = {
             searchQuery: "",
-            searchBy: "Date",
+            searchBy: "தேதி",
             searchSwap: false,
             searchStartDate: "",
             searchEndDate: "",
@@ -113,11 +113,11 @@ class Search extends Component {
 
         if (this.state.searchSwap) {
             this.setState({ searchSwap: !this.state.searchSwap });
-            this.setState({ searchBy: "Date" });
+            this.setState({ searchBy: "தேதி" });
         }
         else {
             this.setState({ searchSwap: !this.state.searchSwap });
-            this.setState({ searchBy: "Text" });
+            this.setState({ searchBy: "சொல்" });
         }
 
     }
@@ -309,7 +309,7 @@ class Search extends Component {
                                             </View>
 
                                         </View>
-                                        <Text style={{ fontSize: 18, color: '#000000', paddingLeft: 5 }}>From</Text>
+                                        <Text style={{ fontSize: 18, color: '#000000', paddingLeft: 5 }}>முதல்</Text>
                                     </TouchableOpacity >
 
 
@@ -326,7 +326,7 @@ class Search extends Component {
                                             </View>
 
                                         </View>
-                                        <Text style={{ fontSize: 18, color: '#000000', paddingLeft: 5 }}>To</Text>
+                                        <Text style={{ fontSize: 18, color: '#000000', paddingLeft: 5 }}>வரை</Text>
                                     </TouchableOpacity >
 
 
@@ -354,7 +354,7 @@ class Search extends Component {
                                     commonStyles.opensansSemiBold,
                                     commonStyles.fontSize18, { width: deviceWidth - 120, height: 30, backgroundColor: '#ffffff', padding: 0 }]}
                                 >
-                                    <Text style={{ fontSize: 18, color: this.props.theme.color, fontStyle: 'italic' }}>Search by {this.state.searchBy}</Text>
+                                    <Text style={{ fontSize: 18, color: this.props.theme.color, fontStyle: 'italic',fontWeight:'bold' }}>{this.state.searchBy} வாரியாக தேட</Text>
 
 
                                 </View>
