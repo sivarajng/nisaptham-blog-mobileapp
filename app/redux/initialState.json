@@ -18,7 +18,7 @@
     },
     "Settings":{
         "theme":{"name":"Neidhal","color":"#2196f3"},
-        "fonrSize":16,
+        "fontSize":18,
         "nightMode":false,
         "welcome":true
     }

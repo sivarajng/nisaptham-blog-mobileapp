@@ -18,6 +18,7 @@ const actionTypes = {
     , SET_SELECTED_POST: "SET_SELECTED_POST"
     , POST_POPUP: "POST_POPUP"
     , SET_WELCOME: "SET_WELCOME"
+    , SET_FONTSIZE: "SET_FONTSIZE"
 
 }
 

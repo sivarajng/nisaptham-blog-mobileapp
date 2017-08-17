@@ -17,7 +17,7 @@ import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments,setfontSize } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -82,6 +82,10 @@ class Settings extends Component {
         return 'Invalid Date';
     }
 
+    _setfontSize(size){
+this.props.setfontSize(size);
+    }
+
     renderRow(item) {
 
 
@@ -131,59 +135,69 @@ class Settings extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
-                        <Text
-                            style={{ fontSize: 18, color: 'red' }}
-                        >
-                            A
-                </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+                <View style={{ position: 'absolute', top: 0 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff', width: deviceWidth }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', height: 200 }}>
+                            <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+                                <Text style={{ fontSize: this.props.fontSize, color: '#000000' }}>
+                                    அகர முதல எழுத்தெல்லாம் ஆதி
+                                </Text>
+                                <Text style={{ fontSize: this.props.fontSize, color: '#000000' }}>
+                                    பகவன் முதற்றே உலகு
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
 
-                        <Text
-                            style={{ fontSize: 22, color: 'red' }}
-                        >
-                            A
-                </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff' }}>
+                        <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
+                            <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(18)}}>
+                                <Text style={{ fontSize: 18, color: '#000000' }}>அ</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
+                               <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(22)}}>
+                                <Text style={{ fontSize: 22, color: '#000000' }}>அ</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
+                               <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(26)}}>
+                                <Text style={{ fontSize: 26, color: '#000000' }}>அ</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
+                               <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(30)}}>
+                                <Text style={{ fontSize: 30, color: '#000000' }}>அ</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
 
-                        <Text
-                            style={{ fontSize: 26, color: 'red' }}
-                        >
-                            A
-                </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
 
-                        <Text
-                            style={{ fontSize: 30, color: 'red' }}
-                        >
-                            A
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+                            <Text
+                                style={{ fontSize: 30, color: '#000000' }}
+                            >
+                                Day
                 </Text>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+
+                            <Text
+                                style={{ fontSize: 30, color: '#000000' }}
+                            >
+                                Night
+                </Text>
+                        </TouchableOpacity>
+
+                    </View>
+
+
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
-                        <Text
-                            style={{ fontSize: 30, color: 'red' }}
-                        >
-                            Day
-                </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
 
-                        <Text
-                            style={{ fontSize: 30, color: 'red' }}
-                        >
-                            Night
-                </Text>
-                    </TouchableOpacity>
-                  
-                </View>
 
 
             </View>
@@ -296,7 +310,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+
         backgroundColor: '#F5FCFF',
     },
     welcome: {
@@ -319,13 +333,15 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
+const mapStateToProps = ({ Blog, Settings }) => {
     console.log('Blog.postComments ', Blog.postComments);
     return ({
-        postComments: Blog.postComments
+        postComments: Blog.postComments,
+        theme: Settings.theme,
+        fontSize: Settings.fontSize
     })
 }
 
 
-export default connect(mapStateToProps, {})(Settings)
+export default connect(mapStateToProps, {setfontSize})(Settings)
 

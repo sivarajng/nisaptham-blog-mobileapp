@@ -9,11 +9,14 @@ const Settings = (state = {}, { type, payload }) => {
 
             let setState = { Settings: { theme: payload } };
             LocalStorage.set('state', setState);
-            
+
             return { ...state, theme: payload };
 
         case Type.SET_WELCOME:
             return { ...state, welcome: false };
+
+        case Type.SET_FONTSIZE:
+            return { ...state, fontSize: payload };
 
         default:
             return state;

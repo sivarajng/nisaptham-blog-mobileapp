@@ -25,6 +25,14 @@ export const setTheme = (theme) => {
         })
     }
 }
+export const setfontSize = (size) => {
+    return (dispatch) => {
+        dispatch({
+            type: Type.SET_FONTSIZE,
+            payload: size
+        })
+    }
+}
 export const togglePostWebview = () => {
     return (dispatch) => {
         dispatch({
