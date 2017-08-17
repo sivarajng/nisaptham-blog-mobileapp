@@ -56,9 +56,9 @@ class Post extends Component {
   componentWillUnmount() {
 
     if (this.props.postWebview) {
-  //   this.props.togglePostWebview();
+      //   this.props.togglePostWebview();
     }
-  
+
 
     // alert('sasasasa');
     // this.props.getPostDetails();
@@ -76,7 +76,7 @@ class Post extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
+    Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + ' - ' + item.title.$t });
   }
 
 
@@ -112,112 +112,112 @@ class Post extends Component {
     return 'Invalid Date';
   }
 
-  HS(){
+  HS() {
 
 
 
-    return(
+    return (
 
-StyleSheet.create({
-  div: {
-    fontSize: this.props.fontSize,
-    color: this.props.nightMode ? '#ffffff':'#000000',
-    backgroundColor: !this.props.nightMode ? '#ffffff':'#022231',
-  },
-  img: {
-    width: 300,
-    borderWidth: 20,
-    borderColor: 'red',
-    width: 10,
-  },
-  a: {
-    fontSize: 20,
-    color: '#0000ff',
-  },
-  p: {
-    fontSize: 12,
-    color: 'rgb(65,64,66)',
-    marginTop: 40
-  },
-  h1: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+      StyleSheet.create({
+        div: {
+          fontSize: this.props.fontSize,
+          color: this.props.nightMode ? '#ffffff' : '#000000',
+          backgroundColor: !this.props.nightMode ? '#ffffff' : '#022231',
+        },
+        img: {
+          width: 300,
+          borderWidth: 20,
+          borderColor: 'red',
+          width: 10,
+        },
+        a: {
+          fontSize: 20,
+          color: '#0000ff',
+        },
+        p: {
+          fontSize: 12,
+          color: 'rgb(65,64,66)',
+          marginTop: 40
+        },
+        h1: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
 
-  }, h2: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+        }, h2: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
 
-  }, h3: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+        }, h3: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
 
-  }, h4: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+        }, h4: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
 
-  }, h5: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+        }, h5: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
 
-  }, h6: {
-    fontSize: 18,
-    color: 'rgb(65,64,66)',
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+        }, h6: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
 
-  },
-  titleText1: {
-    color: 'rgb(65,64,66)',
-    fontSize: 12,
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Medium' : 'gothammedium',
-    paddingBottom: 14,
-    lineHeight: 22,
-  },
-  paraGraphText: {
-    fontSize: 12,
-    fontFamily: (Platform.OS === 'ios') ? 'OpenSans' : 'opensans-regular',
-    color: 'rgb(65,64,66)',
-    paddingBottom: 14,
-    lineHeight: 18
-  },
+        },
+        titleText1: {
+          color: 'rgb(65,64,66)',
+          fontSize: 12,
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Medium' : 'gothammedium',
+          paddingBottom: 14,
+          lineHeight: 22,
+        },
+        paraGraphText: {
+          fontSize: 12,
+          fontFamily: (Platform.OS === 'ios') ? 'OpenSans' : 'opensans-regular',
+          color: 'rgb(65,64,66)',
+          paddingBottom: 14,
+          lineHeight: 18
+        },
 
-  titleText: {
-    fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
-    color: 'rgb(65,64,66)',
-    fontSize: 12,
-    paddingBottom: 16,
-    paddingTop: 14,
-    textAlign: 'left'
+        titleText: {
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+          color: 'rgb(65,64,66)',
+          fontSize: 12,
+          paddingBottom: 16,
+          paddingTop: 14,
+          textAlign: 'left'
 
-  },
-  padding20: {
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  header: {
-    backgroundColor: 'rgb(21,147,204)'
-  },
-  headerClose: {
-    fontSize: 12,
-    color: '#FFF',
-    fontWeight: 'bold'
-  },
-  headerLogin: {
-    fontSize: 12,
-    alignSelf: 'center',
-    color: 'rgb(255,255,255)',
-    fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Semibold' : 'opensanssemibold',
-    lineHeight: 22
-  },
-  headerDummyClose: {
-    color: 'rgb(21,147,204)'
-  },
+        },
+        padding20: {
+          paddingLeft: 20,
+          paddingRight: 20,
+        },
+        header: {
+          backgroundColor: 'rgb(21,147,204)'
+        },
+        headerClose: {
+          fontSize: 12,
+          color: '#FFF',
+          fontWeight: 'bold'
+        },
+        headerLogin: {
+          fontSize: 12,
+          alignSelf: 'center',
+          color: 'rgb(255,255,255)',
+          fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Semibold' : 'opensanssemibold',
+          lineHeight: 22
+        },
+        headerDummyClose: {
+          color: 'rgb(21,147,204)'
+        },
 
-})
+      })
 
 
     )
@@ -232,7 +232,7 @@ StyleSheet.create({
 
 
     return (
-      <View style={[styles.container,{backgroundColor:!this.props.nightMode ? '#ffffff':'#022231'}]}>
+      <View style={[styles.container, { backgroundColor: !this.props.nightMode ? '#ffffff' : '#022231' }]}>
 
         {/* <View
 
@@ -267,7 +267,7 @@ StyleSheet.create({
 
         {this.props.postWebview
           ?
-          <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth,backgroundColor:!this.props.nightMode ? '#ffffff':'#022231' }}>
+          <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth, backgroundColor: !this.props.nightMode ? '#ffffff' : '#022231' }}>
             <WebView
               scalesPageToFit={true}
               source={{ html: this.props.postDetails }}
@@ -277,12 +277,12 @@ StyleSheet.create({
           : <ScrollView
             onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             ref='_scrollView'
-            contentContainerStyle={{ padding: 10, backgroundColor: !this.props.nightMode ? '#ffffff':'#022231', }}>
+            contentContainerStyle={{ padding: 10, backgroundColor: !this.props.nightMode ? '#ffffff' : '#022231', }}>
 
             <HTMLView value={this.props.postDetails} stylesheet={this.HS()} />
 
 
-            <Card style={{ width: deviceWidth }}>
+            <Card style={{ width: deviceWidth ,marginLeft:-10}}>
 
               <TouchableOpacity style={{ width: deviceWidth }} >
                 <CardTitle subtitle={this.formatDate(this.props.postInfo.published.$t) + categoryTerm} color={this.props.theme.color} />
@@ -299,11 +299,22 @@ StyleSheet.create({
                 />
                 <CardButton
                   onPress={() => this.gotoPostComments(this.props.postInfo)}
-                  title={(this.props.postInfo.link[1].title).toString()}
+                  title={(this.props.postInfo.link[1].title).toString().toLowerCase().replace("comments", "கருத்துக்கள்")}
                   color={this.props.theme.color}
                   icon="comment"
                 />
+
               </CardAction>
+              <CardAction seperator={true} inColumn={false}>
+                <CardButton
+                  onPress={() => Actions.WriteComment({ title : "கருத்து எழுது - "+this.props.postInfo.title.$t,postInfo: this.props.postInfo })}
+                  title={"கருத்து எழுது"}
+                  color={this.props.theme.color}
+                  icon="edit"
+                />
+              </CardAction>
+
+
             </Card>
 
 
@@ -477,8 +488,8 @@ const mapStateToProps = ({ Blog, Get, Settings }) => {
     postWebview: Blog.postWebview,
     theme: Settings.theme,
     fontSize: Settings.fontSize,
-            nightMode: Settings.nightMode
-    
+    nightMode: Settings.nightMode
+
   })
 }
 

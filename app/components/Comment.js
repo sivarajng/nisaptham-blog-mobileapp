@@ -11,7 +11,7 @@ import {
   Dimensions,
   Share,
   Platform,
-    ActivityIndicator,
+  ActivityIndicator,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
@@ -86,8 +86,119 @@ class Comment extends Component {
     return 'Invalid Date';
   }
 
+  HS() {
+
+
+
+    return (
+
+      StyleSheet.create({
+        div: {
+          fontSize: this.props.fontSize,
+          color: this.props.nightMode ? '#ffffff' : '#000000',
+          backgroundColor: !this.props.nightMode ? '#ffffff' : '#022231',
+        },
+        img: {
+          width: 300,
+          borderWidth: 20,
+          borderColor: 'red',
+          width: 10,
+        },
+        a: {
+          fontSize: 20,
+          color: '#0000ff',
+        },
+        p: {
+          fontSize: 12,
+          color: 'rgb(65,64,66)',
+          marginTop: 40
+        },
+        h1: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+        }, h2: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+        }, h3: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+        }, h4: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+        }, h5: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+        }, h6: {
+          fontSize: 18,
+          color: 'rgb(65,64,66)',
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+
+        },
+        titleText1: {
+          color: 'rgb(65,64,66)',
+          fontSize: 12,
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Medium' : 'gothammedium',
+          paddingBottom: 14,
+          lineHeight: 22,
+        },
+        paraGraphText: {
+          fontSize: 12,
+          fontFamily: (Platform.OS === 'ios') ? 'OpenSans' : 'opensans-regular',
+          color: 'rgb(65,64,66)',
+          paddingBottom: 14,
+          lineHeight: 18
+        },
+
+        titleText: {
+          fontFamily: (Platform.OS === 'ios') ? 'Gotham-Bold' : 'gothambold',
+          color: 'rgb(65,64,66)',
+          fontSize: 12,
+          paddingBottom: 16,
+          paddingTop: 14,
+          textAlign: 'left'
+
+        },
+        padding20: {
+          paddingLeft: 20,
+          paddingRight: 20,
+        },
+        header: {
+          backgroundColor: 'rgb(21,147,204)'
+        },
+        headerClose: {
+          fontSize: 12,
+          color: '#FFF',
+          fontWeight: 'bold'
+        },
+        headerLogin: {
+          fontSize: 12,
+          alignSelf: 'center',
+          color: 'rgb(255,255,255)',
+          fontFamily: (Platform.OS === 'ios') ? 'OpenSans-Semibold' : 'opensanssemibold',
+          lineHeight: 22
+        },
+        headerDummyClose: {
+          color: 'rgb(21,147,204)'
+        },
+
+      })
+
+
+    )
+  }
+
   renderRow(item) {
-        let categoryTerm = "";
+    let categoryTerm = "";
     if (item.category) {
       categoryTerm = " - " + item.category[0].term;
     }
@@ -98,10 +209,10 @@ class Comment extends Component {
 
       <Card style={{ width: deviceWidth }}>
         <TouchableOpacity style={{ width: deviceWidth }} >
-          <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm } />
+          <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} />
         </TouchableOpacity>
         <CardContent trim={false}>
-          <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
+          <HTMLView value={"<div>"+item.content.$t+"</div>"} stylesheet={this.HS()} />
         </CardContent>
 
       </Card>
@@ -132,17 +243,17 @@ class Comment extends Component {
   render() {
     console.log('lllllllll ', this.props.postComments);
     return (
-   <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
+      <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
         {this.props.postComments
-          ? <ListView  style={{paddingRight:5}} 
+          ? <ListView style={{ paddingRight: 5,marginRight:5 }}
             onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             ref='_scrollView'
             enableEmptySections={true}
             dataSource={this.ds.cloneWithRows(this.props.postComments.feed.entry)}
             renderRow={this.renderRow.bind(this)}
           />
-          :   <ActivityIndicator
+          : <ActivityIndicator
             animating={true}
             color='#01579b'
             size={60}
@@ -291,11 +402,13 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog ,  Settings }) => {
+const mapStateToProps = ({ Blog, Settings }) => {
   console.log('Blog.postComments ', Blog.postComments);
   return ({
-    postComments: Blog.postComments
-     ,  theme: Settings.theme
+    postComments: Blog.postComments,
+    theme: Settings.theme,
+    fontSize: Settings.fontSize,
+    nightMode: Settings.nightMode
   })
 }
 

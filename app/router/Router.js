@@ -16,6 +16,7 @@ import Settings from '../components/Settings';
 import Theme from '../components/Theme';
 import Welcome from '../components/Welcome';
 import About from '../components/About';
+import WriteComment from '../components/WriteComment';
 
 import { bindActionCreators } from 'redux';
 
@@ -174,6 +175,7 @@ class RouterComponent extends Component {
           <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
           <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
           <Scene key="About" component={About} title="எழுத்தாளரைப் பற்றி" />
+          <Scene key="WriteComment" component={WriteComment} title="கருத்து எழுது" />
 
         </Scene>
       </Router >
