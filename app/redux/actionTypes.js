@@ -19,6 +19,7 @@ const actionTypes = {
     , POST_POPUP: "POST_POPUP"
     , SET_WELCOME: "SET_WELCOME"
     , SET_FONTSIZE: "SET_FONTSIZE"
+    , SET_NIGHTMODE: "SET_NIGHTMODE"
 
 }
 

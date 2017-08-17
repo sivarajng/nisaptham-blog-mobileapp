@@ -28,6 +28,7 @@ LocalStorage.get('state').then((value) => {
         value = JSON.parse(value);
         initialState.Settings.theme = value.Settings.theme;
         initialState.Settings.fontSize = value.Settings.fontSize;
+        initialState.Settings.nightMode = value.Settings.nightMode;
     }
 
     storeFactory = applyMiddleware(thunk)(createStore)(combinedReducers, initialState)

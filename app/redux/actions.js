@@ -33,6 +33,14 @@ export const setfontSize = (size) => {
         })
     }
 }
+export const setNightMode = (value) => {
+    return (dispatch) => {
+        dispatch({
+            type: Type.SET_NIGHTMODE,
+            payload: value
+        })
+    }
+}
 export const togglePostWebview = () => {
     return (dispatch) => {
         dispatch({

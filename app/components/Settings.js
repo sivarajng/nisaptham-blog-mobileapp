@@ -13,11 +13,11 @@ import {
     Platform,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments,setfontSize } from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments, setfontSize ,setNightMode} from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -82,8 +82,8 @@ class Settings extends Component {
         return 'Invalid Date';
     }
 
-    _setfontSize(size){
-this.props.setfontSize(size);
+    _setfontSize(size) {
+        this.props.setfontSize(size);
     }
 
     renderRow(item) {
@@ -153,47 +153,60 @@ this.props.setfontSize(size);
 
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff' }}>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
-                            <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(18)}}>
+                            <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(18) }}>
                                 <Text style={{ fontSize: 18, color: '#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
-                               <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(22)}}>
+                            <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(22) }}>
                                 <Text style={{ fontSize: 22, color: '#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
-                               <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(26)}}>
+                            <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(26) }}>
                                 <Text style={{ fontSize: 26, color: '#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
-                               <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(30)}}>
+                            <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(30) }}>
                                 <Text style={{ fontSize: 30, color: '#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
 
 
-
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
-                            <Text
-                                style={{ fontSize: 30, color: '#000000' }}
-                            >
-                                Day
-                </Text>
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <TouchableOpacity
+                            onPress={() => { this.props.setNightMode(false) }}
+                            style={{ padding: 12, margin: 10, backgroundColor: '#ffffff', borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                                <Text style={{ fontWeight: 'bold', color: '#000000', fontSize: 18, paddingLeft: 0 }}>
+                                    பகல்
+                            </Text>
+                                {!this.props.nightMode
+                                    ? <Icon name="check-circle" size={30} color="#022231" style={{ position: 'absolute', right: 0 }} />
+                                    : null}
+                            </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
-
-                            <Text
-                                style={{ fontSize: 30, color: '#000000' }}
-                            >
-                                Night
-                </Text>
+                        <TouchableOpacity
+                               onPress={() => { this.props.setNightMode(true) }}
+                            style={{ padding: 12, margin: 10, backgroundColor: '#022231', borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
+                                    இரவு
+                            </Text>
+                               {this.props.nightMode
+                                    ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                    : null}
+                            </View>
                         </TouchableOpacity>
-
                     </View>
+
+
+
 
 
                 </View>
@@ -338,10 +351,11 @@ const mapStateToProps = ({ Blog, Settings }) => {
     return ({
         postComments: Blog.postComments,
         theme: Settings.theme,
-        fontSize: Settings.fontSize
+        fontSize: Settings.fontSize,
+        nightMode: Settings.nightMode
     })
 }
 
 
-export default connect(mapStateToProps, {setfontSize})(Settings)
+export default connect(mapStateToProps, { setfontSize ,setNightMode})(Settings)
 
