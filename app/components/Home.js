@@ -11,7 +11,8 @@ import {
   Dimensions,
   ActivityIndicator,
   RefreshControl,
-  Share
+  Share,
+  BackHandler
 
 } from 'react-native';
 
@@ -20,7 +21,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments, getCategoryList ,setselectedPost} from '../redux/actions'
+import { getPosts, getPostDetails, getPostComments, getCategoryList, setselectedPost } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -45,6 +46,15 @@ class Home extends Component {
     this.props.getCategoryList();
     this.props.getPosts();
 
+    
+    BackHandler.addEventListener('hardwareBackPress', () => {
+
+     BackHandler.exitApp();
+
+      //return true
+    });
+
+
   }
 
   _loadMore() {
@@ -56,7 +66,7 @@ class Home extends Component {
 
     this.props.getPosts("refresh", offset);
 
-    console.log("HOME OFFSET ",offset);
+    console.log("HOME OFFSET ", offset);
   }
 
   _onRefresh() {
@@ -72,7 +82,7 @@ class Home extends Component {
     // alert((item.link[4].href).toString());
     this.props.getPostDetails((item.link[4].href).toString());
     this.props.setselectedPost(item);
-  
+
     Actions.Post({ title: item.title.$t, postInfo: item });
 
   }
@@ -156,7 +166,7 @@ class Home extends Component {
       }
 
     }
-    commentLink = commentLink.toLowerCase().replace("comments","கருத்துக்கள்");
+    commentLink = commentLink.toLowerCase().replace("comments", "கருத்துக்கள்");
 
     let categoryTerm = "";
     if (item.category) {
@@ -216,15 +226,15 @@ class Home extends Component {
   render() {
 
     return (
-      <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
+      <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
 
 
 
 
         {this.props.posts.feed
-          ? <ListView 
-          style={{paddingRight:5}}
+          ? <ListView
+            style={{ paddingRight: 5 }}
             ref='_scrollView'
             onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             refreshControl={
@@ -307,5 +317,5 @@ const mapStateToProps = ({ Blog, Settings }) => {
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments, getCategoryList,setselectedPost })(Home)
+export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments, getCategoryList, setselectedPost })(Home)
 

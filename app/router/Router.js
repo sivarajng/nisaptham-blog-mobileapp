@@ -101,7 +101,7 @@ class RouterComponent extends Component {
     return (
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
-        <TouchableHighlight onPress={() => Actions.PostWeb({title:this.props.selectedPost.title.$t})} style={{ padding: 0 }} >
+        <TouchableHighlight onPress={() => Actions.PostWeb({ title: this.props.selectedPost.title.$t })} style={{ padding: 0 }} >
           <Icon name="desktop" size={30} color="white" />
         </TouchableHighlight>
         <TouchableHighlight onPress={() => Actions.Settings()} style={{ padding: 8 }} >
@@ -116,7 +116,7 @@ class RouterComponent extends Component {
     return (
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
-         <TouchableHighlight onPress={() => Actions.pop()} style={{ padding: 10 }} >
+        <TouchableHighlight onPress={() => Actions.pop()} style={{ padding: 10 }} >
           <Icon name="mobile" size={40} color="white" />
         </TouchableHighlight>
       </View>
@@ -144,35 +144,48 @@ class RouterComponent extends Component {
 
   render() {
     return (
-      <Router>
-        <Scene key="root"
+      <Router >
+        <Scene key="root" hideNavBar={true}
           navigationBarStyle={{ backgroundColor: this.props.theme.color }}
           sceneStyle={styles.sceneStyle}
-           backButtonImage={require('../images/backButton.png')}
-        leftButtonIconStyle={{ width: 33,
-         height: 33,
-         marginLeft: 3,
-        marginTop:  -3,
-        zIndex:999}}
+          backButtonImage={require('../images/backButton.png')}
+          leftButtonIconStyle={{
+            width: 33,
+            height: 33,
+            marginLeft: 3,
+            marginTop: 3,
+            zIndex: 999
+          }}
           // backButtonTextStyle={styles.backButtonTextStyle} 
           // barButtonIconStyle={styles.barButtonIconStyle}
           //headerBackIconTextStyle={{ tintColor: 'green' }}
           //headerBackButtonTextStyle={{ color: 'green' }}
           titleStyle={navBarTitleStyle()}>
 
-          <Scene key="Home" component={Home} title="நிசப்தம்" renderRightButton={() => this.filterIcon()} initial={true} />
-          <Scene key="Post" component={Post} title="Post" renderRightButton={() => this._rightMenuPost()} />
-          <Scene key="PostWeb" component={PostWeb} title="PostWeb" renderRightButton={() => this._rightMenuPostWeb()} />
-          <Scene key="Comment" component={Comment} title="Comment" />
-          <Scene key="Search" component={Search} title="தேடல்" />
-          <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
-          <Scene key="Research" component={Research} title="ஆராய்ச்சி" />
-          <Scene key="CategorySelect" component={CategorySelect} title="பிரிவுகள்" />
-          <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
-          <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
-          <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
-          <Scene key="Welcome" component={Welcome} title="Welcome" />
-          <Scene key="About" component={About} title="எழுத்தாளரைப் பற்றி" />
+
+          <Scene key="welcome"   >
+            <Scene key="Welcome" component={Welcome} title="Welcome" hideNavBar={true} />
+
+          </Scene>
+
+          <Scene key="main"    >
+
+            <Scene key="Home" component={Home} title="நிசப்தம்" renderRightButton={() => this.filterIcon()} initial={true} />
+            <Scene key="Post" component={Post} title="Post" renderRightButton={() => this._rightMenuPost()} />
+            <Scene key="PostWeb" component={PostWeb} title="PostWeb" renderRightButton={() => this._rightMenuPostWeb()} />
+            <Scene key="Comment" component={Comment} title="Comment" />
+            <Scene key="Search" component={Search} title="தேடல்" />
+            <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
+            <Scene key="Research" component={Research} title="ஆராய்ச்சி" />
+            <Scene key="CategorySelect" component={CategorySelect} title="பிரிவுகள்" />
+            <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
+            <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
+            <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
+
+            <Scene key="About" component={About} title="எழுத்தாளரைப் பற்றி" />
+
+          </Scene>
+
 
         </Scene>
       </Router>

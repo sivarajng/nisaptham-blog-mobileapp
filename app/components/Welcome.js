@@ -48,15 +48,19 @@ class Welcome extends Component {
 
 
 
+
+
   }
   componentWillMount() {
 
-
+ 
 
   }
 
   componentWillUnmount() {
 
+    Actions.Welcome({type: 'pop'});
+    
     if (this.props.postWebview) {
   //   this.props.togglePostWebview();
     }
@@ -120,7 +124,7 @@ class Welcome extends Component {
 
     return (
       <View style={styles.container}>
-
+<TouchableOpacity onPress={()=>{Actions.main()}}>
 
 <Text>
     asdhdsahd
@@ -146,7 +150,7 @@ class Welcome extends Component {
     d
 </Text>
        
-
+</TouchableOpacity>
 
 
       </View>
