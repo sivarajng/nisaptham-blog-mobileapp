@@ -1,9 +1,15 @@
 import Type from '../actionTypes'
 
-const Settings =  (state={}, { type, payload }) => {
+import LocalStorage from '../../services/localStorage';
+
+const Settings = (state = {}, { type, payload }) => {
 
     switch (type) {
         case Type.SET_THEME:
+
+            let setState = { Settings: { theme: payload } };
+            LocalStorage.set('state', setState);
+            
             return { ...state, theme: payload };
 
         case Type.SET_WELCOME:
@@ -14,4 +20,4 @@ const Settings =  (state={}, { type, payload }) => {
     }
 
 }
-export {Settings} 
+export { Settings } 
