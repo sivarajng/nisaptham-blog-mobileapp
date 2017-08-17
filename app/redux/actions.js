@@ -10,6 +10,13 @@ export const Get = () => {
     }
 }
 
+export const setWelcome = () => {
+    return (dispatch) => {
+        dispatch({
+            type: Type.SET_WELCOME            
+        })
+    }
+}
 export const setTheme = (theme) => {
     return (dispatch) => {
         dispatch({

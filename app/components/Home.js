@@ -22,7 +22,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts, getPostDetails, getPostComments, getCategoryList, setselectedPost } from '../redux/actions'
+import { getPosts
+  , getPostDetails
+  , getPostComments
+  , setWelcome
+  , getCategoryList
+  , setselectedPost } from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -62,8 +67,10 @@ class Home extends Component {
 
   }
 
+  
    setModalVisible() {
     this.setState({modalVisible: false});
+    this.props.setWelcome();
   }
 
 
@@ -282,7 +289,7 @@ class Home extends Component {
         <Modal
        
           transparent={false}
-          visible={this.state.modalVisible}
+          visible={this.state.modalVisible && this.props.welcome}
           onRequestClose={() => { alert("Modal has been closed.") }}
         >
         <Welcome hide={this.setModalVisible.bind(this)} theme={this.props.theme} />
@@ -334,9 +341,15 @@ const mapStateToProps = ({ Blog, Settings }) => {
     posts: Blog.posts
     , postsRefresh: Blog.postsRefresh
     , theme: Settings.theme
+    , welcome: Settings.welcome
   })
 }
 
 
-export default connect(mapStateToProps, { getPosts, getPostDetails, getPostComments, getCategoryList, setselectedPost })(Home)
+export default connect(mapStateToProps, { getPosts
+  , getPostDetails
+  , getPostComments
+  , setWelcome
+  , getCategoryList
+  , setselectedPost })(Home)
 

@@ -6,6 +6,9 @@ const Settings =  (state={}, { type, payload }) => {
         case Type.SET_THEME:
             return { ...state, theme: payload };
 
+        case Type.SET_WELCOME:
+            return { ...state, welcome: false };
+
         default:
             return state;
     }

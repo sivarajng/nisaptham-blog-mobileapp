@@ -17,6 +17,8 @@ const deviceHeight = Dimensions.get("window").height;
 
 const Welcome = ({hide,theme}) => {
 
+  setTimeout(()=>{   hide() },5000);
+
   return (
               <View style={[styles.container, { backgroundColor: theme.color }]}>
 
