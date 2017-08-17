@@ -12,7 +12,8 @@ import {
   ActivityIndicator,
   RefreshControl,
   Share,
-  BackHandler
+  BackHandler,
+  Modal
 
 } from 'react-native';
 
@@ -26,6 +27,7 @@ import { getPosts, getPostDetails, getPostComments, getCategoryList, setselected
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
+import Welcome from './Welcome';
 
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
@@ -39,6 +41,7 @@ class Home extends Component {
       refreshing: false,
       offset: 0,
       scrollHead: 0,
+       modalVisible: true,
 
     };
   }
@@ -46,16 +49,23 @@ class Home extends Component {
     this.props.getCategoryList();
     this.props.getPosts();
 
-    
+
     BackHandler.addEventListener('hardwareBackPress', () => {
 
-     BackHandler.exitApp();
+      //   if( this.props.title == "நிசப்தம்"){
+      //  BackHandler.exitApp();
+      //   }
 
       //return true
     });
 
 
   }
+
+   setModalVisible() {
+    this.setState({modalVisible: false});
+  }
+
 
   _loadMore() {
 
@@ -267,6 +277,17 @@ class Home extends Component {
           </TouchableOpacity>
           : null
         }
+
+
+        <Modal
+       
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => { alert("Modal has been closed.") }}
+        >
+        <Welcome hide={this.setModalVisible.bind(this)} theme={this.props.theme} />
+        </Modal>
+
 
       </View>
     );
