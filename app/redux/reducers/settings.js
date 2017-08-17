@@ -7,8 +7,8 @@ const Settings = (state = {}, { type, payload }) => {
     switch (type) {
         case Type.SET_THEME:
 
-            let setState = { Settings: { theme: payload } };
-            LocalStorage.set('state', setState);
+            let setState1 = { Settings: { theme: payload } };
+            LocalStorage.set('state', setState1);
 
             return { ...state, theme: payload };
 
@@ -16,6 +16,10 @@ const Settings = (state = {}, { type, payload }) => {
             return { ...state, welcome: false };
 
         case Type.SET_FONTSIZE:
+
+            let setState2 = { Settings: { theme: state.theme, fontSize: payload } };
+            LocalStorage.set('state', setState2);
+
             return { ...state, fontSize: payload };
 
         default:
