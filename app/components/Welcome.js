@@ -21,16 +21,20 @@ const Welcome = ({hide,theme}) => {
               <View style={[styles.container, { backgroundColor: theme.color }]}>
 
 
-                <View style={{ width: deviceWidth, paddingTop: 20 ,position:'absolute',top:100}}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <Image source={require('../images/profileImage.png')} style={{ width: 80, height: 80, borderRadius: 50 }} />
-                        <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30 }}>
-                                நிசப்தம்
+                <View style={{ width: deviceWidth, paddingTop: 20 ,position:'absolute',top:20}}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={require('../images/profileImage.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
+                        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 10 }} >
+                            <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 25 }}>
+                                வா. மணிகண்டன் 
                             </Text>
                             <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 18 }}>
-                                வா. மணிகண்டன்
+                                 எழுதும்
                             </Text>
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 40 }}>
+                                நிசப்தம்
+                            </Text>
+                            <Image source={require('../images/fishRound.png')} style={{ width: 70, height: 70, borderRadius: 50,marginTop:-10 }} />
                         </View >
                     </View>
                 </View>
@@ -48,6 +52,22 @@ const Welcome = ({hide,theme}) => {
                         </View>
                     </TouchableOpacity>
 
+
+
+   <View style={{ width: deviceWidth, paddingTop: 20 ,position:'absolute',bottom:10}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={require('../images/sivistaLogo.png')} style={{ width: 35, height: 35, borderRadius: 50 }} />
+                        <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
+                            <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 12 }}>
+                                an app by
+                            </Text>
+                            <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 16 ,fontWeight:'bold'}}>
+                                Sivista
+                            </Text>
+                          
+                        </View >
+                    </View>
+                </View>
                   
                   
             
