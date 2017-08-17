@@ -290,7 +290,7 @@ class Home extends Component {
        
           transparent={false}
           visible={this.state.modalVisible && this.props.welcome}
-          onRequestClose={() => { alert("Modal has been closed.") }}
+          onRequestClose={() => {  }}
         >
         <Welcome hide={this.setModalVisible.bind(this)} theme={this.props.theme} />
         </Modal>

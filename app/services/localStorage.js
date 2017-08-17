@@ -4,7 +4,11 @@ import { AsyncStorage } from 'react-native';
 class LocalStorage {
 
 
+    clear(){
 
+         AsyncStorage.clear();
+
+    }
     set(key, value) {
         AsyncStorage.setItem(key, JSON.stringify(value), (error) => {
             if (error) {

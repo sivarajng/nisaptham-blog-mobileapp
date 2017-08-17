@@ -16,6 +16,8 @@ import HTMLView from 'react-native-htmlview';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 
+import LocalStorage from '../services/localStorage'
+
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails, getPostComments, setfontSize ,setNightMode} from '../redux/actions'
 
@@ -90,7 +92,7 @@ class Settings extends Component {
                     }}>
                         <TouchableOpacity
                             onPress={() => { this.props.setNightMode(false) }}
-                            style={{ padding: 12, margin: 10, backgroundColor: '#ffffff', borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                            style={{ padding: 12, margin: 5, backgroundColor: '#ffffff', borderColor: '#022231', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
                                 <Text style={{ fontWeight: 'bold', color: '#000000', fontSize: 18, paddingLeft: 0 }}>
                                     பகல்
@@ -102,7 +104,7 @@ class Settings extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity
                                onPress={() => { this.props.setNightMode(true) }}
-                            style={{ padding: 12, margin: 10, backgroundColor: '#022231', borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                            style={{ padding: 12, margin: 5, backgroundColor: '#022231', borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
                                 <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 18, paddingLeft: 0 }}>
                                     இரவு
@@ -110,6 +112,21 @@ class Settings extends Component {
                                {this.props.nightMode
                                     ? <Icon name="check-circle" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
                                     : null}
+                            </View>
+                        </TouchableOpacity>
+                        <View style={{height:5}}>
+                         </View>
+                       
+                        <TouchableOpacity
+                               onPress={() => { LocalStorage.clear();alert('success')}}
+                            style={{ padding: 12, margin: 10, backgroundColor: this.props.theme.color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 30 }}>
+                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 14, paddingLeft: 0 }}>
+                                    அமைப்புகளை மீட்டமைக்கவும்
+                            </Text>
+                             
+                                   <Icon name="reply-all" size={30} color="#ffffff" style={{ position: 'absolute', right: 0 }} />
+                                  
                             </View>
                         </TouchableOpacity>
                     </View>
