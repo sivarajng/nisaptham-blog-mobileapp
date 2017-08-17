@@ -138,38 +138,38 @@ class Settings extends Component {
             <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
                 <View style={{ position: 'absolute', top: 0 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff', width: deviceWidth }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: this.props.nightMode ? '#ffffff':'#022231', width: deviceWidth }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', height: 200 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
-                                <Text style={{ fontSize: this.props.fontSize, color: '#000000' }}>
+                                <Text style={{ fontSize: this.props.fontSize, color: !this.props.nightMode ? '#ffffff':'#000000' }}>
                                     அகர முதல எழுத்தெல்லாம் ஆதி
                                 </Text>
-                                <Text style={{ fontSize: this.props.fontSize, color: '#000000' }}>
+                                <Text style={{ fontSize: this.props.fontSize, color: !this.props.nightMode ? '#ffffff':'#000000' }}>
                                     பகவன் முதற்றே உலகு
                                 </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: this.props.nightMode ? '#ffffff':'#022231',  }}>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(18) }}>
-                                <Text style={{ fontSize: 18, color: '#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 18, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(22) }}>
-                                <Text style={{ fontSize: 22, color: '#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 22, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(26) }}>
-                                <Text style={{ fontSize: 26, color: '#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 26, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(30) }}>
-                                <Text style={{ fontSize: 30, color: '#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 30, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
