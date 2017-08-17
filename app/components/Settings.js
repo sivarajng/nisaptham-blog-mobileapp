@@ -36,140 +36,49 @@ class Settings extends Component {
 
     }
 
-    gotoPost(item) {
-
-        // alert((item.link[4].href).toString());
-        this.props.getPostDetails((item.link[4].href).toString());
-        Actions.Post({ title: item.title.$t });
-    }
-
-    gotoPostComments(item) {
-
-        // alert((item.link[4].href).toString());
-        this.props.getPostComments((item.link[0].href).toString());
-        Actions.Comment({ title: 'Comments :' + item.title.$t });
-    }
-
-    sharePost(item) {
-
-        //  alert(item.title.$t);
-
-        Share.share({
-            message: (item.link[4].href).toString() + " - " + item.summary.$t,
-            title: item.title.$t,
-            url: (item.link[4].href).toString()
-
-        }, {
-                dialogTitle: item.title.$t,
-                excludedActivityTypes: [
-                    'com.apple.UIKit.activity.PostToTwitter'
-                ],
-                tintColor: 'green'
-            })
-
-
-
-    }
-
-    formatDate(dateString) {
-        var date = moment(dateString);
-        if (date.isValid()) {
-            if (moment(new Date().getTime()).diff(date, 'days') >= 4) {
-                return date.format('MMM D, YYYY');
-            }
-            return date.fromNow();
-        }
-        return 'Invalid Date';
-    }
-
     _setfontSize(size) {
         this.props.setfontSize(size);
     }
 
-    renderRow(item) {
 
-
-        let categoryTerm = "";
-        if (item.category) {
-            categoryTerm = " - " + item.category[0].term;
-        }
-
-
-        console.log('postComments items ', item)
-        return (
-
-
-            <Card style={{ width: deviceWidth }}>
-                <TouchableOpacity style={{ width: deviceWidth }} >
-                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} />
-                </TouchableOpacity>
-                <CardContent trim={false}>
-                    <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
-                </CardContent>
-
-            </Card>
-
-
-            // <TouchableOpacity onPress={() => this.gotoPost(item)}>
-            //   <Card>
-            //     <CardSection>
-            //       <View >
-            //         <Text style={{
-            //           color: '#0d47a1'
-            //           , fontSize: 20
-            //           , fontWeight: 'bold'
-
-            //         }}>{item.title.$t}</Text>
-            //       </View>
-            //       <View style={{ paddingTop: 4 }}>
-            //         <Text numberOfLines={3} >
-            //           {item.summary.$t.substring(2)}
-            //         </Text>
-            //       </View>
-
-            //     </CardSection>
-            //   </Card>
-            // </TouchableOpacity>
-        )
-    }
     render() {
 
         return (
             <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
                 <View style={{ position: 'absolute', top: 0 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: this.props.nightMode ? '#ffffff':'#022231', width: deviceWidth }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: !this.props.nightMode ? '#ffffff':'#022231', width: deviceWidth }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', height: 200 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
-                                <Text style={{ fontSize: this.props.fontSize, color: !this.props.nightMode ? '#ffffff':'#000000' }}>
+                                <Text style={{ fontSize: this.props.fontSize, color: this.props.nightMode ? '#ffffff':'#000000' }}>
                                     அகர முதல எழுத்தெல்லாம் ஆதி
                                 </Text>
-                                <Text style={{ fontSize: this.props.fontSize, color: !this.props.nightMode ? '#ffffff':'#000000' }}>
+                                <Text style={{ fontSize: this.props.fontSize, color: this.props.nightMode ? '#ffffff':'#000000' }}>
                                     பகவன் முதற்றே உலகு
                                 </Text>
                             </TouchableOpacity>
                         </View>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: this.props.nightMode ? '#ffffff':'#022231',  }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: !this.props.nightMode ? '#ffffff':'#022231',  }}>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(18) }}>
-                                <Text style={{ fontSize: 18, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 18, color: this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(22) }}>
-                                <Text style={{ fontSize: 22, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 22, color: this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(26) }}>
-                                <Text style={{ fontSize: 26, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 26, color: this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{ borderWidth: 2, borderColor: '#9e9e9e', alignItems: 'center', justifyContent: 'center', height: 100 }}>
                             <TouchableOpacity style={{ padding: 30 }} onPress={() => { this._setfontSize(30) }}>
-                                <Text style={{ fontSize: 30, color: !this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
+                                <Text style={{ fontSize: 30, color: this.props.nightMode ? '#ffffff':'#000000' }}>அ</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

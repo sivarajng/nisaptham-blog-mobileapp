@@ -121,8 +121,8 @@ class Post extends Component {
 StyleSheet.create({
   div: {
     fontSize: this.props.fontSize,
-    color: 'rgb(65,64,66)',
-    backgroundColor: '#ffffff',
+    color: this.props.nightMode ? '#ffffff':'#000000',
+    backgroundColor: !this.props.nightMode ? '#ffffff':'#022231',
   },
   img: {
     width: 300,
@@ -232,7 +232,7 @@ StyleSheet.create({
 
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,{backgroundColor:!this.props.nightMode ? '#ffffff':'#022231'}]}>
 
         {/* <View
 
@@ -267,7 +267,7 @@ StyleSheet.create({
 
         {this.props.postWebview
           ?
-          <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth }}>
+          <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth,backgroundColor:!this.props.nightMode ? '#ffffff':'#022231' }}>
             <WebView
               scalesPageToFit={true}
               source={{ html: this.props.postDetails }}
@@ -277,7 +277,7 @@ StyleSheet.create({
           : <ScrollView
             onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             ref='_scrollView'
-            contentContainerStyle={{ padding: 10, backgroundColor: '#ffffff', }}>
+            contentContainerStyle={{ padding: 10, backgroundColor: !this.props.nightMode ? '#ffffff':'#022231', }}>
 
             <HTMLView value={this.props.postDetails} stylesheet={this.HS()} />
 
@@ -477,6 +477,7 @@ const mapStateToProps = ({ Blog, Get, Settings }) => {
     postWebview: Blog.postWebview,
     theme: Settings.theme,
     fontSize: Settings.fontSize,
+            nightMode: Settings.nightMode
     
   })
 }
