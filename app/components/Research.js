@@ -12,9 +12,9 @@ import {
     Share,
     Platform
 } from 'react-native';
-import HTMLView from 'react-native-htmlview';
 
-import moment from 'moment';
+import axios from 'axios';
+import * as _ from 'lodash';
 
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
@@ -29,132 +29,70 @@ class Research extends Component {
 
     constructor(props) {
         super(props);
-        this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.id !== r2.id });
+        this.state = {
+            research: null,
+            url: "http://nisaptham.herokuapp.com/get?key=sivista&postId=",
+        }
 
     }
     componentWillMount() {
 
-    }
+        let postId = this.props.postInfo.id.$t.substring(this.props.postInfo.id.$t.indexOf('post-') + 5);
+        let _this = this;
+        console.log();
+        axios.get(this.state.url + postId)
+            .then(function (response) {
+                console.log("NAT API", response.data);
 
-    gotoPost(item) {
 
-        // alert((item.link[4].href).toString());
-        this.props.getPostDetails((item.link[4].href).toString());
-        Actions.Post({ title: item.title.$t });
-    }
 
-    gotoPostComments(item) {
-
-        // alert((item.link[4].href).toString());
-        this.props.getPostComments((item.link[0].href).toString());
-        Actions.Comment({ title: 'Comments :' + item.title.$t });
-    }
-
-    sharePost(item) {
-
-        //  alert(item.title.$t);
-
-        Share.share({
-            message: (item.link[4].href).toString() + " - " + item.summary.$t,
-            title: item.title.$t,
-            url: (item.link[4].href).toString()
-
-        }, {
-                dialogTitle: item.title.$t,
-                excludedActivityTypes: [
-                    'com.apple.UIKit.activity.PostToTwitter'
-                ],
-                tintColor: 'green'
+                _this.setState({ research: response.data });
             })
-
+            .catch(function (error) {
+                console.log("NAT API ERR", error);
+            });
 
 
     }
 
-    formatDate(dateString) {
-        var date = moment(dateString);
-        if (date.isValid()) {
-            if (moment(new Date().getTime()).diff(date, 'days') >= 4) {
-                return date.format('MMM D, YYYY');
-            }
-            return date.fromNow();
-        }
-        return 'Invalid Date';
+    alt() {
+
+        let postId = this.props.postInfo.id.$t.substring(this.props.postInfo.id.$t.indexOf('post-') + 5);
+
+        alert(postId);
     }
 
-    renderRow(item) {
-
-            let categoryTerm = "";
-    if (item.category) {
-      categoryTerm = " - " + item.category[0].term;
-    }
-
-        console.log('postComments items ', item)
-        return (
 
 
-            <Card style={{ width: deviceWidth }}>
-                <TouchableOpacity style={{ width: deviceWidth }} >
-                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm } />
-                </TouchableOpacity>
-                <CardContent trim={false}>
-                    <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
-                </CardContent>
-
-            </Card>
 
 
-            // <TouchableOpacity onPress={() => this.gotoPost(item)}>
-            //   <Card>
-            //     <CardSection>
-            //       <View >
-            //         <Text style={{
-            //           color: '#0d47a1'
-            //           , fontSize: 20
-            //           , fontWeight: 'bold'
 
-            //         }}>{item.title.$t}</Text>
-            //       </View>
-            //       <View style={{ paddingTop: 4 }}>
-            //         <Text numberOfLines={3} >
-            //           {item.summary.$t.substring(2)}
-            //         </Text>
-            //       </View>
-
-            //     </CardSection>
-            //   </Card>
-            // </TouchableOpacity>
-        )
-    }
     render() {
 
         return (
             <View style={styles.container}>
 
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => { Actions.Search() }}>
-                    <Text>
-                        Search
-          </Text>
+                <TouchableOpacity style={{ padding: 30 }} onPress={() => this.alt()}>
+
+                    {
+                        this.state.research
+                            ? this.state.research.entities.map((i,itm) => {
+
+                                return (
+                                    <Text key={i} > {itm.type}</Text>
+
+                                )
+
+
+                            })
+                            : <Text>LOADDDDDD</Text>
+
+                    }
+                    <Text>{this.state.research}</Text>
                 </TouchableOpacity>
 
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 1
-                </Text>
 
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 2
-                </Text>
-
-                <Text
-                    style={{ fontSize: 60, color: 'red' }}
-                    onPress={() => { }}>
-                    MENU 3
-                </Text>
             </View>
         );
     }

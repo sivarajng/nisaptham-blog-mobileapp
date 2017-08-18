@@ -12,9 +12,9 @@ export default class CardButton extends Component {
     const newStyle = this.props.style || {};
     let directionStyle = this.props.inColumn===true ? styles.CardButtonInColumn : styles.CardButtonInRow;
     return (
-      <Touchable style={[directionStyle, newStyle,{flexDirection: 'row'}]} onPress={ ()=>{this.props.onPress()} }>
+      <Touchable style={[directionStyle, newStyle,{flexDirection: 'row',paddingLeft:0}]} onPress={ ()=>{this.props.onPress()} }>
        <Icon name={this.props.icon || "bars"} size={20} color={this.props.color} style={{paddingRight:5}}/>
-        <Text style={this.props.color!==undefined ? [styles.buttonText, {color: this.props.color,fontSize:16}] : styles.buttonText}>{this.props.title.toUpperCase()}</Text>
+        <Text style={this.props.color!==undefined ? [styles.buttonText, {color: this.props.textColor || this.props.color,fontSize:16}] : styles.buttonText}>{this.props.title.toUpperCase()}</Text>
       </Touchable>      
     );
   }

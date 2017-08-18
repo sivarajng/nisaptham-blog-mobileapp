@@ -168,7 +168,11 @@ class Home extends Component {
 
   }
 
+_research(item){
 
+Actions.Research({postInfo:item});
+
+}
 
   renderRow(item) {
 
@@ -199,6 +203,13 @@ class Home extends Component {
         </TouchableOpacity>
         <CardContent trim={true} text={item.summary.$t.substring(2)} />
         <CardAction seperator={true} inColumn={false}>
+          <CardButton
+            onPress={() => { this._research(item) }}
+            title="குறிப்புகள்"
+            color={'#FF9800'}
+            textColor={'#01579b'}
+            icon="star"
+          />
           <CardButton
             onPress={() => { this.sharePost(item) }}
             title="பகிர்"

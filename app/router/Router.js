@@ -169,7 +169,7 @@ class RouterComponent extends Component {
           <Scene key="Comment" component={Comment} title="Comment" />
           <Scene key="Search" component={Search} title="தேடல்" />
           <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
-          <Scene key="Research" component={Research} title="ஆராய்ச்சி" />
+          <Scene key="Research" component={Research} title="குறிப்புகள்" />
           <Scene key="CategorySelect" component={CategorySelect} title="பிரிவுகள்" />
           <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
           <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
