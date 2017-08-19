@@ -34,7 +34,7 @@ class Research extends Component {
         this.state = {
             research: null,
             types: null,
-            url: "http://nisaptham.herokuapp.com2/get?key=sivista&postId=",
+            url: "http://nisaptham.herokuapp.com/get?key=sivista&postId=",
         }
 
     }
