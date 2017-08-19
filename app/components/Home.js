@@ -160,7 +160,7 @@ class Home extends Component {
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
           <Icon name="arrow-circle-down" size={30} color="#ffffff" />
           <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-            மேலும் பார்க்க
+            மேலும் பதிவுகளை பார்க்க
           </Text>
         </View>
       </TouchableOpacity>

@@ -30,12 +30,14 @@ class Research extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            research: null,
+            research:null,
+            types:null,
             url: "http://nisaptham.herokuapp.com/get?key=sivista&postId=",
         }
 
     }
     componentWillMount() {
+
 
         let postId = this.props.postInfo.id.$t.substring(this.props.postInfo.id.$t.indexOf('post-') + 5);
         let _this = this;
@@ -44,9 +46,11 @@ class Research extends Component {
             .then(function (response) {
                 console.log("NAT API", response.data);
 
-
+                response.data.entities = _.uniqWith(response.data.entities, _.isEqual);
+                let types = _.uniqBy( response.data,'type');
 
                 _this.setState({ research: response.data });
+                _this.setState({ types: types });
             })
             .catch(function (error) {
                 console.log("NAT API ERR", error);
@@ -72,23 +76,24 @@ class Research extends Component {
         return (
             <View style={styles.container}>
 
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => this.alt()}>
+                <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
 
                     {
                         this.state.research
-                            ? this.state.research.entities.map((i,itm) => {
-
+                            ? _.map(this.state.research.entities, (val, idx) => {
                                 return (
-                                    <Text key={i} > {itm.type}</Text>
+                                    <Text key={idx}> {val.name}</Text>
 
                                 )
 
 
                             })
+
+
                             : <Text>LOADDDDDD</Text>
 
                     }
-                    <Text>{this.state.research}</Text>
+
                 </TouchableOpacity>
 
 
