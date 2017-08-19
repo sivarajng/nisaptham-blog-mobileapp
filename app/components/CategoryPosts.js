@@ -122,6 +122,12 @@ class CategoryPosts extends Component {
         return 'Invalid Date';
     }
 
+    _research(item) {
+
+        Actions.Research({ postInfo: item, title: "குறிப்புகள் : " + item.title.$t });
+
+    }
+
     renderRow(item) {
 
         let commentLink = "";
@@ -152,6 +158,13 @@ class CategoryPosts extends Component {
                 </TouchableOpacity>
                 <CardContent trim={true} text={item.summary.$t.substring(2)} />
                 <CardAction seperator={true} inColumn={false}>
+                    <CardButton
+                        onPress={() => { this._research(item) }}
+                        title="குறிப்புகள்"
+                        color={'#FF9800'}
+                        textColor={'#01579b'}
+                        icon="star"
+                    />
                     <CardButton
                         onPress={() => { this.sharePost(item) }}
                         title="பகிர்"
@@ -196,14 +209,14 @@ class CategoryPosts extends Component {
     render() {
 
         return (
-       <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
+            <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
 
 
 
 
                 {this.props.categoryPosts.feed
-                    ? <ListView  style={{paddingRight:5}} 
+                    ? <ListView style={{ paddingRight: 5 }}
                         ref='_scrollView'
                         onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
                         refreshControl={

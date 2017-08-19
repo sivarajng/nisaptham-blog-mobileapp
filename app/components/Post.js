@@ -223,6 +223,12 @@ class Post extends Component {
     )
   }
 
+    _research(item) {
+
+        Actions.Research({ postInfo: item, title: "குறிப்புகள் : " + item.title.$t });
+
+    }
+
   render() {
 
     let categoryTerm = "";
@@ -282,7 +288,7 @@ class Post extends Component {
             <HTMLView value={this.props.postDetails} stylesheet={this.HS()} />
 
 
-            <Card style={{ width: deviceWidth ,marginLeft:-10}}>
+            <Card style={{ width: deviceWidth, marginLeft: -10 }}>
 
               <TouchableOpacity style={{ width: deviceWidth }} >
                 <CardTitle subtitle={this.formatDate(this.props.postInfo.published.$t) + categoryTerm} color={this.props.theme.color} />
@@ -291,6 +297,13 @@ class Post extends Component {
 
 
               <CardAction seperator={true} inColumn={false}>
+                <CardButton
+                  onPress={() => { this._research(this.props.postInfo) }}
+                  title="குறிப்புகள்"
+                  color={'#FF9800'}
+                  textColor={'#01579b'}
+                  icon="star"
+                />
                 <CardButton
                   onPress={() => { this.sharePost(this.props.postInfo) }}
                   title="பகிர்"
@@ -307,7 +320,7 @@ class Post extends Component {
               </CardAction>
               <CardAction seperator={true} inColumn={false}>
                 <CardButton
-                  onPress={() => Actions.WriteComment({ title : "கருத்து எழுது - "+this.props.postInfo.title.$t,postInfo: this.props.postInfo })}
+                  onPress={() => Actions.WriteComment({ title: "கருத்து எழுது - " + this.props.postInfo.title.$t, postInfo: this.props.postInfo })}
                   title={"கருத்து எழுது"}
                   color={this.props.theme.color}
                   icon="edit"

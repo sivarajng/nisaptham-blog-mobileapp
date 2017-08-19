@@ -203,6 +203,12 @@ class Search extends Component {
         return 'Invalid Date';
     }
 
+    _research(item) {
+
+        Actions.Research({ postInfo: item, title: "குறிப்புகள் : " + item.title.$t });
+
+    }
+    
     renderRow(item) {
 
         let commentLink = "";
@@ -233,6 +239,13 @@ class Search extends Component {
                 <CardContent trim={true} text={item.summary.$t.substring(2)} />
                 <CardAction seperator={true} inColumn={false}>
                     <CardButton
+                        onPress={() => { this._research(item) }}
+                        title="குறிப்புகள்"
+                        color={'#FF9800'}
+                        textColor={'#01579b'}
+                        icon="star"
+                    />
+                    <CardButton
                         onPress={() => { this.sharePost(item) }}
                         title="பகிர்"
                         color={this.props.theme.color}
@@ -257,7 +270,7 @@ class Search extends Component {
     render() {
 
         return (
-              <View style={[styles.container,{backgroundColor:this.props.theme.color}]}>
+            <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
                 {!this.state.searchSwap
                     ? <View style={{ width: deviceWidth }}>
@@ -354,7 +367,7 @@ class Search extends Component {
                                     commonStyles.opensansSemiBold,
                                     commonStyles.fontSize18, { width: deviceWidth - 120, height: 30, backgroundColor: '#ffffff', padding: 0 }]}
                                 >
-                                    <Text style={{ fontSize: 18, color: this.props.theme.color, fontStyle: 'italic',fontWeight:'bold' }}>{this.state.searchBy} வாரியாக தேட</Text>
+                                    <Text style={{ fontSize: 18, color: this.props.theme.color, fontStyle: 'italic', fontWeight: 'bold' }}>{this.state.searchBy} வாரியாக தேட</Text>
 
 
                                 </View>
@@ -374,8 +387,8 @@ class Search extends Component {
                 }
 
                 {this.props.postsSearch.feed
-                    ? <ListView 
-                     style={{paddingRight:5}} 
+                    ? <ListView
+                        style={{ paddingRight: 5 }}
                         onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
                         ref='_scrollView'
                         enableEmptySections={true}
