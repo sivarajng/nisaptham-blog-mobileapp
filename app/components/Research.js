@@ -10,7 +10,9 @@ import {
     TouchableHighlight,
     Dimensions,
     Share,
-    Platform
+    Platform,
+    ScrollView,
+    ActivityIndicator
 } from 'react-native';
 
 import axios from 'axios';
@@ -18,7 +20,7 @@ import * as _ from 'lodash';
 
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
-
+import { Buttons, Label } from './common';
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
 import commonStyles from '../styles/commonStyles';
@@ -30,9 +32,9 @@ class Research extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            research:null,
-            types:null,
-            url: "http://nisaptham.herokuapp.com/get?key=sivista&postId=",
+            research: null,
+            types: null,
+            url: "http://nisaptham.herokuapp.com2/get?key=sivista&postId=",
         }
 
     }
@@ -46,14 +48,22 @@ class Research extends Component {
             .then(function (response) {
                 console.log("NAT API", response.data);
 
-                response.data.entities = _.uniqWith(response.data.entities, _.isEqual);
-                let types = _.uniqBy( response.data,'type');
+                response.data.entities = _.uniqWith(response.data.entities, _.isEqual);
 
-                _this.setState({ research: response.data });
+                let types = _.uniqBy(response.data.entities, 'type');
+                let typesArray = [];
+                _.map(types, (itm) => {
+                    typesArray.push(itm.type);
+                })
+
+                console.log("_____________", typesArray);
+                console.log("_____________", response.data);
+                _this.setState({ research: { all: response.data, types: typesArray } });
                 _this.setState({ types: types });
             })
             .catch(function (error) {
                 console.log("NAT API ERR", error);
+                 _this.setState({ research: { all: {entities:[{name:error,type:"ERROR"}]}, types: ["ERROR"] } });
             });
 
 
@@ -76,13 +86,70 @@ class Research extends Component {
         return (
             <View style={styles.container}>
 
-                <TouchableOpacity style={{ padding: 30 }} onPress={() => { }}>
+                <TouchableOpacity>
+                    <View
+                        style={{ width: deviceWidth, padding: 0 }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: '#ff9800',
+                        }}>
 
+                            <Text style={{ fontWeight: 'bold', color: '#b71c1c', fontSize: 22, paddingRight: 20 }}>
+                               இது ஒரு பரிட்சார்த்த சேவை
+                            </Text>
+
+                        </View>
+                    </View>
+                </TouchableOpacity>
+
+                <ScrollView>
                     {
                         this.state.research
-                            ? _.map(this.state.research.entities, (val, idx) => {
+                            ? _.map(this.state.research.types, (val1, idx1) => {
                                 return (
-                                    <Text key={idx}> {val.name}</Text>
+                                    <View key={idx1}>
+                                        <TouchableOpacity>
+                                            <View
+                                                style={{ width: deviceWidth, paddingTop: 10 }}>
+                                                <View style={{
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    backgroundColor: this.props.theme.color,
+                                                }}>
+
+                                                    <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 26, paddingRight: 20 }}>
+                                                        {val1}
+                                                    </Text>
+
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
+ 
+                                        <View style={[commonStyles.flex4, commonStyles.directionRow, commonStyles.alignCenter, commonStyles.wrapFlex, { justifyContent: 'flex-start' ,padding:4}]}>
+                                            {this.state.research.all.entities.filter(
+
+                                                (val2, idx2) => val2.type == val1
+                                            ).map((yyy, iii) => {
+                                                return (
+
+                                                    <Buttons
+                                                        key={iii}
+                                                        buttonClick={() => this._selectCategory(itm)}
+                                                        buttonStyle={[commonStyles.btnViewStyleSelected, { backgroundColor: this.props.theme.color, borderColor: this.props.theme.color }]}>
+                                                        <Label
+                                                            textContent={yyy.name}
+                                                            textstyle={[commonStyles.selectedBtnTxtStyle,{fontWeight:'bold'}]}
+                                                        />
+                                                    </Buttons>
+
+                                                )
+                                            })
+                                            }
+                                        </View>
+                                    </View>
 
                                 )
 
@@ -90,11 +157,17 @@ class Research extends Component {
                             })
 
 
-                            : <Text>LOADDDDDD</Text>
+                            :
+                            <ActivityIndicator
+                                animating={true}
+                                color='#01579b'
+                                size={60}
+                                style={styles.activityIndicator}
+                            />
 
                     }
+                </ScrollView>
 
-                </TouchableOpacity>
 
 
 
@@ -231,10 +304,11 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog }) => {
-    console.log('Blog.postComments ', Blog.postComments);
+const mapStateToProps = ({ Blog, Settings }) => {
+
     return ({
-        postComments: Blog.postComments
+        postComments: Blog.postComments,
+        theme: Settings.theme
     })
 }
 

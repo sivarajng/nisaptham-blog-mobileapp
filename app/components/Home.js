@@ -170,7 +170,7 @@ class Home extends Component {
 
 _research(item){
 
-Actions.Research({postInfo:item});
+Actions.Research({postInfo:item,title:"குறிப்புகள் : "+item.title.$t});
 
 }
 
