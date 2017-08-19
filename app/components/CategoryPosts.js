@@ -95,7 +95,7 @@ class CategoryPosts extends Component {
         //  alert(item.title.$t);
 
         Share.share({
-            message: (item.link[4].href).toString() + " - " + item.summary.$t,
+            message: (item.link[4].href).toString() + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.nisapthamblog",
             title: item.title.$t,
             url: (item.link[4].href).toString()
 
