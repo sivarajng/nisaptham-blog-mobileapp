@@ -117,9 +117,9 @@ android {
         signingConfigs {
       release {
 
-                      storeFile file("YourApp.keystore")
+                      storeFile file("nisaptham.keystore")
                       storePassword ("S!vi@7482keystore")
-                      keyAlias ("YourApp")
+                      keyAlias ("nisaptham")
                       keyPassword ("S!vi@7482keystore")
 
               }
