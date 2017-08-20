@@ -95,7 +95,7 @@ android {
 
     defaultConfig {
         //RELEASE
-         applicationId "com.sivarajnagaraj.nisapthamblog"
+         applicationId "com.sivarajnagaraj.blog"
         //DEBUG
         //applicationId "com.sivarajnagaraj.nisapthamdebug"
         minSdkVersion 16
