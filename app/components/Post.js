@@ -18,6 +18,8 @@ import {
 
 import Modal from 'react-native-modal';
 
+import * as _ from 'lodash';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card';
 
@@ -76,18 +78,32 @@ class Post extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + ' - ' + item.title.$t });
+    Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + ' - ' + item.title.$t  , postInfo: item });
   }
 
 
   sharePost(item) {
 
+
+    let postUrlArr = [];
+    let postUrl = "";
+
+    postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+    if (postUrlArr.length == 0) {
+      postUrl = "";
+    }
+    else {
+      postUrl = (postUrlArr[0].href).toString();
+    }
+
+
     //  alert(item.title.$t);
 
     Share.share({
-      message: (item.link[4].href).toString() + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
+      message: postUrl + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
       title: item.title.$t,
-      url: (item.link[4].href).toString()
+      url: postUrl
 
     }, {
         dialogTitle: item.title.$t,
@@ -223,12 +239,27 @@ class Post extends Component {
     )
   }
 
-    _research(item) {
+  _research(item) {
 
-        Actions.Research({ postInfo: item, title: "குறிப்புகள் : " + item.title.$t });
+    Actions.Research({ postInfo: item, title: "குறிப்புகள் : " + item.title.$t });
+
+  }
+  _getCommentsCount(item) {
+
+    let commentLink = "";
+    if (item.link) {
+      if (item.link.length > 1) {
+        if (item.link[1].title) {
+          commentLink = (item.link[1].title).toString();
+        }
+
+      }
 
     }
+    commentLink = commentLink.toLowerCase().replace("comments", "கருத்துக்கள்");
+    return commentLink;
 
+  }
   render() {
 
     let categoryTerm = "";
@@ -310,12 +341,17 @@ class Post extends Component {
                   color={this.props.theme.color}
                   icon="share"
                 />
-                <CardButton
-                  onPress={() => this.gotoPostComments(this.props.postInfo)}
-                  title={(this.props.postInfo.link[1].title).toString().toLowerCase().replace("comments", "கருத்துக்கள்")}
-                  color={this.props.theme.color}
-                  icon="comment"
-                />
+
+                {this._getCommentsCount(this.props.postInfo) != ""
+                  ? <CardButton
+                    onPress={() => this.gotoPostComments(this.props.postInfo)}
+                    title={this._getCommentsCount(this.props.postInfo)}
+                    color={this.props.theme.color}
+                    icon="comment"
+                  />
+                  : null
+                }
+
 
               </CardAction>
               <CardAction seperator={true} inColumn={false}>

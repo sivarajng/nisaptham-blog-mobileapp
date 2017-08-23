@@ -19,6 +19,7 @@ import {
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import * as _ from 'lodash';
 
 import { connect } from 'react-redux'
 import {
@@ -126,9 +127,20 @@ class Search extends Component {
 
     gotoPost(item) {
 
+        let postUrlArr = [];
+        let postUrl = "";
+
+        postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+        if (postUrlArr.length == 0) {
+            postUrl = "";
+        }
+        else {
+            postUrl = (postUrlArr[0].href).toString();
+        }
 
         // alert((item.link[4].href).toString());
-        this.props.getPostDetails((item.link[4].href).toString());
+        this.props.getPostDetails(postUrl);
         Actions.Post({ title: item.title.$t, postInfo: item });
     }
 
@@ -137,7 +149,7 @@ class Search extends Component {
         // alert((item.link[4].href).toString());
         this.props.getPostComments((item.link[0].href).toString());
         this.props.setselectedPost(item);
-        Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
+        Actions.Comment({ title: item.link[1].title + '-' + item.title.$t  , postInfo: item });
     }
 
     _onChangeText(text) {
@@ -173,12 +185,26 @@ class Search extends Component {
 
     sharePost(item) {
 
+        
+        let postUrlArr = [];
+        let postUrl = "";
+
+        postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+        if (postUrlArr.length == 0) {
+            postUrl = "";
+        }
+        else {
+            postUrl = (postUrlArr[0].href).toString();
+        }
+
+
         //  alert(item.title.$t);
 
         Share.share({
-            message: (item.link[4].href).toString() + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
+            message: postUrl + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
             title: item.title.$t,
-            url: (item.link[4].href).toString()
+            url: postUrl
 
         }, {
                 dialogTitle: item.title.$t,
@@ -208,7 +234,7 @@ class Search extends Component {
         Actions.Research({ postInfo: item, title: "குறிப்புகள் : " + item.title.$t });
 
     }
-    
+
     renderRow(item) {
 
         let commentLink = "";

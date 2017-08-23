@@ -212,7 +212,7 @@ class Comment extends Component {
           <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} />
         </TouchableOpacity>
         <CardContent trim={false}>
-          <HTMLView value={"<div>"+item.content.$t+"</div>"} stylesheet={this.HS()} />
+          <HTMLView value={"<div>" + item.content.$t + "</div>"} stylesheet={this.HS()} />
         </CardContent>
 
       </Card>
@@ -240,18 +240,39 @@ class Comment extends Component {
       // </TouchableOpacity>
     )
   }
+
+  renderFooter() {
+
+    return (
+      <TouchableOpacity
+        onPress={() => Actions.WriteComment({ title: "கருத்து எழுது - " + this.props.postInfo.title.$t, postInfo: this.props.postInfo })}
+
+        style={{ padding: 5, margin: 0, backgroundColor: this.props.theme.color, borderColor: '#ffffff', borderWidth: 2, borderRadius: 0, width: deviceWidth }} >
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 40 }}>
+          <Icon name="edit" size={30} color="#ffffff" />
+          <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+            கருத்து எழுது
+          </Text>
+        </View>
+      </TouchableOpacity>
+    )
+
+  }
+
+
   render() {
     console.log('lllllllll ', this.props.postComments);
     return (
       <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
         {this.props.postComments
-          ? <ListView style={{ paddingRight: 5,marginRight:5 }}
+          ? <ListView style={{ paddingRight: 5, marginRight: 5 }}
             onScroll={(event) => { this.setState({ scrollHead: event.nativeEvent.contentOffset.y }) }}
             ref='_scrollView'
             enableEmptySections={true}
             dataSource={this.ds.cloneWithRows(this.props.postComments.feed.entry)}
             renderRow={this.renderRow.bind(this)}
+            renderFooter={this.renderFooter.bind(this)}
           />
           : <ActivityIndicator
             animating={true}

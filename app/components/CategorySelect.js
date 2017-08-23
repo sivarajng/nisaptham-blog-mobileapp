@@ -26,7 +26,7 @@ import {
     , getPostComments
     , getCategoryList
     , selectCategory
-   , getCategoryPosts
+    , getCategoryPosts
 } from '../redux/actions'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -51,7 +51,7 @@ class CategorySelect extends Component {
     }
 
     _selectCategory(item) {
-        if(!item.isSelected){
+        if (!item.isSelected) {
             this.props.selectCategory(item.term);
         }
     }
@@ -59,14 +59,26 @@ class CategorySelect extends Component {
     _gotoCategoryPosts() {
 
         this.props.getCategoryPosts();
-        Actions.CategoryPosts({title:BlogServices.getCategoryFilter().substring(1)});
+        Actions.CategoryPosts({ title: BlogServices.getCategoryFilter().substring(1) });
 
     }
 
     gotoPost(item) {
 
+        let postUrlArr = [];
+        let postUrl = "";
+
+        postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+        if (postUrlArr.length == 0) {
+            postUrl = "";
+        }
+        else {
+            postUrl = (postUrlArr[0].href).toString();
+        }
+
         // alert((item.link[4].href).toString());
-        this.props.getPostDetails((item.link[4].href).toString());
+        this.props.getPostDetails(postUrl);
         Actions.Post({ title: item.title.$t });
     }
 
@@ -111,10 +123,10 @@ class CategorySelect extends Component {
 
     renderRow(item) {
 
-            let categoryTerm = "";
-    if (item.category) {
-      categoryTerm = " - " + item.category[0].term;
-    }
+        let categoryTerm = "";
+        if (item.category) {
+            categoryTerm = " - " + item.category[0].term;
+        }
 
         console.log('postComments items ', item)
         return (
@@ -122,7 +134,7 @@ class CategorySelect extends Component {
 
             <Card style={{ width: deviceWidth }}>
                 <TouchableOpacity style={{ width: deviceWidth }} >
-                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm } />
+                    <CardTitle title={item.author[0].name.$t} subtitle={this.formatDate(item.published.$t) + categoryTerm} />
                 </TouchableOpacity>
                 <CardContent trim={false}>
                     <HTMLView value={item.content.$t} stylesheet={htmlStyles} />
@@ -166,10 +178,10 @@ class CategorySelect extends Component {
                                 <Buttons
                                     key={itm.term}
                                     buttonClick={() => this._selectCategory(itm)}
-                                    buttonStyle={itm.isSelected ? [commonStyles.btnViewStyleSelected,{ backgroundColor: this.props.theme.color,borderColor:this.props.theme.color}] : [commonStyles.btnViewStyleUnselected,{borderColor:this.props.theme.color}]}>
+                                    buttonStyle={itm.isSelected ? [commonStyles.btnViewStyleSelected, { backgroundColor: this.props.theme.color, borderColor: this.props.theme.color }] : [commonStyles.btnViewStyleUnselected, { borderColor: this.props.theme.color }]}>
                                     <Label
                                         textContent={itm.term}
-                                        textstyle={itm.isSelected ? commonStyles.selectedBtnTxtStyle : [commonStyles.unselectedBtnTxtStyle,{color:this.props.theme.color}]}
+                                        textstyle={itm.isSelected ? commonStyles.selectedBtnTxtStyle : [commonStyles.unselectedBtnTxtStyle, { color: this.props.theme.color }]}
                                     />
                                 </Buttons>
                             )
@@ -192,10 +204,10 @@ class CategorySelect extends Component {
                                 justifyContent: 'center',
                                 padding: 10,
                             }} >
-                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 26,paddingRight:20 }}>
+                                <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 26, paddingRight: 20 }}>
                                     பதிவுகளைப் பார்க்க
                             </Text>
-                              <Icon name="arrow-circle-o-right" size={40} color="#ffffff" />
+                                <Icon name="arrow-circle-o-right" size={40} color="#ffffff" />
 
                             </View >
                         </View>
@@ -339,7 +351,7 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ Blog ,Settings}) => {
+const mapStateToProps = ({ Blog, Settings }) => {
     console.log('Blog.categoryList ', Blog.categoryList);
     return ({
         postComments: Blog.postComments,

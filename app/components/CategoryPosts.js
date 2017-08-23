@@ -14,6 +14,8 @@ import {
 
 } from 'react-native';
 
+import * as _ from 'lodash';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BlogServices from '../services/blog';
 import moment from 'moment';
@@ -70,8 +72,22 @@ class CategoryPosts extends Component {
 
     gotoPost(item) {
 
+        let postUrlArr = [];
+        let postUrl = "";
+
+        postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+        if (postUrlArr.length == 0) {
+            postUrl = "";
+        }
+        else {
+            postUrl = (postUrlArr[0].href).toString();
+        }
+
+
+
         // alert((item.link[4].href).toString());
-        this.props.getPostDetails((item.link[4].href).toString());
+        this.props.getPostDetails(postUrl);
         this.props.setselectedPost(item);
         Actions.Post({ title: item.title.$t, postInfo: item });
     }
@@ -80,7 +96,7 @@ class CategoryPosts extends Component {
 
         // alert((item.link[4].href).toString());
         this.props.getPostComments((item.link[0].href).toString());
-        Actions.Comment({ title: item.link[1].title + '-' + item.title.$t });
+        Actions.Comment({ title: item.link[1].title + '-' + item.title.$t  , postInfo: item });
     }
 
     _gotoSearch() {
@@ -92,12 +108,26 @@ class CategoryPosts extends Component {
 
     sharePost(item) {
 
+
+        let postUrlArr = [];
+        let postUrl = "";
+
+        postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+        if (postUrlArr.length == 0) {
+            postUrl = "";
+        }
+        else {
+            postUrl = (postUrlArr[0].href).toString();
+        }
+
+
         //  alert(item.title.$t);
 
         Share.share({
-            message: (item.link[4].href).toString() + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
+            message: postUrl + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
             title: item.title.$t,
-            url: (item.link[4].href).toString()
+            url: postUrl
 
         }, {
                 dialogTitle: item.title.$t,

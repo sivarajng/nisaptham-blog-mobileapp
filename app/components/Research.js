@@ -137,7 +137,7 @@ class Research extends Component {
 
                                                     <Buttons
                                                         key={iii}
-                                                        buttonClick={() => this._selectCategory(itm)}
+                                                        buttonClick={() => {}}
                                                         buttonStyle={[commonStyles.btnViewStyleSelected, { backgroundColor: this.props.theme.color, borderColor: this.props.theme.color }]}>
                                                         <Label
                                                             textContent={yyy.name}

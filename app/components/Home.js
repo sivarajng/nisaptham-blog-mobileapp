@@ -19,15 +19,19 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import * as _ from 'lodash';
+
 import moment from 'moment';
 
 import { connect } from 'react-redux'
-import { getPosts
+import {
+  getPosts
   , getPostDetails
   , getPostComments
   , setWelcome
   , getCategoryList
-  , setselectedPost } from '../redux/actions'
+  , setselectedPost
+} from '../redux/actions'
 
 import { Actions } from 'react-native-router-flux';
 // import { Header, Card,CardSection, Buttons, Label } from './common/index';
@@ -46,7 +50,7 @@ class Home extends Component {
       refreshing: false,
       offset: 0,
       scrollHead: 0,
-       modalVisible: true,
+      modalVisible: true,
 
     };
   }
@@ -67,9 +71,9 @@ class Home extends Component {
 
   }
 
-  
-   setModalVisible() {
-    this.setState({modalVisible: false});
+
+  setModalVisible() {
+    this.setState({ modalVisible: false });
     this.props.setWelcome();
   }
 
@@ -96,11 +100,24 @@ class Home extends Component {
 
   gotoPost(item) {
 
+    let postUrlArr = [];
+    let postUrl = "";
+
+    postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+    if (postUrlArr.length == 0) {
+      postUrl = "";
+    }
+    else {
+      postUrl = (postUrlArr[0].href).toString();
+    }
+
+
     // alert((item.link[4].href).toString());
-    this.props.getPostDetails((item.link[4].href).toString());
+    this.props.getPostDetails(postUrl);
     this.props.setselectedPost(item);
 
-    Actions.Post({ title: item.title.$t, postInfo: item });
+    Actions.Post({ title: item.title.$t , postInfo: item });
 
   }
 
@@ -108,7 +125,7 @@ class Home extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + '-' + item.title.$t });
+    Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + '-' + item.title.$t , postInfo: item });
   }
 
   _gotoSearch() {
@@ -120,12 +137,25 @@ class Home extends Component {
 
   sharePost(item) {
 
+    let postUrlArr = [];
+    let postUrl = "";
+
+    postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+
+    if (postUrlArr.length == 0) {
+      postUrl = "";
+    }
+    else {
+      postUrl = (postUrlArr[0].href).toString();
+    }
+
+
     //  alert(item.title.$t);
 
     Share.share({
-      message: (item.link[4].href).toString() + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
+      message: postUrl + " - " + item.summary.$t + " # Shared via https://play.google.com/store/apps/details?id=com.sivarajnagaraj.blog",
       title: item.title.$t,
-      url: (item.link[4].href).toString()
+      url: postUrl
 
     }, {
         dialogTitle: item.title.$t,
@@ -168,11 +198,11 @@ class Home extends Component {
 
   }
 
-_research(item){
+  _research(item) {
 
-Actions.Research({postInfo:item,title:"குறிப்புகள் : "+item.title.$t});
+    Actions.Research({ postInfo: item, title: "குறிப்புகள் : " + item.title.$t });
 
-}
+  }
 
   renderRow(item) {
 
@@ -298,12 +328,12 @@ Actions.Research({postInfo:item,title:"குறிப்புகள் : "+ite
 
 
         <Modal
-       
+
           transparent={false}
           visible={this.state.modalVisible && this.props.welcome}
-          onRequestClose={() => {  }}
+          onRequestClose={() => { }}
         >
-        <Welcome hide={this.setModalVisible.bind(this)} theme={this.props.theme} />
+          <Welcome hide={this.setModalVisible.bind(this)} theme={this.props.theme} />
         </Modal>
 
 
@@ -357,10 +387,12 @@ const mapStateToProps = ({ Blog, Settings }) => {
 }
 
 
-export default connect(mapStateToProps, { getPosts
+export default connect(mapStateToProps, {
+  getPosts
   , getPostDetails
   , getPostComments
   , setWelcome
   , getCategoryList
-  , setselectedPost })(Home)
+  , setselectedPost
+})(Home)
 
