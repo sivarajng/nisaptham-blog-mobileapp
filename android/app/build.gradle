@@ -95,13 +95,13 @@ android {
 
     defaultConfig {
         //RELEASE
-      //   applicationId "com.sivarajnagaraj.blog"
+         applicationId "com.sivarajnagaraj.blog"
         //DEBUG
-        applicationId "com.sivarajnagaraj.nisapthamdebug"
+   //     applicationId "com.sivarajnagaraj.nisapthamdebug"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 11
-        versionName "11"
+        versionCode 12
+        versionName "12"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
