@@ -203,6 +203,31 @@ class Menu extends Component {
                        </Text>
                         </View>
                     </TouchableOpacity>
+
+                    
+                    <TouchableOpacity
+                        onPress={() => { alert("விரைவில்...")}}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="heart" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                அறக்கட்டளை
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      onPress={() => { alert("விரைவில்...")}}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+                            <Icon name="phone" size={30} color="#ffffff" />
+                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
+                                தொடர்புக்கு
+                       </Text>
+                        </View>
+                    </TouchableOpacity>
+
+
                     <TouchableOpacity
                         onPress={() => { Actions.About() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
