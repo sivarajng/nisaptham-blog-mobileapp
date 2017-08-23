@@ -56,7 +56,7 @@ class PostWeb extends Component {
   componentWillUnmount() {
 
     if (this.props.postWebview) {
-   //   this.props.togglePostWebview();
+      //   this.props.togglePostWebview();
     }
 
     // alert('sasasasa');
@@ -75,7 +75,7 @@ class PostWeb extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-    Actions.Comment({ title: item.link[1].title + '-' + item.title.$t  , postInfo: item });
+    Actions.Comment({ title: item.link[1].title + '-' + item.title.$t, postInfo: item });
   }
 
 
@@ -135,13 +135,14 @@ class PostWeb extends Component {
         }
 
 
-          <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth }}>
-            <WebView
-              scalesPageToFit={true}
-              source={{ html: this.props.postDetails }}
+        <View style={{ marginBottom: 20, height: deviceHeight - 100, width: deviceWidth }}>
+          <WebView
+            scalesPageToFit={true}
+            style={{ backgroundColor: (!this.props.nightMode ? "#ffffff" : "#022231") }}
+            source={{ html: '<div style="background-color: ' + (!this.props.nightMode ? "#ffffff" : "#022231") + '; color: ' + (this.props.nightMode ? "#ffffff" : "#000000") + ';    font-size: ' + this.props.fontSize + ';>' + this.props.postDetails + '</div>' }}
 
-            />
-          </View>
+          />
+        </View>
 
 
 
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: '#e0e0e0',
+    //  backgroundColor: '#e0e0e0',
   },
   welcome: {
     fontSize: 20,
@@ -287,7 +288,9 @@ const mapStateToProps = ({ Blog, Get, Settings }) => {
     postDetailsLoader: Blog.postDetailsLoader,
     postPopup: Blog.postPopup,
     postWebview: Blog.postWebview,
-    theme: Settings.theme
+    theme: Settings.theme,
+    fontSize: Settings.fontSize,
+    nightMode: Settings.nightMode
   })
 }
 
