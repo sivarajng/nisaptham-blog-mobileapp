@@ -3234,6 +3234,10 @@ react-native-drawer@^2.3.0:
   dependencies:
     tween-functions "^1.0.1"
 
+react-native-fcm@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-fcm/-/react-native-fcm-9.1.0.tgz#c772c2a26c1fd81c255469ce1539d44a3a1ecf52"
+
 react-native-html-parser@*:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/react-native-html-parser/-/react-native-html-parser-0.0.5.tgz#210a76626b7a472a4b5f5a85cb24b37b10344126"

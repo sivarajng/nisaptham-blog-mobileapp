@@ -141,6 +141,7 @@ class Search extends Component {
 
         // alert((item.link[4].href).toString());
         this.props.getPostDetails(postUrl);
+            this.props.setselectedPost(item);
         Actions.Post({ title: item.title.$t, postInfo: item });
     }
 

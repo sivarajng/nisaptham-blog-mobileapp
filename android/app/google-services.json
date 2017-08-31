@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "771946399575",
+    "firebase_url": "https://nisaptham-blog-fb.firebaseio.com",
+    "project_id": "nisaptham-blog-fb",
+    "storage_bucket": "nisaptham-blog-fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771946399575:android:fdd4b8e8d12412c2",
+        "android_client_info": {
+          "package_name": "com.sivarajnagaraj.blog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771946399575-6bphkubqcalu8d1sun7p7r66ui1lk7no.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-_zqGx-6kbdfU5RetYzMneDUcUox0OKI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

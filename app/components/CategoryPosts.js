@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     TouchableHighlight,
     Dimensions,
+      Share,
     ActivityIndicator,
     RefreshControl,
 

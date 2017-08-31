@@ -24,6 +24,10 @@ import { connect } from 'react-redux'
 
 import { togglePostPopup } from '../redux/actions'
 
+// import FCM from "react-native-fcm";
+// import PushController from "../fcm/PushController";
+// import firebaseClient from  "../fcm/FirebaseClient";
+
 // import {RootDrawer} from '../components/RootDrawer';
 
 /* sceneStyle={{ paddingTop: 60 }}

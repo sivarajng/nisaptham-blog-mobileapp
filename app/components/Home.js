@@ -125,6 +125,7 @@ class Home extends Component {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
+       this.props.setselectedPost(item);
     Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + '-' + item.title.$t , postInfo: item });
   }
 
