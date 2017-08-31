@@ -24,6 +24,11 @@ import { connect } from 'react-redux'
 
 import { togglePostPopup } from '../redux/actions'
 
+import FCM from "react-native-fcm";
+
+import PushController from "../fcm/PushController";
+import firebaseClient from  "../fcm/FirebaseClient";
+
 // import {RootDrawer} from '../components/RootDrawer';
 
 /* sceneStyle={{ paddingTop: 60 }}
@@ -87,6 +92,38 @@ class RouterComponent extends Component {
 
   }
 
+componentDidMount(){
+  FCM.subscribeToTopic("all");
+    FCM.getInitialNotification().then(notif => {
+      this.setState({
+        initNotif: notif
+      })
+    });
+  }
+
+  showLocalNotification() {
+    FCM.presentLocalNotification({
+      vibrate: 500,
+      title: 'Hello',
+      body: 'Test Notification',
+      priority: "high",
+      show_in_foreground: true,
+      picture: 'https://firebase.google.com/_static/af7ae4b3fc/images/firebase/lockup.png'
+    });
+  }
+
+  scheduleLocalNotification() {
+    FCM.scheduleLocalNotification({
+      id: 'testnotif',
+      fire_date: new Date().getTime()+5000,
+      vibrate: 500,
+      title: 'Hello',
+      body: 'Test Scheduled Notification',
+      priority: "high",
+      show_in_foreground: true,
+      picture: 'https://firebase.google.com/_static/af7ae4b3fc/images/firebase/lockup.png'
+    });
+  }
 
 
   filterIcon() {
