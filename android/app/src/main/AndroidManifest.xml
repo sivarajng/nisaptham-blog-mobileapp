@@ -6,8 +6,9 @@ xmlns:tools="http://schemas.android.com/tools"
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission  android:name="android.permission.READ_PHONE_STATE"  tools:node="remove"/>
-     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" tools:node="remove"/>
+      <!--COMMENT BELOW SYSTEM_ALERT_WINDOW and READ_PHONE_STATE on RELEASE BUILD-->
+    <!--<uses-permission  android:name="android.permission.READ_PHONE_STATE"  tools:node="remove"/>-->
+     <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" tools:node="remove"/>-->
 
     <uses-sdk
         android:minSdkVersion="16"
