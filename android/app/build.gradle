@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-// apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -98,7 +97,7 @@ android {
         //RELEASE
          applicationId "com.sivarajnagaraj.blog"
         //DEBUG
-     //     applicationId "com.sivarajnagaraj.nisapthamdebug"
+   //     applicationId "com.sivarajnagaraj.nisapthamdebug"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 13
@@ -150,8 +149,6 @@ android {
 
 dependencies {
     compile project(':react-native-vector-icons')
-    // compile project(':react-native-fcm')
-    // compile 'com.google.firebase:firebase-core:9.0.0' //this decides your firebase SDK version
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
