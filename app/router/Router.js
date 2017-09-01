@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity, TouchableHighlight ,StyleSheet} from 'react-native';
 import { Router, Scene, ActionConst, Actions, DefaultRenderer } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -27,8 +27,10 @@ import { togglePostPopup } from '../redux/actions'
 import FCM from "react-native-fcm";
 
 import PushController from "../fcm/PushController";
-import firebaseClient from  "../fcm/FirebaseClient";
 
+
+const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
 // import {RootDrawer} from '../components/RootDrawer';
 
 /* sceneStyle={{ paddingTop: 60 }}
@@ -78,7 +80,11 @@ class RouterComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { flag: true };
+    this.state = {
+      flag: true,
+      token: "",
+      tokenCopyFeedback: "",
+    };
 
     console.log('ROUTER POP 111', this.props.popup);
     console.log('ROUTER CALL 1111', this.props.popupCall);
@@ -92,38 +98,15 @@ class RouterComponent extends Component {
 
   }
 
-componentDidMount(){
-  FCM.subscribeToTopic("all");
+  componentDidMount() {
+    FCM.subscribeToTopic("nisaptham-post");
+
     FCM.getInitialNotification().then(notif => {
-      this.setState({
-        initNotif: notif
-      })
     });
   }
 
-  showLocalNotification() {
-    FCM.presentLocalNotification({
-      vibrate: 500,
-      title: 'Hello',
-      body: 'Test Notification',
-      priority: "high",
-      show_in_foreground: true,
-      picture: 'https://firebase.google.com/_static/af7ae4b3fc/images/firebase/lockup.png'
-    });
-  }
 
-  scheduleLocalNotification() {
-    FCM.scheduleLocalNotification({
-      id: 'testnotif',
-      fire_date: new Date().getTime()+5000,
-      vibrate: 500,
-      title: 'Hello',
-      body: 'Test Scheduled Notification',
-      priority: "high",
-      show_in_foreground: true,
-      picture: 'https://firebase.google.com/_static/af7ae4b3fc/images/firebase/lockup.png'
-    });
-  }
+
 
 
   filterIcon() {
@@ -182,40 +165,47 @@ componentDidMount(){
 
   render() {
     return (
-      <Router >
-        <Scene key="root"
-          navigationBarStyle={{ backgroundColor: this.props.theme.color }}
-          sceneStyle={styles.sceneStyle}
-          backButtonImage={require('../images/backButton.png')}
-          leftButtonIconStyle={{
-            width: 33,
-            height: 33,
-            marginLeft: 0,
-            marginTop: 0,
-            zIndex: 999
-          }}
-          // backButtonTextStyle={styles.backButtonTextStyle} 
-          // barButtonIconStyle={styles.barButtonIconStyle}
-          //headerBackIconTextStyle={{ tintColor: 'green' }}
-          //headerBackButtonTextStyle={{ color: 'green' }}
-          titleStyle={navBarTitleStyle()}    >
+      <View style={viewStyles.container}>
+        <PushController
+          onChangeToken={(token) => {}}
+        />
 
-          <Scene key="Home" component={Home} title="நிசப்தம்" renderRightButton={() => this.filterIcon()} initial={true} />
-          <Scene key="Post" component={Post} title="Post" renderRightButton={() => this._rightMenuPost()} />
-          <Scene key="PostWeb" component={PostWeb} title="PostWeb" renderRightButton={() => this._rightMenuPostWeb()} />
-          <Scene key="Comment" component={Comment} title="Comment" />
-          <Scene key="Search" component={Search} title="தேடல்" />
-          <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
-          <Scene key="Research" component={Research} title="குறிப்புகள்" />
-          <Scene key="CategorySelect" component={CategorySelect} title="பிரிவுகள்" />
-          <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
-          <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
-          <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
-          <Scene key="About" component={About} title="எழுத்தாளரைப் பற்றி" />
-          <Scene key="WriteComment" component={WriteComment} title="கருத்து எழுது" />
+        <Router >
 
-        </Scene>
-      </Router >
+          <Scene key="root"
+            navigationBarStyle={{ backgroundColor: this.props.theme.color }}
+            sceneStyle={styles.sceneStyle}
+            backButtonImage={require('../images/backButton.png')}
+            leftButtonIconStyle={{
+              width: 33,
+              height: 33,
+              marginLeft: 0,
+              marginTop: 0,
+              zIndex: 999
+            }}
+            // backButtonTextStyle={styles.backButtonTextStyle} 
+            // barButtonIconStyle={styles.barButtonIconStyle}
+            //headerBackIconTextStyle={{ tintColor: 'green' }}
+            //headerBackButtonTextStyle={{ color: 'green' }}
+            titleStyle={navBarTitleStyle()}    >
+
+            <Scene key="Home" component={Home} title="நிசப்தம்" renderRightButton={() => this.filterIcon()} initial={true} />
+            <Scene key="Post" component={Post} title="Post" renderRightButton={() => this._rightMenuPost()} />
+            <Scene key="PostWeb" component={PostWeb} title="PostWeb" renderRightButton={() => this._rightMenuPostWeb()} />
+            <Scene key="Comment" component={Comment} title="Comment" />
+            <Scene key="Search" component={Search} title="தேடல்" />
+            <Scene key="Menu" component={Menu} title="Menu" hideNavBar={true} />
+            <Scene key="Research" component={Research} title="குறிப்புகள்" />
+            <Scene key="CategorySelect" component={CategorySelect} title="பிரிவுகள்" />
+            <Scene key="CategoryPosts" component={CategoryPosts} title="CategoryPosts" />
+            <Scene key="Settings" component={Settings} title="அமைப்புகள்" />
+            <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
+            <Scene key="About" component={About} title="எழுத்தாளரைப் பற்றி" />
+            <Scene key="WriteComment" component={WriteComment} title="கருத்து எழுது" />
+
+          </Scene>
+        </Router >
+      </View>
     )
   }
 }
@@ -240,6 +230,15 @@ const mapDispatchToProps = dispatch =>
     togglePostPopup() { dispatch(togglePostPopup()) }
   })
 
-
+const viewStyles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: '#F5FCFF',
+    // width:200,
+    height:deviceHeight-25,
+  }
+});
 
 export default connect(mapStateToProps, { togglePostPopup })(RouterComponent)

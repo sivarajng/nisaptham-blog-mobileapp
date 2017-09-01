@@ -12,4 +12,9 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "nisapthamblog";
     }
+
+    @Override
+    public void invokeDefaultOnBackPressed() {
+          moveTaskToBack(true);
+    }
 }

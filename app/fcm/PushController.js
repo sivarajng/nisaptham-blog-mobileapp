@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 
 import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from "react-native-fcm";
 
-import firebaseClient from  "./FirebaseClient";
+
 
 export default class PushController extends Component {
   constructor(props) {
@@ -74,8 +74,8 @@ export default class PushController extends Component {
   }
 
   componentWillUnmount() {
-    this.notificationListener.remove();
-    this.refreshTokenListener.remove();
+   // this.notificationListener.remove();
+   // this.refreshTokenListener.remove();
   }
 
 
