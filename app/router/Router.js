@@ -26,7 +26,7 @@ import { togglePostPopup } from '../redux/actions'
 
 import FCM from "react-native-fcm";
 
-import PushController from "../fcm/PushController";
+// import PushController from "../fcm/PushController";
 
 
 const deviceWidth = Dimensions.get("window").width;
@@ -99,10 +99,7 @@ class RouterComponent extends Component {
   }
 
   componentDidMount() {
-    FCM.subscribeToTopic("nisaptham-post");
-
-    FCM.getInitialNotification().then(notif => {
-    });
+   
   }
 
 
@@ -166,9 +163,7 @@ class RouterComponent extends Component {
   render() {
     return (
       <View style={viewStyles.container}>
-        <PushController
-          onChangeToken={(token) => {}}
-        />
+      
 
         <Router >
 

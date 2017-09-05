@@ -1,0 +1,45 @@
+{ 
+	"to": "/topics/nisaptham-post-test",
+    "data": {
+                    "custom_notification": {
+                        "body": "message.textsdeee",
+                        "title": "this.friend.namesdeeeee",
+                        "color":"#3391ed",
+                        "priority":"high",
+                        "id": "1dddd",
+                        "show_in_foreground": true,
+                        "sound": "default",
+                        "click_action": "fcm.ACTION.HELLO",
+                        "vibrate": 300,
+                        
+                        "lights": true,
+                        "uid": "1dddd",
+                                 "icon":"ic_launcher",
+            "large_icon": "ic_launcher"
+                    }
+                },
+                "priority": "high",
+                "click_action": "fcm.ACTION.HELLO",
+                   "icon":"ic_launcher",
+            "large_icon": "ic_launcher"
+     }
+  
+  
+  
+  
+  
+  { 
+	"to": "/topics/nisaptham-post-test",
+   "notification": {
+						"title": "senderData.name",
+						"body": "notificationsData.text",
+						"sound": "default",
+					},
+					"data": {
+						"id": "notificationsData.messageId",
+						"chatKey": "notificationsData.chatKey",
+						"uid": "notificationsData.uid",
+					}
+     }
+  
+
