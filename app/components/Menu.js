@@ -206,7 +206,7 @@ class Menu extends Component {
 
 
                     <TouchableOpacity
-                        onPress={() => { alert("விரைவில்...") }}
+                    onPress={() => { Actions.Charity() }}
                         style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             <Icon name="heart" size={30} color="#ffffff" />

@@ -19,6 +19,7 @@ import About from '../components/About';
 import WriteComment from '../components/WriteComment';
 import Contact from '../components/Contact';
 import Sarahah from '../components/Sarahah';
+import Charity from '../components/Charity';
 
 import { bindActionCreators } from 'redux';
 
@@ -201,6 +202,7 @@ class RouterComponent extends Component {
             <Scene key="WriteComment" component={WriteComment} title="கருத்து எழுது" />
             <Scene key="Contact" component={Contact} title="தொடர்புக்கு" />
             <Scene key="Sarahah" component={Sarahah} title="Sarahah" />
+            <Scene key="Charity" component={Charity} title="அறக்கட்டளை" />
 
           </Scene>
         </Router >

@@ -141,7 +141,7 @@ class Search extends Component {
 
         // alert((item.link[4].href).toString());
         this.props.getPostDetails(postUrl);
-            this.props.setselectedPost(item);
+        this.props.setselectedPost(item);
         Actions.Post({ title: item.title.$t, postInfo: item });
     }
 
@@ -150,7 +150,7 @@ class Search extends Component {
         // alert((item.link[4].href).toString());
         this.props.getPostComments((item.link[0].href).toString());
         this.props.setselectedPost(item);
-        Actions.Comment({ title: item.link[1].title + '-' + item.title.$t  , postInfo: item });
+        Actions.Comment({ title: item.link[1].title + '-' + item.title.$t, postInfo: item });
     }
 
     _onChangeText(text) {
@@ -186,7 +186,7 @@ class Search extends Component {
 
     sharePost(item) {
 
-        
+
         let postUrlArr = [];
         let postUrl = "";
 
@@ -265,18 +265,24 @@ class Search extends Component {
                 </TouchableOpacity>
                 <CardContent trim={true} text={item.summary.$t.substring(2)} />
                 <CardAction seperator={true} inColumn={false}>
-                    <CardButton
+                    {/* <CardButton
                         onPress={() => { this._research(item) }}
                         title="குறிப்புகள்"
                         color={'#FF9800'}
                         textColor={'#01579b'}
                         icon="star"
-                    />
+                    /> */}
                     <CardButton
                         onPress={() => { this.sharePost(item) }}
                         title="பகிர்"
                         color={this.props.theme.color}
                         icon="share"
+                    />
+                    <CardButton
+                        onPress={() => Actions.WriteComment({ title: "கருத்து எழுது - " + item.title.$t, postInfo: item })}
+                        title={"கருத்து எழுது"}
+                        color={this.props.theme.color}
+                        icon="edit"
                     />
                     {commentLink != ""
                         ? <CardButton

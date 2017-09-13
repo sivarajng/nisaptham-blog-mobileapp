@@ -328,13 +328,13 @@ class Post extends Component {
 
 
               <CardAction seperator={true} inColumn={false}>
-                <CardButton
+                {/* <CardButton
                   onPress={() => { this._research(this.props.postInfo) }}
                   title="குறிப்புகள்"
                   color={'#FF9800'}
                   textColor={'#01579b'}
                   icon="star"
-                />
+                /> */}
                 <CardButton
                   onPress={() => { this.sharePost(this.props.postInfo) }}
                   title="பகிர்"

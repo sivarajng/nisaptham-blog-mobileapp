@@ -103,20 +103,8 @@ class Home extends Component {
 
   gotoPost(item) {
 
-    FCM.presentLocalNotification({
-      vibrate: 500,
-      title: ` CLICKAppState :${AppState.currentState}`,
-      body: `at ${new Date()}`,
-      priority: "high",
-      color:"#3391ed",
-      show_in_foreground: true,
-      click_action: "fcm.ACTION.HELLO",
-      lights: true,
-      icon:"ic_launcher",
-      large_icon: "ic_launcher",
-      picture: null
-    });
-    /*
+
+   
       let postUrlArr = [];
       let postUrl = "";
   
@@ -135,7 +123,7 @@ class Home extends Component {
       this.props.setselectedPost(item);
   
       Actions.Post({ title: item.title.$t , postInfo: item });
-  */
+
   }
 
   gotoPostComments(item) {
