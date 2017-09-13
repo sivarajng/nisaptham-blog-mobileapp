@@ -29,7 +29,7 @@ import PushController from "./app/fcm/PushController";
 import LocalStorage from './app/services/localStorage';
 
 
-FCM.subscribeToTopic("nisaptham-post-test");
+FCM.subscribeToTopic("nisaptham-post");
 
 FCM.getInitialNotification().then(notif => {
     console.log("INITIAL NOTIFICATION APP", notif)
