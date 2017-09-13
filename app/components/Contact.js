@@ -13,6 +13,7 @@ import {
     Platform,
     Image,
     ScrollView,
+    Linking
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
@@ -20,6 +21,7 @@ import moment from 'moment';
 
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { connect } from 'react-redux'
 import { getPosts, getPostDetails, getPostComments } from '../redux/actions'
@@ -30,7 +32,7 @@ import commonStyles from '../styles/commonStyles';
 
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from './common/Card'
 const deviceWidth = Dimensions.get("window").width;
-class Menu extends Component {
+class Contact extends Component {
 
     constructor(props) {
         super(props);
@@ -40,6 +42,28 @@ class Menu extends Component {
     componentWillMount() {
 
     }
+
+    sendEmail(url = 'mailto:vaamanikandan@gmail.com') {
+      
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                console.log('Can\'t handle url: ' + url);
+            } else {
+                Linking.openURL(url)
+                    .catch(err => {
+                        if (url.includes('telprompt')) {
+                            // telprompt was cancelled and Linking openURL method sees this as an error
+                            // it is not a true error so ignore it to prevent apps crashing
+                            // see https://github.com/anarchicknight/react-native-communications/issues/39
+                        } else {
+                            console.warn('openURL error', err)
+                        }
+                    });
+            }
+        }).catch(err => console.warn('An unexpected error happened', err));
+    };
+
+
 
     gotoPost(item) {
 
@@ -136,116 +160,36 @@ class Menu extends Component {
             <View style={[styles.container, { backgroundColor: this.props.theme.color }]}>
 
 
-                <View style={{ width: deviceWidth, paddingTop: 20 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <Image source={require('../images/profileImage.png')} style={{ width: 80, height: 80, borderRadius: 50 }} />
-                        <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: 10 }} >
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 30 }}>
-                                நிசப்தம்
-                            </Text>
-                            <Text style={{ fontWeight: 'normal', color: '#ffffff', fontSize: 18 }}>
-                                வா. மணிகண்டன்
-                            </Text>
-                        </View >
-                    </View>
-                </View>
-
                 <ScrollView>
                     <TouchableOpacity
-                        onPress={() => { Actions.pop() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        onPress={() => this.sendEmail()}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="home" size={30} color="#ffffff" />
+                            <MIcon name="email" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                முகப்பு பக்கம்
+                                மின்னஞ்சல் : vaamanikandan@gmail.com
                        </Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        onPress={() => { Actions.Search() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                        onPress={() => { alert("9741474202") }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="search" size={30} color="#ffffff" />
+                            <Icon name="whatsapp" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                தேடல்
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { Actions.CategorySelect() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="list-ul" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                பிரிவுகள்
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => { Actions.Settings() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="gear" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                அமைப்புகள்
+                               { 'Whatsapp (Only Text) : \n9741474202 '}
                        </Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        onPress={() => { Actions.Theme() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
+                    onPress={() => { Actions.Sarahah() }}
+                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 50 }} >
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="pie-chart" size={30} color="#ffffff" />
+                            <MIcon name="chat" size={30} color="#ffffff" />
                             <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                விருப்ப நிறங்கள்
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-
-
-                    <TouchableOpacity
-                        onPress={() => { alert("விரைவில்...") }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="heart" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                அறக்கட்டளை
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => { alert("விரைவில்...") }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="book" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                புத்தகங்கள்
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => { Actions.Contact() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="phone" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                தொடர்புக்கு
-                       </Text>
-                        </View>
-                    </TouchableOpacity>
-
-
-                    <TouchableOpacity
-                        onPress={() => { Actions.About() }}
-                        style={{ padding: 12, margin: 10, borderColor: '#ffffff', borderWidth: 2, borderRadius: 50, width: deviceWidth - 100 }} >
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-                            <Icon name="user" size={30} color="#ffffff" />
-                            <Text style={{ fontWeight: 'bold', color: '#ffffff', fontSize: 16, paddingLeft: 10 }}>
-                                எழுத்தாளரைப் பற்றி
+                                Sarahah
                        </Text>
                         </View>
                     </TouchableOpacity>
@@ -400,5 +344,5 @@ const mapStateToProps = ({ Blog, Settings }) => {
 }
 
 
-export default connect(mapStateToProps, {})(Menu)
+export default connect(mapStateToProps, {})(Contact)
 

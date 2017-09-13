@@ -13,9 +13,12 @@ import {
   RefreshControl,
   Share,
   BackHandler,
-  Modal
+  Modal,
+  AppState
 
 } from 'react-native';
+
+import FCM from "react-native-fcm";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -100,33 +103,47 @@ class Home extends Component {
 
   gotoPost(item) {
 
-    let postUrlArr = [];
-    let postUrl = "";
-
-    postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
-
-    if (postUrlArr.length == 0) {
-      postUrl = "";
-    }
-    else {
-      postUrl = (postUrlArr[0].href).toString();
-    }
-
-
-    // alert((item.link[4].href).toString());
-    this.props.getPostDetails(postUrl);
-    this.props.setselectedPost(item);
-
-    Actions.Post({ title: item.title.$t , postInfo: item });
-
+    FCM.presentLocalNotification({
+      vibrate: 500,
+      title: ` CLICKAppState :${AppState.currentState}`,
+      body: `at ${new Date()}`,
+      priority: "high",
+      color:"#3391ed",
+      show_in_foreground: true,
+      click_action: "fcm.ACTION.HELLO",
+      lights: true,
+      icon:"ic_launcher",
+      large_icon: "ic_launcher",
+      picture: null
+    });
+    /*
+      let postUrlArr = [];
+      let postUrl = "";
+  
+      postUrlArr = _.filter(item.link, function (o) { return o.rel == "alternate"; });
+  
+      if (postUrlArr.length == 0) {
+        postUrl = "";
+      }
+      else {
+        postUrl = (postUrlArr[0].href).toString();
+      }
+  
+  
+      // alert((item.link[4].href).toString());
+      this.props.getPostDetails(postUrl);
+      this.props.setselectedPost(item);
+  
+      Actions.Post({ title: item.title.$t , postInfo: item });
+  */
   }
 
   gotoPostComments(item) {
 
     // alert((item.link[4].href).toString());
     this.props.getPostComments((item.link[0].href).toString());
-       this.props.setselectedPost(item);
-    Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + '-' + item.title.$t , postInfo: item });
+    this.props.setselectedPost(item);
+    Actions.Comment({ title: item.link[1].title.toLowerCase().replace("comments", "கருத்துக்கள்") + '-' + item.title.$t, postInfo: item });
   }
 
   _gotoSearch() {
@@ -234,18 +251,24 @@ class Home extends Component {
         </TouchableOpacity>
         <CardContent trim={true} text={item.summary.$t.substring(2)} />
         <CardAction seperator={true} inColumn={false}>
-          <CardButton
+          {/* <CardButton
             onPress={() => { this._research(item) }}
             title="குறிப்புகள்"
             color={'#FF9800'}
             textColor={'#01579b'}
             icon="star"
-          />
+          /> */}
           <CardButton
             onPress={() => { this.sharePost(item) }}
             title="பகிர்"
             color={this.props.theme.color}
             icon="share"
+          />
+          <CardButton
+            onPress={() => Actions.WriteComment({ title: "கருத்து எழுது - " + item.title.$t, postInfo: item })}
+            title={"கருத்து எழுது"}
+            color={this.props.theme.color}
+            icon="edit"
           />
           {commentLink != ""
             ? <CardButton

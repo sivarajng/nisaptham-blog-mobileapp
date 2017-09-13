@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity, TouchableHighlight ,StyleSheet} from 'react-native';
+import { View, Text, Image, Platform, BackAndroid, Dimensions, TouchableOpacity, TouchableHighlight, StyleSheet } from 'react-native';
 import { Router, Scene, ActionConst, Actions, DefaultRenderer } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -17,6 +17,8 @@ import Theme from '../components/Theme';
 import Welcome from '../components/Welcome';
 import About from '../components/About';
 import WriteComment from '../components/WriteComment';
+import Contact from '../components/Contact';
+import Sarahah from '../components/Sarahah';
 
 import { bindActionCreators } from 'redux';
 
@@ -99,7 +101,7 @@ class RouterComponent extends Component {
   }
 
   componentDidMount() {
-   
+
   }
 
 
@@ -163,7 +165,7 @@ class RouterComponent extends Component {
   render() {
     return (
       <View style={viewStyles.container}>
-      
+
 
         <Router >
 
@@ -197,6 +199,8 @@ class RouterComponent extends Component {
             <Scene key="Theme" component={Theme} title="விருப்ப நிறங்கள்" />
             <Scene key="About" component={About} title="எழுத்தாளரைப் பற்றி" />
             <Scene key="WriteComment" component={WriteComment} title="கருத்து எழுது" />
+            <Scene key="Contact" component={Contact} title="தொடர்புக்கு" />
+            <Scene key="Sarahah" component={Sarahah} title="Sarahah" />
 
           </Scene>
         </Router >
@@ -232,7 +236,7 @@ const viewStyles = StyleSheet.create({
     // alignItems: 'center',
     // backgroundColor: '#F5FCFF',
     // width:200,
-    height:deviceHeight-25,
+    height: deviceHeight - 25,
   }
 });
 
