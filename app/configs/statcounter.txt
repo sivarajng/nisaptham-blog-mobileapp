@@ -1,0 +1,15 @@
+<!-- Start of StatCounter Code for Blogger / Blogspot -->
+<script type="text/javascript">
+//<![CDATA[
+var sc_project=11465014; 
+var sc_invisible=1; 
+var sc_security="3e8a0d87"; 
+var scJsHost = (("https:" == document.location.protocol) ? "https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" + scJsHost+ "statcounter.com/counter/counter_xhtml.js'></"+"script>");
+//]]>
+</script>
+<noscript><div class="statcounter"><a title="Web Analytics" href="http://statcounter.com/" class="statcounter"><img class="statcounter" src="//c.statcounter.com/11465014/0/3e8a0d87/1/" alt="Web Analytics" /></a></div></noscript>
+<!-- End of StatCounter Code for Blogger / Blogspot -->
+
+
+http://c.statcounter.com/t.php?sc_project=635670&java=1&security=a5313247&u1=E68DC8E459324F16AAF8CF8910676B4F&sc_random=0.03044309394305178&jg=13&rr=14.13.13.13.12.12.10.10.8&resolution=1366&h=768&camefrom=http%3A//www.nisaptham.com/&u=http%3A//www.nisaptham.com/2017/10/blog-post_31.html&t=%E0%AE%95%E0%AF%81%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%AF%E0%AE%BE%E0%AE%95%20%E0%AE%92%E0%AE%B0%E0%AF%81%20%E0%AE%AA%E0%AF%8B%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%BF%20~%20%E0%AE%A8%E0%AE%BF%E0%AE%9A%E0%AE%AA%E0%AF%8D%E0%AE%A4%E0%AE%AE%E0%AF%8D&rcat=d&rdomo=d&rdomg=13&sc_snum=1&sess=7a9eb4&p=0&invisible=1
