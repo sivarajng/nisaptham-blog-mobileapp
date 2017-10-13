@@ -16,6 +16,7 @@ import {
 
 } from 'react-native';
 
+import * as axios from 'axios'
 import Modal from 'react-native-modal';
 
 import * as _ from 'lodash';
@@ -55,12 +56,37 @@ class Post extends Component {
 
   }
 
+  componentWillReceiveProps(){
+
+    let postUrlArrt = [];
+    let postUrlt = "";
+
+    postUrlArrt = _.filter(this.props.postInfo.link, function (o) { return o.rel == "alternate"; });
+
+    if (postUrlArrt.length == 0) {
+      postUrlt = "";
+    }
+    else {
+      postUrlt = (postUrlArrt[0].href).toString();
+    }
+
+    // GET request for remote image 
+    alert(this.props.postInfo.title.$t+"____");
+    let statCounterData = `?sc_project=11465014&java=1&security=3e8a0d87&jg=13&resolution=1366&h=768&camefrom=http://mobile-app.com&u=${postUrlt}&t=${this.props.postInfo.title.$t}&rcat=d&rdomo=d&rdomg=13&sc_snum=1&p=0&invisible=1`;
+axios.get('http://c.statcounter.com/t.php'+statCounterData)
+  .then(function(response) {
+alert(JSON.stringify(response));
+});
+
+  }
+
   componentWillUnmount() {
 
     if (this.props.postWebview) {
       //   this.props.togglePostWebview();
     }
 
+    
 
     // alert('sasasasa');
     // this.props.getPostDetails();
@@ -529,6 +555,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ Blog, Get, Settings }) => {
   console.log('Blog.postDetails ', Blog.postDetails);
+
+
+
   return ({
     Data: Get.Data,
     postDetails: Blog.postDetails,
