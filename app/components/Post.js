@@ -44,6 +44,7 @@ class Post extends Component {
 
       postDetails: this.props.postDetails,
       postInfo: this.props.postInfo,
+      isRead:false
 
     }
 
@@ -70,13 +71,17 @@ class Post extends Component {
       postUrlt = (postUrlArrt[0].href).toString();
     }
 
-    // GET request for remote image 
-    alert(this.props.postInfo.title.$t+"____");
-    let statCounterData = `?sc_project=11465014&java=1&security=3e8a0d87&jg=13&resolution=1366&h=768&camefrom=http://mobile-app.com&u=${postUrlt}&t=${this.props.postInfo.title.$t}&rcat=d&rdomo=d&rdomg=13&sc_snum=1&p=0&invisible=1`;
-axios.get('http://c.statcounter.com/t.php'+statCounterData)
-  .then(function(response) {
-alert(JSON.stringify(response));
-});
+    if(!this.state.isRead){
+    // GET request for stat Counter
+        this.setState({isRead:true});
+
+        // alert(this.props.postInfo.title.$t+"____");
+        let statCounterData = `?sc_project=11465014&java=1&security=3e8a0d87&jg=13&resolution=1366&h=768&camefrom=http://mobile-app.com&u=${postUrlt}&t=${this.props.postInfo.title.$t}&rcat=d&rdomo=d&rdomg=13&sc_snum=1&p=0&invisible=1&sc_random=${Math.random()}`;
+        axios.get('http://c.statcounter.com/t.php'+statCounterData)
+            .then(function(response) {
+                // alert(JSON.stringify(response));
+             });
+    }
 
   }
 
