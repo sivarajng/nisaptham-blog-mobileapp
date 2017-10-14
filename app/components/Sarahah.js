@@ -132,7 +132,7 @@ class Sarahah extends Component {
           <WebView
             scalesPageToFit={true}
             style={{ backgroundColor: (!this.props.nightMode ? "#ffffff" : "#022231") }}
-            source={{ uri: 'vaamanikandan.Sarahah.com'}}
+            source={{ uri: 'https://vaamanikandan.sarahah.com/'}}
 
           />
         </View>
