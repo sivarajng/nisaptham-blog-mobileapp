@@ -18,8 +18,6 @@ import {
 
 } from 'react-native';
 
-import FCM from "react-native-fcm";
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as _ from 'lodash';
@@ -323,7 +321,7 @@ class Home extends Component {
           <ActivityIndicator
             animating={true}
             color='#01579b'
-            size={60}
+            size={1}
             style={styles.activityIndicator}
           />
 

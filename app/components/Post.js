@@ -309,12 +309,15 @@ class Post extends Component {
       <View style={[styles.container, { backgroundColor: !this.props.nightMode ? '#ffffff' : '#022231' }]}>
 
         <View style={{ marginBottom: 0, height: 1, width: deviceWidth }}>
-        <WebView
-          scalesPageToFit={true}
-          style={{ backgroundColor: (!this.props.nightMode ? "#ffffff" : "#022231") }}
-          source={{ uri: this.state.statCounterUrl }}
+          {this.state.statCounterUrl
+            ? <WebView
+              scalesPageToFit={true}
+              style={{ backgroundColor: (!this.props.nightMode ? "#ffffff" : "#022231") }}
+              source={{ uri: this.state.statCounterUrl }}
 
-        />
+            />
+            : <View></View>
+          }
         </View>
 
         {/* <View
@@ -342,7 +345,7 @@ class Post extends Component {
           ? <ActivityIndicator
             animating={true}
             color='#01579b'
-            size={60}
+            size={1}
             style={styles.activityIndicator}
           />
           : null

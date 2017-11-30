@@ -81,7 +81,7 @@ class WriteComment extends Component {
           ? <ActivityIndicator
             animating={true}
             color='#01579b'
-            size={60}
+            size={1}
             style={styles.activityIndicator}
           />
           : null
