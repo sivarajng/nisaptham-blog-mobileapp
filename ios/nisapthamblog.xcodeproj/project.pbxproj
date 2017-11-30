@@ -1038,7 +1038,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-fcm\ios",
+					/* "$(SRCROOT)\..\node_modules\react-native-fcm\ios", */
 				);
 			};
 			name = Debug;
@@ -1065,7 +1065,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-fcm\ios",
+					/* "$(SRCROOT)\..\node_modules\react-native-fcm\ios", */
 				);
 			};
 			name = Release;
@@ -1088,7 +1088,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-fcm\ios",
+					/* "$(SRCROOT)\..\node_modules\react-native-fcm\ios", */
 				);
 			};
 			name = Debug;
@@ -1110,7 +1110,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-fcm\ios",
+					/* "$(SRCROOT)\..\node_modules\react-native-fcm\ios", */
 				);
 			};
 			name = Release;
@@ -1146,7 +1146,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-fcm\ios",
+					/* "$(SRCROOT)\..\node_modules\react-native-fcm\ios", */
 				);
 			};
 			name = Debug;
@@ -1182,7 +1182,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
-					"$(SRCROOT)\..\node_modules\react-native-fcm\ios",
+					/* "$(SRCROOT)\..\node_modules\react-native-fcm\ios", */
 				);
 			};
 			name = Release;

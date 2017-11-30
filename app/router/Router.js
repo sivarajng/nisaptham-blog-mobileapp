@@ -27,7 +27,7 @@ import { connect } from 'react-redux'
 
 import { togglePostPopup } from '../redux/actions'
 
-import FCM from "react-native-fcm";
+// import FCM from "react-native-fcm";
 
 // import PushController from "../fcm/PushController";
 
