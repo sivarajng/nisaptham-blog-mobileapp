@@ -331,7 +331,7 @@ class Home extends Component {
           <TouchableOpacity
             onPress={() => { this.refs._scrollView.scrollTo({ X: 0, y: 0, animated: true }); }}
             style={{ position: 'absolute', right: 15, bottom: 15, padding: 0 }} >
-            <Icon name="chevron-circle-up" size={60} color={this.props.theme.color} />
+            <Icon name="chevron-circle-up" size={60} color={'#ffffff'} />
           </TouchableOpacity>
           : null
         }
